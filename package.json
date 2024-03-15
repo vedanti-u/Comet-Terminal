@@ -1,0 +1,19 @@
+{
+  "name": "comet-terminal",
+  "version": "1.0.0",
+  "description": "YES",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "rebuild": "electron-rebuild"
+  },
+  "author": "vedanti-u",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^29.1.4",
+    "electron-rebuild": "^3.2.9",
+    "electron-tools": "^2.4.2",
+    "node-pty": "^1.0.0",
+    "xterm": "^5.3.0"
+  }
+}
