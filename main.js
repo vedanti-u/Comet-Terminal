@@ -1,11 +1,9 @@
-const { app, BrowserWindow, ipcMain } = require("electron");
+const {app, BrowserWindow, ipcMain} = require("electron");
 const pty = require("node-pty");
 const os = require("os");
-
 var shell = os.platform() === "win32" ? "powershell.exe" : "bash";
 
 let mainWindow;
-
 function createWindow() {
     mainWindow = new BrowserWindow({
         height: 450,
@@ -15,14 +13,14 @@ function createWindow() {
             contextIsolation: false
         }
     });
-
-    mainWindow.loadFile('index.html');
-
-    mainWindow.on("closed", function () {
+    mainWindow.loadURL(`file://${__dirname}/index.html`);
+    mainWindow.on("closed", function() {
         mainWindow = null;
     });
 
-    // IPC setup
+
+    //ipcing
+
     var ptyProcess = pty.spawn(shell, [], {
         name: "xterm-color",
         cols: 80,
@@ -31,30 +29,29 @@ function createWindow() {
         env: process.env
     });
 
-    ptyProcess.on('data', function (data) {
+    ptyProcess.on('data', function(data) {
         mainWindow.webContents.send("terminal.incomingData", data);
+        console.log("Data sent");
     });
-
     ipcMain.on("terminal.keystroke", (event, key) => {
         ptyProcess.write(key);
+        //ptyProcess.write("ls")
     });
 
-    // Listen for window resize event and send dimensions to renderer process
-    mainWindow.on('resize', () => {
-        const { cols, rows } = mainWindow.getContentBounds();
-        mainWindow.webContents.send('terminal.resize', { cols, rows });
-    });
+
+
+
 }
 
 app.on("ready", createWindow);
 
-app.on("window-all-closed", function () {
+app.on("window-all-closed", function() {
     if (process.platform !== "darwin") {
         app.quit();
     }
 });
 
-app.on("activate", function () {
+app.on("activate", function() {
     if (mainWindow === null) {
         createWindow();
     }
