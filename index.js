@@ -11,5 +11,6 @@ ipc.on("terminal.incomingData", (event, data) => {
 
 term.onData(e => {
     console.log(e)
+    //ipc.send(ls);
     ipc.send("terminal.keystroke", e);
 });

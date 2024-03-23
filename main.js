@@ -35,7 +35,6 @@ function createWindow() {
     });
     ipcMain.on("terminal.keystroke", (event, key) => {
         ptyProcess.write(key);
-        //ptyProcess.write("ls")
     });
 
 

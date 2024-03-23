@@ -23,3 +23,14 @@ $ sudo apt-get update
 ```bash
 $ npm install
 ```
+
+## AI INTEGRATION
+
+```javascript
+npm i @langchain/openai
+npm i @langchain/community
+npm install typescript --save-dev
+npx tsc
+npx tsc --init
+ npm install dotenv --save
+```
