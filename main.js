@@ -30,8 +30,8 @@ function createWindow() {
       nodeIntegration: true,
       contextIsolation: false,
     },
-    autoHideMenuBar: true,
-    titleBarStyle: "hiddenInset",
+    //autoHideMenuBar: true,
+    //titleBarStyle: "hiddenInset",
   });
   mainWindow.loadURL(`file://${__dirname}/index.html`);
   mainWindow.on("closed", function () {
