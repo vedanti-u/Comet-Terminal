@@ -1,20 +1,21 @@
 const { app, BrowserWindow, ipcMain, nativeTheme } = require("electron");
 const { OpenAI } = require("@langchain/openai");
 const dotenv = require("dotenv").config();
-
 const pty = require("node-pty");
 const os = require("os");
 var shell = os.platform() === "win32" ? "powershell.exe" : "bash";
 
 let mainWindow;
 let commandBuffer = [];
+let options = ["Execute Query", "Edit Query", "Regenerate Response"];
+let selectedOptionIndex = 0;
 
 async function askLLM(prompt) {
   const model = new OpenAI({});
   const res = await model.invoke(
-    "Create a Linux command t o" +
+    "Create a Linux command to " +
       prompt +
-      " then provide the command without any additional explanation or unnecessary characters,output only code"
+      " then provide the command without any additional explanation or unnecessary characters, output only code"
   );
   console.log(JSON.stringify(res));
   return JSON.stringify(res);
@@ -30,15 +31,11 @@ function createWindow() {
       nodeIntegration: true,
       contextIsolation: false,
     },
-    //autoHideMenuBar: true,
-    //titleBarStyle: "hiddenInset",
   });
   mainWindow.loadURL(`file://${__dirname}/index.html`);
   mainWindow.on("closed", function () {
     mainWindow = null;
   });
-
-  //ipcing
 
   var ptyProcess = pty.spawn(shell, [], {
     name: "xterm-color",
@@ -55,18 +52,17 @@ function createWindow() {
 
   ipcMain.on("terminal.keystroke", (event, key) => {
     commandBuffer.push(key);
-    if (key == "?") ptyProcess.write("# Xterm AI ");
+    if (key === "?") ptyProcess.write("# Xterm AI ");
     console.log(commandBuffer);
-    if (key == `\r`) {
-      console.log(" I got Enter ");
+    if (key === "\r") {
+      console.log("I got Enter");
 
-      if (commandBuffer[0] == "?") {
-        console.log("Sending this to ChATGPT API");
+      if (commandBuffer[0] === "?") {
+        console.log("Sending this to ChatGPT API");
         console.log(commandBuffer);
 
         console.log(commandBuffer.toString());
 
-        // Filter out unwanted characters and concatenate the remaining elements
         const commandStr = commandBuffer
           .filter((cmd) => cmd !== "?" && cmd !== "\r")
           .join("");
@@ -75,12 +71,15 @@ function createWindow() {
         (async () => {
           let response = await askLLM(commandStr);
           response = response.replace(/\\n|"/g, "");
-          // ipcMain.send("response mila bhai :)");
-          ptyProcess.write("\r");
-          // ptyProcess.clear()
-          // mainWindow.webContents.send("terminal.reset",null);
-          ptyProcess.write(response);
-          console.log("Askecd LLM");
+          mainWindow.webContents.send("terminal.incomingData", "\nOptions:\n");
+          options.forEach((option, index) => {
+            mainWindow.webContents.send(
+              "terminal.incomingData",
+              `  ${index + 1}. ${option}\n`
+            );
+          });
+          mainWindow.webContents.send("terminal.incomingData", "\n");
+          console.log("Options sent");
         })();
       } else {
         console.log("Running this on Shell");
@@ -91,6 +90,33 @@ function createWindow() {
       ptyProcess.write(key);
     }
   });
+
+  ipcMain.on("terminal.keystroke.confirm", () => {
+    const selectedOption = options[selectedOptionIndex];
+    mainWindow.webContents.send(
+      "terminal.incomingData",
+      `\nSelected option: ${selectedOption}\n`
+    );
+    if (selectedOption === "Execute Query") {
+      executeQuery();
+    } else if (selectedOption === "Edit Query") {
+      editQuery();
+    } else if (selectedOption === "Regenerate Response") {
+      regenerateResponse();
+    }
+  });
+}
+
+function executeQuery() {
+  // Logic for executing query
+}
+
+function editQuery() {
+  // Logic for editing query
+}
+
+function regenerateResponse() {
+  // Logic for regenerating response
 }
 
 app.on("ready", createWindow);
