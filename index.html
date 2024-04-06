@@ -1,21 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>COMET</title>
-    <link rel="stylesheet" href="node_modules/xterm/css/xterm.css" />
-    <script src="node_modules/xterm/lib/xterm.js"></script>
-  </head>
-  <body
-    style="
-      background-color: black;
-      /* overflow-y: hidden; */
-      overflow-x: hidden;
-      /* overflow: hidden; */
-    "
-  >
-    <div id="terminal"></div>
-    <script src="index.js"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Terminal</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-size: 16px;
+        }
+
+        .input-container {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .controls {
+            display: flex;
+            gap: 5px;
+        }
+
+        .control-button {
+            background-color: #232323;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .control-button:hover {
+            background-color: #333;
+        }
+
+        .input {
+            background: none;
+            border: none;
+            color: #fff;
+            font-family: "Proxima Nova", "Helvetica Neue", helvetica, arial, sans-serif;
+            font-size: 16px;
+            outline: none;
+            margin: 0;
+            padding: 0;
+            display: inline;
+            line-height: 1.5;
+            width: 70%;
+        }
+
+        .input:focus {
+            outline: none;
+        }
+
+        .prompt {
+            color: #506479;
+        }
+
+        .output {
+            color: #32c146;
+        }
+
+        .comment {
+            opacity: 0.5;
+        }
+
+        .window {
+            width: 80%;
+            margin: 0 auto 2rem;
+            box-shadow: 0 0.25rem 0.5rem #12181e;
+            border-radius: 0 0 0.1rem 0.1rem;
+        }
+
+        .bar {
+            background: #191919;
+            height: 36px;
+            border-radius: 0.5rem 0.5rem 0 0;
+        }
+
+        .btn::before,
+        .btn::after,
+        .btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 100%;
+            display: block;
+        }
+
+        .btn {
+            background: #f6b73e;
+            position: relative;
+            margin-left: 38px;
+            top: 12px;
+        }
+
+        .btn::before,
+        .btn::after {
+            content: " ";
+            position: absolute;
+        }
+
+        .btn::before {
+            background: #f55551;
+            margin-left: -20px;
+        }
+
+        .btn::after {
+            background: #32c146;
+            margin-left: 20px;
+        }
+
+        .body {
+            background: #232323;
+            padding: 18px;
+            min-height: 100px; /* Minimum height to prevent collapse */
+            height: auto; /* Allow height to adjust automatically */
+            overflow-y: auto; /* Add vertical scrollbar if content exceeds height */
+        }
+
+        .body pre {
+            margin: 0;
+        }
+
+        .transparent .prompt {
+    opacity: 0.5; /* Adjust opacity as needed */
+}
+
+.title {
+    color: #fff;
+    font-size: 3rem; /* Increase title font size */
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem; /* Adjust margin as needed */
+}
+
+.subtitle {
+    color: #ddd; /* Darker color for subtitle */
+    font-size: 1.2rem; /* Adjust subtitle font size */
+    text-align: center;
+    margin-bottom: 2rem; /* Adjust margin as needed */
+    font-style: italic; /* Italicize subtitle */
+}
+
+.body {
+        background: #232323;
+        padding: 18px;
+        font-family: 'Courier New', Courier, monospace; /* Monospace font for authenticity */
+    }
+
+    .output {
+        color: #32c146;
+        white-space: pre-wrap; /* Preserve whitespaces and line breaks */
+    }
+
+
+    </style>
+</head>
+<body>
+    <h1 class="title">
+        COMET
+    </h1>
+    <p class="subtitle">
+        Your AI Terminal
+    </p>
+    <div class="window">
+        <div class="bar">
+            <div class="btn"></div>
+        </div>
+        <div class="body">
+            <pre>
+                <div class="comment"># run this command:</div>
+                <div class="output">$ hi</div>
+            </pre>
+        </div>
+    </div>
+    <footer>
+        <!-- <img src="http://jamesduncombe.com/logo.svg" /> -->
+    </footer>
+
+    <script>
+         const { ipcRenderer } = require('electron');
+
+
+         window.onload = function() {
+        appendInputContainer();
+        // Listen for command output
+        ipcRenderer.on('command-output', (event, output) => {
+            appendOutput(output); // Use the existing function to append the output
+            appendInputContainer();
+
+        });
+    }
+
+        function handleInput(event) {
+            if (event.key === 'Enter') {
+                const inputText = event.target.value; // Get the input text
+               ipcRenderer.send('run-command', inputText); // Send the input text to the main process
+            }
+        }
+
+        function appendOutput(text) {
+            const terminalBody = document.querySelector('.body');
+            const outputDiv = document.createElement('div');
+            outputDiv.classList.add('output');
+            outputDiv.textContent = text;
+            terminalBody.appendChild(outputDiv);
+        }
+
+        function appendInputContainer() {
+            const terminalBody = document.querySelector('.body');
+            const inputContainerDiv = document.createElement('div');
+            inputContainerDiv.classList.add('input-container');
+            inputContainerDiv.innerHTML = `
+                <div class="prompt">$ <input type="text" class="input command" onkeydown="handleInput(event)" placeholder="Type your command..."></div>
+                <div class="controls">
+                    <button class="control-button">AI</button>
+                    <button class="control-button">Error</button>
+                    <button class="control-button">Help</button>
+                </div>
+            `;
+            terminalBody.appendChild(inputContainerDiv);
+            const newCommandInput = inputContainerDiv.querySelector('.command');
+            newCommandInput.focus();
+
+            const olderInputContainers = terminalBody.querySelectorAll('.input-container:not(:last-child) .controls');
+    olderInputContainers.forEach(container => {
+        container.style.visibility = 'hidden';
+
+    });
+            // Remove controls from previous input, if any
+            const previousInputContainer = terminalBody.querySelector('.input-container:nth-last-child(2)');
+            if (previousInputContainer) {
+                const previousInputControls = previousInputContainer.querySelector('.controls');
+                previousInputControls.remove();
+            }
+        }
+    </script>
+</body>
 </html>
