@@ -45,11 +45,11 @@ body {
 
   .bar {
     background: #191919;
-    height: 36px;
+    height: 50px;
     border-radius: 0.5rem 0.5rem 0 0;
   }
 
-  .btn::before, .btn::after, .btn {
+  /* .btn::before, .btn::after, .btn {
     width: 12px;
     height: 12px;
     border-radius: 100%;
@@ -73,8 +73,36 @@ body {
   .btn::after {
     background: #32c146;
     margin-left: 20px;
+  } */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #222;
+    color: #fff;
   }
-
+  .window-controls {
+    display: flex;
+    gap: 5px;
+  }
+  .dot {
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .red { background-color: #e74c3c; }
+  .yellow { background-color: #f1c40f; }
+  .green { background-color: #2ecc71; }
+  .username {
+    flex-grow: 1;
+    text-align: center;
+  }
+  .icons {
+    display: flex;
+    gap: 10px;
+  }
   .body {
     height: 10rem;
     background: #232323;
