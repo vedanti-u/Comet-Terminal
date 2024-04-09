@@ -72,18 +72,19 @@ ipcMain.on("command-error-ai", async (event, text) => {
 
 async function askLLMCommand(prompt) {
   const model = new OpenAI({});
-  const res = await model.invoke(
+  var res = await model.invoke(
     "Create a Linux command to" +
       prompt +
-      "then provide the command without any additional explanation in short, remove extra space and new line charcters in the command"
+      "then provide the command without any additional explanation, remove extra space and new line charcters only give command"
   );
+  res = res.replace(/\\n|"/g, "");
   console.log(JSON.stringify(res));
   return JSON.stringify(res);
 }
 async function askLLMCommandExplanation(command) {
   const model = new OpenAI({});
   var res = await model.invoke(
-    "give me the explanation of this linux command" + command + "give explaination in short in markdown format, return type should be markdown and return newline in break tag not \n"
+    "give me the explanation of this linux command in detailed markdown format" + command + "give explanation nicely formatted in markdown, heading, bullet points code and syntax highlighting is must and return newline in break tag not \n"
   );
   console.log(JSON.stringify(res));
   return JSON.stringify(res);
