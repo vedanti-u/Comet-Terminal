@@ -3,7 +3,6 @@
 
 // let term = new Terminal({
 
-
 //   theme:{
 //     "foreground": "#ebeef5",
 //     "background": "#1d2935",
@@ -48,3 +47,12 @@
 // function clickError(){
 //   ipc.send("error_ai");
 // }
+
+var spanHelp = document.getElementById("helpid");
+
+function handleHelp() {
+  console.log("Help clicked!");
+}
+
+spanHelp.addEventListener("click", handleHelp);
+
