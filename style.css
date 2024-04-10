@@ -43,6 +43,7 @@ p {
   margin: 0 auto 2rem;
   box-shadow: 0 0.25rem 0.5rem #12181e;
   border-radius: 0 0 0.1rem 0.1rem;
+  height: 100vh;
 }
 
 .bar {
@@ -84,7 +85,7 @@ p {
 }
 
 .body {
-  height: 10rem;
+  height: 100vh;
   background: #232323;
   padding: 18px;
 }
@@ -147,4 +148,203 @@ p {
 
 .comment {
   opacity: 0.5;
+}
+
+body {
+  font-size: 16px;
+}
+
+.input-container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.controls {
+  display: flex;
+  gap: 5px;
+}
+
+.control-button {
+  background-color: #232323;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.control-button:hover {
+  background-color: #333;
+}
+
+.input {
+  background: none;
+  border: none;
+  color: #fff;
+  font-family: "Proxima Nova", "Helvetica Neue", helvetica, arial,
+    sans-serif;
+  font-size: 16px;
+  outline: none;
+  margin: 0;
+  padding: 0;
+  display: inline;
+  line-height: 1.5;
+  width: 70%;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.prompt {
+  color: #38597c;
+}
+
+.output {
+  color: #32c146;
+}
+
+.error {
+  color: red;
+}
+
+.ai {
+  color: blue;
+}
+
+.ai-error {
+  color: rgb(241, 150, 38);
+}
+
+.comment {
+  opacity: 0.5;
+}
+
+.window {
+  width: 100%;
+  margin: 0 auto 2rem;
+  box-shadow: 0 0.25rem 0.5rem #12181e;
+  border-radius: 0 0 0.1rem 0.1rem;
+}
+
+.bar {
+  background: #191919;
+  height: 36px;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.btn::before,
+.btn::after,
+.btn {
+  width: 12px;
+  height: 12px;
+  border-radius: 100%;
+  display: block;
+}
+
+.btn {
+  background: #f6b73e;
+  position: relative;
+  margin-left: 38px;
+  top: 12px;
+}
+
+.btn::before,
+.btn::after {
+  content: " ";
+  position: absolute;
+}
+
+.btn::before {
+  background: #f55551;
+  margin-left: -20px;
+}
+
+.btn::after {
+  background: #32c146;
+  margin-left: 20px;
+}
+
+.body {
+  background: #232323;
+  padding: 18px;
+  min-height: 100px;
+  /* Minimum height to prevent collapse */
+  height: auto;
+  /* Allow height to adjust automatically */
+  overflow-y: auto;
+  /* Add vertical scrollbar if content exceeds height */
+  
+
+}
+
+.body pre {
+  margin: 0;
+}
+
+.transparent .prompt {
+  opacity: 0.5;
+  /* Adjust opacity as needed */
+}
+
+.title {
+  color: #fff;
+  font-size: 3rem;
+  /* Increase title font size */
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  /* Adjust margin as needed */
+}
+
+.subtitle {
+  color: #ddd;
+  /* Darker color for subtitle */
+  font-size: 1.2rem;
+  /* Adjust subtitle font size */
+  text-align: center;
+  margin-bottom: 2rem;
+  /* Adjust margin as needed */
+  font-style: italic;
+  /* Italicize subtitle */
+}
+
+.body {
+  /* background: #1a1818; */
+  background: #181e25;
+  padding: 18px;
+  font-family: "Courier New", Courier, monospace;
+  /* Monospace font for authenticity */
+}
+
+.output {
+  color: #32c146;
+  white-space: pre-wrap;
+  /* Preserve whitespaces and line breaks */
+}
+
+.command-container {
+  border: 1px solid #a9ff54;
+  /* Bright border */
+  background-color: rgba(16, 15, 15, 0.3);
+  /* Light grey inner color */
+  margin-bottom: 10px;
+  /* Spacing between command containers */
+  padding: 10px;
+  /* Padding inside container */
+  border-radius: 12px;
+  /* Border radius */
+}
+
+.line-separator {
+  margin: 10px 0;
+  /* Adjust margin as needed */
+  height: 1px;
+  /* Height of the line */
+  background-color: #4efff4;
+  /* Blue color for the line */
+  border: none;
+  /* No border */
 }

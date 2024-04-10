@@ -2,6 +2,8 @@ const { app, BrowserWindow, ipcMain } = require("electron");
 const { exec } = require("child_process");
 const { OpenAI } = require("@langchain/openai");
 const dotenv = require("dotenv").config();
+const fs = require('fs');
+
 let mainWindow;
 
 process.chdir("/");
@@ -99,3 +101,16 @@ async function askLLMError(error) {
   console.log(JSON.stringify(res));
   return JSON.stringify(res);
 }
+
+// Handle saving input history in the main process
+ipcMain.on('save-input-history', (event, inputHistory) => {
+  fs.writeFileSync(__dirname+'/inputHistory.json', JSON.stringify(inputHistory));
+});
+
+// Handle loading input history in the main process
+ipcMain.on('load-input-history', (event) => {
+  if (fs.existsSync(__dirname+'/inputHistory.json')) {
+    const data = fs.readFileSync(__dirname+'/inputHistory.json');
+    event.sender.send('input-history-loaded', JSON.parse(data));
+  }
+});
