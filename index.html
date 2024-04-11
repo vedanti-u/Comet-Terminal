@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modern Terminal</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-size: 16px;
@@ -79,8 +80,6 @@
             border-radius: 0.5rem 0.5rem 0 0;
         }
 
-
-
         .btn::before,
         .btn::after,
         .btn {
@@ -134,25 +133,25 @@
         }
 
         /* .title { */
-            /* color: #fff; */
-            /* font-size: 3rem; */
-            /* Increase title font size */
-            /* text-align: center; */
-            /* text-transform: uppercase; */
-            /* margin-bottom: 0.5rem; */
-            /* Adjust margin as needed */
+        /* color: #fff; */
+        /* font-size: 3rem; */
+        /* Increase title font size */
+        /* text-align: center; */
+        /* text-transform: uppercase; */
+        /* margin-bottom: 0.5rem; */
+        /* Adjust margin as needed */
         /* } */
 
         /* .subtitle { */
-            /* color: #ddd; */
-            /* Darker color for subtitle */
-            /* font-size: 1.2rem; */
-            /* Adjust subtitle font size */
-            /* text-align: center; */
-            /* margin-bottom: 2rem; */
-            /* Adjust margin as needed */
-            /* font-style: italic; */
-            /* Italicize subtitle */
+        /* color: #ddd; */
+        /* Darker color for subtitle */
+        /* font-size: 1.2rem; */
+        /* Adjust subtitle font size */
+        /* text-align: center; */
+        /* margin-bottom: 2rem; */
+        /* Adjust margin as needed */
+        /* font-style: italic; */
+        /* Italicize subtitle */
         /* } */
 
         .body {
@@ -165,9 +164,8 @@
         .output {
             color: #32c146;
             white-space: pre-wrap;
-            /* Preserve whitespaces and line breaks */
-        }
 
+        }
 
         .window {
             display: flex;
@@ -186,6 +184,32 @@
         .bar {
             flex-shrink: 0;
         }
+
+        .footer-content {
+            display: flex;
+            align-items: center;     
+        }
+
+        .icon-container {
+            margin-right: 10px;
+        }
+
+        #memory-usage,
+        #ram-usage {
+            color: white;
+            margin-right: 50px;
+        }
+
+        .footer-content {
+    display: flex;
+    justify-content: center; /* Horizontally center content */
+    align-items: center; /* Vertically center content */
+    height: 100px;
+    width: 100%; /* Adjust width as needed */
+    text-align: center;
+}
+
+
     </style>
 </head>
 
@@ -209,15 +233,59 @@
                 <div class="output">$ hi</div>
             </pre>
         </div>
-    </div>
-    <footer>
+
+        <!-- <footer> -->
         <!-- <img src="http://jamesduncombe.com/logo.svg" /> -->
-    </footer>
+        <!-- <div id="memory-info">Memory: <span id="memory">0 GB</span> | RAM: <span id="ram">0 GB</span></div> -->
+        <!-- </footer> -->
+
+        <footer style="background: #191919; ">
+            <div class="footer-content" style="height: 80px; width: 100%px;">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#FFFFFF"
+                    height="30px" width="30px" version="1.1" id="Layer_1" viewBox="0 0 512 512" xml:space="preserve"
+                    style="margin-right: 30px;">
+                    <g>
+                        <g>
+                            <polygon
+                                points="169.547,169.547 169.547,342.455 208.309,342.455 208.309,327.247 184.755,327.247 184.755,184.755     327.247,184.755 327.247,327.247 228.589,327.247 228.589,342.455 342.455,342.455 342.455,169.547   " />
+                        </g>
+                    </g>
+                    <g>
+                        <g>
+                            <path
+                                d="M512,283.675v-55.354h-92.878v-30.256H512v-55.354h-92.878V92.879h-49.837V0h-55.354v92.879h-30.256V0h-55.354v92.879    h-30.256V0h-55.354v92.879H92.879v49.836H0v55.354h92.879v30.256H0v55.354h92.879v30.256H0v55.354h92.879v49.833h49.836V512    h55.354v-92.878h30.256V512h55.354v-92.878h30.256V512h55.354v-92.878h49.833v-49.838H512v-55.354h-92.878v-30.256H512z     M92.879,354.08H15.208v-24.938h77.671V354.08z M92.879,268.471H15.208v-24.938h77.671V268.471z M92.879,182.861H15.208v-24.938    h77.671V182.861z M419.122,157.92h77.67v24.938h-77.67V157.92z M329.139,15.208h24.938v77.671h-24.938V15.208z M243.529,15.208    h24.938v77.671h-24.938V15.208z M157.92,15.208h24.938v77.671H157.92V15.208z M182.861,496.792h-24.938v-77.67h24.938V496.792z     M268.471,496.792h-24.938v-77.67h24.938V496.792z M329.142,496.792v-77.67h24.938v77.67H329.142z M403.914,142.711h-0.001v55.354    h0.001v30.256h-0.001v55.354h0.001v30.256h-0.001v55.354h0.001v34.63h-34.625v-0.001h-55.354v0.001h-30.256v-0.001h-55.354v0.001    h-30.256v-0.001h-55.354v0.001h-34.628v-34.625v-55.354v-30.256v-55.354v-30.256v-55.354v-34.628h34.624h55.354h30.256h55.354    h30.256h55.354h34.63V142.711z M496.792,329.139v24.938h-77.67v-24.938H496.792z M419.122,268.467v-24.938h77.67v24.938H419.122z" />
+                        </g>
+                    </g>
+                </svg>
+
+                <div class="usage-info">
+                    <!-- <span id="memory-usage" style="color: white; margin-left: 5px; margin-right: 10px;">Memory Usage: </spam> -->
+                </div>
+
+                <canvas id="memory-chart"></canvas>
+
+                <svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision"
+                    text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd"
+                    clip-rule="evenodd" viewBox="0 0 512 375.4" fill="#FFFFFF" style="height: 30px; width: 40px; margin-left: 100px; margin-right: 30px;">
+                    <path fill-rule="nonzero"
+                        d="M25.13 39.95h34.22V0H85.2v39.95h47.65V0h25.84v39.95h47.64V0h25.84v39.95h47.65V0h25.84v39.95h47.65V0h25.84v39.95h47.65V0h25.84v39.95h34.23c6.88 0 13.15 2.82 17.71 7.37l.05.05c4.54 4.55 7.37 10.82 7.37 17.71v247.73c0 6.88-2.83 13.15-7.37 17.71l-.05.05c-4.56 4.54-10.83 7.37-17.71 7.37h-34.23v37.46H426.8v-37.46h-47.65v37.46h-25.84v-37.46h-47.65v37.46h-25.84v-37.46h-47.65v37.46h-25.84v-37.46h-47.64v37.46h-25.84v-37.46H85.2v37.46H59.35v-37.46H25.13c-6.89 0-13.15-2.83-17.71-7.37l-.05-.05C2.83 325.96 0 319.69 0 312.81V65.08c0-6.89 2.83-13.16 7.37-17.71l.05-.05c4.56-4.55 10.82-7.37 17.71-7.37zm154.83 200.1h-35.98l-13.41-30.42h-8.56v30.42H90.83V137.84h51.52c23.44 0 35.16 11.94 35.16 35.81 0 16.36-5.07 27.15-15.21 32.38l17.66 34.02zm-57.95-77.57v23.5h9.05c3.93 0 6.79-.41 8.59-1.23 1.8-.82 2.7-2.7 2.7-5.64v-9.76c0-2.95-.91-4.83-2.7-5.64-1.8-.82-4.67-1.23-8.59-1.23h-9.05zm98.67 77.57h-34.5l26.49-102.21h50.53l26.49 102.21h-34.5l-3.76-16.19h-26.99l-3.76 16.19zm13.29-70.81-3.64 28.62h15.04l-3.48-28.62h-7.92zm96.93 70.81h-34.18l6.21-102.21h42.69l12.76 52h1.14l12.75-52h42.68l6.22 102.21h-34.18l-1.96-49.55h-1.15l-12.43 49.55h-25.01l-12.59-49.55h-.99l-1.96 49.55zM486.16 65.79H25.84V312.1h460.32V65.79z" />
+                </svg>
+                <!-- <span id="ram-usage" style="color: white; margin-left: 5px; margin-right: 10px;">RAM Usage: </span> -->
+
+                <canvas id="ram-chart"></canvas>
+
+            </div>
+        </footer>
+
+
+    </div>
+    <!-- <footer> -->
+    <!-- <img src="http://jamesduncombe.com/logo.svg" /> -->
+    <!-- <div id="memory-info">Memory: <span id="memory">0 GB</span> | RAM: <span id="ram">0 GB</span></div> -->
+    <!-- </footer> -->
 
     <script>
         const { ipcRenderer } = require('electron');
-
-
         window.onload = function () {
             appendInputContainer();
             // Listen for command output
@@ -271,6 +339,111 @@
                 previousInputControls.remove();
             }
         }
+
+        window.onload = function () {
+            appendInputContainer();
+            ipcRenderer.on('command-output', (event, output) => {
+                appendOutput(output);
+                appendInputContainer();
+            });
+
+
+            updateMemoryUsage();
+            updateRAMUsage();
+
+            setInterval(() => {
+                updateMemoryUsage();
+                updateRAMUsage();
+            }, 9000);
+        }
+
+
+        function updateMemoryUsage() {
+            const memoryUsageElement = document.getElementById('memory-usage');
+            memoryUsageElement.textContent = `Memory Usage: ${process.memoryUsage().rss} bytes`;
+        }
+
+
+        function updateRAMUsage() {
+            const ramUsageElement = document.getElementById('ram-usage');
+            const os = require('os');
+            const totalRAM = os.totalmem();
+            const freeRAM = os.freemem();
+            const usedRAM = totalRAM - freeRAM;
+            ramUsageElement.textContent = `RAM Usage: ${usedRAM / 1024 / 1024} MB`;
+        }
+
+
+        const memoryChartCtx = document.getElementById('memory-chart').getContext('2d');
+        const memoryChart = new Chart(memoryChartCtx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Memory Usage',
+                    data: [],
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+
+            }
+        });
+
+        const ramChartCtx = document.getElementById('ram-chart').getContext('2d');
+        const ramChart = new Chart(ramChartCtx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'RAM Usage',
+                    data: [],
+                    borderColor: 'rgb(255, 99, 132)',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+
+            }
+        });
+
+        // Function to update memory and RAM charts
+        function updateCharts() {
+            // Add new data points to memory chart
+            memoryChart.data.labels.push('');
+            memoryChart.data.datasets[0].data.push(process.memoryUsage().rss);
+            memoryChart.update();
+
+            // Add new data points to RAM chart
+            const os = require('os');
+            const totalRAM = os.totalmem();
+            const freeRAM = os.freemem();
+            const usedRAM = totalRAM - freeRAM;
+            ramChart.data.labels.push('');
+            ramChart.data.datasets[0].data.push(usedRAM / 1024 / 1024);
+            ramChart.update();
+
+
+            // memoryChart.resize();
+            // ramChart.resize();
+        }
+
+
+        // Update charts every second
+        setInterval(updateCharts, 9000);
+
+
     </script>
 </body>
 
