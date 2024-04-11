@@ -65,7 +65,7 @@ ipcMain.on("dummy", async (event, text) => {
   //event.sender.send("command-error-ai",data);
 });
 
-ipcMain.on("command-ai-error", async (event, text) => {
+ipcMain.on("command-error-ai", async (event, text) => {
   var command = text.input;
   var commandError = text.output;
   console.log(
