@@ -88,6 +88,11 @@
           appendAiErrorSolution(output); // Use the existing function to append the output
           appendInputContainer();
         });
+        ipcRenderer.on("command-help", (event, output) => {
+          console.log("this is help :", output);
+          appendHelp(output); // Use the existing function to append the output
+          appendInputContainer();
+        });
       };
 
       function handleInput(event) {
@@ -126,7 +131,16 @@
       function appendAiErrorSolution(text) {
         const terminalBody = document.querySelector(".body");
         const outputDiv = document.createElement("div");
-        outputDiv.classList.add("ai-error-solution");
+        outputDiv.classList.add("ai-error-sol");
+        const unescapedText = text.replace(/\\n/g, "\n");
+        outputDiv.innerHTML = marked.parse(unescapedText);
+        console.log("this is unescapedText", unescapedText);
+        terminalBody.appendChild(outputDiv);
+      }
+      function appendHelp(text) {
+        const terminalBody = document.querySelector(".body");
+        const outputDiv = document.createElement("div");
+        outputDiv.classList.add("help");
         const unescapedText = text.replace(/\\n/g, "\n");
         outputDiv.innerHTML = marked.parse(unescapedText);
         console.log("this is unescapedText", unescapedText);
@@ -145,7 +159,7 @@
       <div class="controls">
          <button class="control-button" onclick="clickAI()">AI</button>
          <button class="control-button" onclick="clickAIError()">Error</button>
-         <button class="control-button">Help</button>
+         <button class="control-button" onclick="clickHelp()">Help</button>
      </div>
 `;
         terminalBody.appendChild(inputContainerDiv);
@@ -195,10 +209,16 @@
             " Output command :" +
             outputText
         );
-        ipcRenderer.send("command-ai-error", {
+        ipcRenderer.send("command-error-ai", {
           input: inputText,
           output: outputText,
         });
+      }
+
+      function clickHelp() {
+        const inputText = document.querySelector(".input.command").value;
+        console.log("in Click Help", inputText);
+        ipcRenderer.send("command-help", inputText);
       }
 
       // Step 2: Autocomplete in Direct Input Bar using Awesomplete

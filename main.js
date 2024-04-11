@@ -5,7 +5,7 @@ const dotenv = require("dotenv").config();
 const fs = require("fs");
 
 let mainWindow;
-
+const model = new OpenAI({});
 process.chdir("/");
 
 function createWindow() {
@@ -65,7 +65,7 @@ ipcMain.on("dummy", async (event, text) => {
   //event.sender.send("command-error-ai",data);
 });
 
-ipcMain.on("command-ai-error", async (event, text) => {
+ipcMain.on("command-error-ai", async (event, text) => {
   var command = text.input;
   var commandError = text.output;
   console.log(
@@ -75,9 +75,13 @@ ipcMain.on("command-ai-error", async (event, text) => {
   var data = await askLLMError(command, commandError);
   event.sender.send("command-error-ai", data);
 });
+ipcMain.on("command-help", async (event, text) => {
+  console.log("Received command for help:", text);
+  var helpOutput = await askLLMHelp(text);
+  event.sender.send("command-help", helpOutput);
+});
 
 async function askLLMCommand(prompt) {
-  const model = new OpenAI({});
   var res = await model.invoke(
     "Create a Linux command to" +
       prompt +
@@ -88,7 +92,6 @@ async function askLLMCommand(prompt) {
   return JSON.stringify(res);
 }
 async function askLLMCommandExplanation(command) {
-  const model = new OpenAI({});
   var res = await model.invoke(
     "give me the explanation of this linux command in detailed markdown format" +
       command +
@@ -98,13 +101,21 @@ async function askLLMCommandExplanation(command) {
   return JSON.stringify(res);
 }
 async function askLLMError(command, commandError) {
-  const model = new OpenAI({});
   const res = await model.invoke(
     "this is the command I entered :" +
       command +
       "and this is the error i got :" +
       commandError +
       "Provide me the solution to fix this error,give solution nicely formatted in markdown, heading, bullet points code and syntax highlighting is must and return newline in break tag not"
+  );
+  console.log(JSON.stringify(res));
+  return JSON.stringify(res);
+}
+async function askLLMHelp(command) {
+  var res = await model.invoke(
+    "give me the summarized explanation of this linux command and why it is used in detailed markdown format" +
+      command +
+      "give summary nicely formatted in markdown, heading, bullet points code and syntax highlighting is must and return newline in break tag not \n"
   );
   console.log(JSON.stringify(res));
   return JSON.stringify(res);

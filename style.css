@@ -215,7 +215,10 @@ body {
   color: blue;
 }
 
-.ai-error-solution {
+.help {
+  color: palevioletred;
+}
+.ai-error-sol {
   color: rgb(241, 150, 38);
 }
 
