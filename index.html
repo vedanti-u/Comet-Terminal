@@ -140,7 +140,7 @@
       function appendHelp(text) {
         const terminalBody = document.querySelector(".body");
         const outputDiv = document.createElement("div");
-        outputDiv.classList.add("ai-error-solution");
+        outputDiv.classList.add("help");
         const unescapedText = text.replace(/\\n/g, "\n");
         outputDiv.innerHTML = marked.parse(unescapedText);
         console.log("this is unescapedText", unescapedText);
@@ -159,7 +159,7 @@
       <div class="controls">
          <button class="control-button" onclick="clickAI()">AI</button>
          <button class="control-button" onclick="clickAIError()">Error</button>
-         <button class="control-button">Help</button>
+         <button class="control-button" onclick="clickHelp()">Help</button>
      </div>
 `;
         terminalBody.appendChild(inputContainerDiv);

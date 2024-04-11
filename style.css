@@ -215,6 +215,9 @@ body {
   color: blue;
 }
 
+.help {
+  color: palevioletred;
+}
 .ai-error-sol {
   color: rgb(241, 150, 38);
 }
