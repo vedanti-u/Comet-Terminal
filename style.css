@@ -48,15 +48,15 @@ p {
 
 .bar {
   background: #191919;
-  height: 36px;
+  height: 50px;
   border-radius: 0.5rem 0.5rem 0 0;
 }
 
 .btn::before,
 .btn::after,
 .btn {
-  width: 12px;
-  height: 12px;
+  width: 20px;
+  height: 20px;
   border-radius: 100%;
   display: block;
 }
@@ -82,6 +82,32 @@ p {
 .btn::after {
   background: #32c146;
   margin-left: 20px;
+}
+.nav-links {
+  gap: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+.nav-links span {
+  padding: 2px; /* Add padding to the spans */
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #f9f9f9;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.dropdown-menu.show {
+  display: block;
 }
 
 .body {
@@ -130,7 +156,6 @@ p {
 
 @keyframes pulse {
   0% {
-  
     opacity: 0;
   }
 
@@ -168,7 +193,7 @@ body {
 }
 
 .control-button {
-  background-color: #232323;
+  background-color: #25313e;
   color: #fff;
   border: none;
   padding: 5px 10px;
@@ -184,8 +209,7 @@ body {
   background: none;
   border: none;
   color: #fff;
-  font-family: "Proxima Nova", "Helvetica Neue", helvetica, arial,
-    sans-serif;
+  font-family: "Proxima Nova", "Helvetica Neue", helvetica, arial, sans-serif;
   font-size: 16px;
   outline: none;
   margin: 0;
@@ -280,8 +304,6 @@ body {
   /* Allow height to adjust automatically */
   overflow-y: auto;
   /* Add vertical scrollbar if content exceeds height */
-  
-
 }
 
 .body pre {
@@ -324,9 +346,30 @@ body {
 }
 
 .output {
+  background-color: #181e25;
   color: #32c146;
+  font-size: 16px;
   white-space: pre-wrap;
-  /* Preserve whitespaces and line breaks */
+  padding: 10px;
+  margin-top: 10px;
+  border-image: linear-gradient(
+    to right,
+    #00c3ff,
+    #ffff1c
+  ); /* Adjust colors as needed */
+  border-image-slice: 1;
+  border-radius: 6px; /* Rounded border */
+  border-width: 2px; /* Border width */
+  border-color: transparent; /* Border color */
+  border-style: solid; /* Border style */
+  margin-bottom: 10px;
+}
+
+.new-output-container {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px;
+  margin-top: 10px;
 }
 
 .command-container {

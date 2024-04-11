@@ -3,7 +3,6 @@
 
 // let term = new Terminal({
 
-
 //   theme:{
 //     "foreground": "#ebeef5",
 //     "background": "#1d2935",
@@ -48,3 +47,8 @@
 // function clickError(){
 //   ipc.send("error_ai");
 // }
+
+function toggleDropdown() {
+  const dropdownMenu = document.querySelector(".dropdown-menu");
+  dropdownMenu.classList.toggle("show");
+}
