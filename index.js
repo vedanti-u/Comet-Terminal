@@ -48,11 +48,4 @@
 //   ipc.send("error_ai");
 // }
 
-var spanHelp = document.getElementById("helpid");
-
-function handleHelp() {
-  console.log("Help clicked!");
-}
-
-spanHelp.addEventListener("click", handleHelp);
 

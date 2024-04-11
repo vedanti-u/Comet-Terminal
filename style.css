@@ -44,7 +44,7 @@ p {
 }
 
 .bar {
-  background: #191919;
+  background: #000; /* Change to a darker color than the body background */
   height: 50px;
   border-radius: 0.5rem 0.5rem 0 0;
 }
@@ -89,6 +89,7 @@ p {
   height: 10rem;
   background: #232323;
   padding: 18px;
+  padding-bottom: 100px; /* Adjust this value based on the size of your buttons to prevent overlap */
 }
 .body pre {
   margin: 0;
@@ -138,4 +139,21 @@ p {
 
 .comment {
   opacity: 0.5;
+}
+.prompt {
+  color: #506479;
+  width: 200%;
+}
+
+.input {
+  width: 200%; /* Adjust this value as needed */
+}
+.controls-container {
+  gap: 20px; /* Add margin between the buttons */
+  margin-right: 20px; /* Add margin between the spans */
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 10px;
+  background: transparent; /* Adjust based on your preference */
 }

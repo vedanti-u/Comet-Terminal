@@ -19,21 +19,7 @@
         }
 
         .controls {
-            display: flex;
-            gap: 5px;
-        }
-
-        .control-button {
-            background-color: #232323;
-            color: #fff;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .control-button:hover {
-            background-color: #333;
+            display: none;
         }
 
         .input {
@@ -41,13 +27,13 @@
             border: none;
             color: #fff;
             font-family: "Proxima Nova", "Helvetica Neue", helvetica, arial, sans-serif;
-            font-size: 16px;
+            font-size: 20px;
             outline: none;
             margin: 0;
             padding: 0;
             display: inline;
             line-height: 1.5;
-            width: 70%;
+            width: 200%;
         }
 
         .input:focus {
@@ -56,6 +42,10 @@
 
         .prompt {
             color: #506479;
+            width: 200%;
+            /* Adjusted from 200% to auto */
+            display: flex;
+            /* Added to align elements inline */
         }
 
         .output {
@@ -88,6 +78,8 @@
             /* Allow height to adjust automatically */
             overflow-y: auto;
             /* Add vertical scrollbar if content exceeds height */
+            padding-bottom: 70px;
+            /* Adjust this value based on the size of your buttons to prevent overlap */
         }
 
         .body pre {
@@ -129,6 +121,15 @@
 
         .bar {
             flex-shrink: 0;
+        }
+
+        .controls-container {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            padding: 10px;
+            background: transparent;
+            /* Adjust based on your preference */
         }
     </style>
 </head>
@@ -213,11 +214,149 @@
             </div>
         </div>
         <div class="body">
-            <pre>
+            <!-- <pre>
                 <div class="comment"># run this command:</div>
                 <div class="output">$ hi</div>
-            </pre>
+            </pre> -->
         </div>
+    </div>
+    <div class="controls-container">
+        <span class="control-button" title="ai"><svg xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="35px" height="35px"
+                viewBox="0 0 256 256" xml:space="preserve">
+                <defs>
+                </defs>
+                <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;"
+                    transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+                    <path
+                        d="M 45 18.719 c -1.657 0 -3 -1.343 -3 -3 V 3 c 0 -1.657 1.343 -3 3 -3 c 1.657 0 3 1.343 3 3 v 12.719 C 48 17.376 46.657 18.719 45 18.719 z"
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+                        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                    <path
+                        d="M 55.267 18.719 c -1.657 0 -3 -1.343 -3 -3 V 3 c 0 -1.657 1.343 -3 3 -3 s 3 1.343 3 3 v 12.719 C 58.267 17.376 56.924 18.719 55.267 18.719 z"
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+                        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                    <path
+                        d="M 65.533 18.719 c -1.657 0 -3 -1.343 -3 -3 V 3 c 0 -1.657 1.343 -3 3 -3 s 3 1.343 3 3 v 12.719 C 68.533 17.376 67.19 18.719 65.533 18.719 z"
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+                        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                    <path
+                        d="M 34.733 18.719 c -1.657 0 -3 -1.343 -3 -3 V 3 c 0 -1.657 1.343 -3 3 -3 s 3 1.343 3 3 v 12.719 C 37.733 17.376 36.39 18.719 34.733 18.719 z"
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+                        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                    <path
+                        d="M 24.467 18.719 c -1.657 0 -3 -1.343 -3 -3 V 3 c 0 -1.657 1.343 -3 3 -3 s 3 1.343 3 3 v 12.719 C 27.467 17.376 26.124 18.719 24.467 18.719 z"
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+                        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                    <path
+                        d="M 45 90 c -1.657 0 -3 -1.343 -3 -3 V 74.281 c 0 -1.657 1.343 -3 3 -3 c 1.657 0 3 1.343 3 3 V 87 C 48 88.657 46.657 90 45 90 z"
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+                        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                    <path
+                        d="M 55.267 90 c -1.657 0 -3 -1.343 -3 -3 V 74.281 c 0 -1.657 1.343 -3 3 -3 s 3 1.343 3 3 V 87 C 58.267 88.657 56.924 90 55.267 90 z"
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+                        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                    <path
+                        d="M 65.533 90 c -1.657 0 -3 -1.343 -3 -3 V 74.281 c 0 -1.657 1.343 -3 3 -3 s 3 1.343 3 3 V 87 C 68.533 88.657 67.19 90 65.533 90 z"
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+                        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                    <path
+                        d="M 34.733 90 c -1.657 0 -3 -1.343 -3 -3 V 74.281 c 0 -1.657 1.343 -3 3 -3 s 3 1.343 3 3 V 87 C 37.733 88.657 36.39 90 34.733 90 z"
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+                        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                    <path
+                        d="M 24.467 90 c -1.657 0 -3 -1.343 -3 -3 V 74.281 c 0 -1.657 1.343 -3 3 -3 s 3 1.343 3 3 V 87 C 27.467 88.657 26.124 90 24.467 90 z"
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+                        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                    <path
+                        d="M 15.719 48 H 3 c -1.657 0 -3 -1.343 -3 -3 c 0 -1.657 1.343 -3 3 -3 h 12.719 c 1.657 0 3 1.343 3 3 C 18.719 46.657 17.376 48 15.719 48 z"
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+                        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                    <path
+                        d="M 15.719 37.733 H 3 c -1.657 0 -3 -1.343 -3 -3 s 1.343 -3 3 -3 h 12.719 c 1.657 0 3 1.343 3 3 S 17.376 37.733 15.719 37.733 z"
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+                        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                    <path
+                        d="M 15.719 27.467 H 3 c -1.657 0 -3 -1.343 -3 -3 s 1.343 -3 3 -3 h 12.719 c 1.657 0 3 1.343 3 3 S 17.376 27.467 15.719 27.467 z"
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+                        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                    <path
+                        d="M 15.719 58.267 H 3 c -1.657 0 -3 -1.343 -3 -3 s 1.343 -3 3 -3 h 12.719 c 1.657 0 3 1.343 3 3 S 17.376 58.267 15.719 58.267 z"
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+                        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                    <path
+                        d="M 15.719 68.533 H 3 c -1.657 0 -3 -1.343 -3 -3 s 1.343 -3 3 -3 h 12.719 c 1.657 0 3 1.343 3 3 S 17.376 68.533 15.719 68.533 z"
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+                        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                    <path
+                        d="M 87 48 H 74.281 c -1.657 0 -3 -1.343 -3 -3 c 0 -1.657 1.343 -3 3 -3 H 87 c 1.657 0 3 1.343 3 3 C 90 46.657 88.657 48 87 48 z"
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+                        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                    <path
+                        d="M 87 37.733 H 74.281 c -1.657 0 -3 -1.343 -3 -3 s 1.343 -3 3 -3 H 87 c 1.657 0 3 1.343 3 3 S 88.657 37.733 87 37.733 z"
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+                        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                    <path
+                        d="M 87 27.467 H 74.281 c -1.657 0 -3 -1.343 -3 -3 s 1.343 -3 3 -3 H 87 c 1.657 0 3 1.343 3 3 S 88.657 27.467 87 27.467 z"
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+                        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                    <path
+                        d="M 87 58.267 H 74.281 c -1.657 0 -3 -1.343 -3 -3 s 1.343 -3 3 -3 H 87 c 1.657 0 3 1.343 3 3 S 88.657 58.267 87 58.267 z"
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+                        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                    <path
+                        d="M 87 68.533 H 74.281 c -1.657 0 -3 -1.343 -3 -3 s 1.343 -3 3 -3 H 87 c 1.657 0 3 1.343 3 3 S 88.657 68.533 87 68.533 z"
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+                        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                    <path
+                        d="M 74.281 12.719 H 15.719 c -1.657 0 -3 1.343 -3 3 v 58.562 c 0 1.657 1.343 3 3 3 h 58.562 c 1.657 0 3 -1.343 3 -3 V 15.719 C 77.281 14.063 75.938 12.719 74.281 12.719 z M 48.111 59.046 c 0 1.657 -1.343 3 -3 3 c -1.657 0 -3 -1.343 -3 -3 v -9.752 H 30.675 v 9.752 c 0 1.657 -1.343 3 -3 3 s -3 -1.343 -3 -3 V 39.672 c 0 -6.461 5.257 -11.718 11.718 -11.718 s 11.718 5.257 11.718 11.718 V 59.046 z M 62.325 56.046 c 1.657 0 3 1.343 3 3 s -1.343 3 -3 3 h -7.697 c -1.657 0 -3 -1.343 -3 -3 s 1.343 -3 3 -3 h 0.849 V 33.954 h -0.849 c -1.657 0 -3 -1.343 -3 -3 s 1.343 -3 3 -3 h 7.697 c 1.657 0 3 1.343 3 3 s -1.343 3 -3 3 h -0.849 v 22.092 H 62.325 z"
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+                        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                    <path
+                        d="M 36.393 33.954 c -3.153 0 -5.718 2.565 -5.718 5.718 v 3.622 h 11.437 v -3.622 C 42.111 36.52 39.546 33.954 36.393 33.954 z"
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+                        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                </g>
+            </svg></span>
+        <span class="control-button" title="error"><svg xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="35px" height="35px"
+                viewBox="0 0 256 256" xml:space="preserve">
+
+                <defs>
+                </defs>
+                <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;"
+                    transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+                    <path
+                        d="M 45 62.21 c -1.657 0 -3 -1.343 -3 -3 V 35.03 c 0 -1.657 1.343 -3 3 -3 c 1.657 0 3 1.343 3 3 v 24.18 C 48 60.867 46.657 62.21 45 62.21 z"
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+                        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                    <path
+                        d="M 45 71.52 c -0.79 0 -1.56 -0.319 -2.12 -0.88 C 42.32 70.08 42 69.31 42 68.52 c 0 -0.2 0.02 -0.39 0.06 -0.59 c 0.04 -0.189 0.09 -0.38 0.17 -0.56 c 0.07 -0.181 0.17 -0.351 0.28 -0.521 c 0.1 -0.16 0.23 -0.31 0.37 -0.45 c 0.14 -0.14 0.29 -0.26 0.45 -0.369 c 0.17 -0.11 0.34 -0.211 0.52 -0.28 c 0.18 -0.07 0.37 -0.13 0.56 -0.17 c 0.98 -0.2 2.01 0.12 2.71 0.819 c 0.56 0.561 0.88 1.33 0.88 2.12 s -0.32 1.561 -0.88 2.12 c -0.141 0.141 -0.29 0.271 -0.46 0.37 c -0.16 0.11 -0.33 0.21 -0.511 0.28 c -0.18 0.08 -0.37 0.13 -0.56 0.17 C 45.39 71.5 45.2 71.52 45 71.52 z"
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+                        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                    <path
+                        d="M 87 83.294 H 3 c -1.079 0 -2.075 -0.579 -2.608 -1.518 c -0.533 -0.938 -0.522 -2.089 0.03 -3.017 l 42 -70.588 C 42.963 7.263 43.942 6.706 45 6.706 s 2.037 0.557 2.578 1.466 l 42 70.588 c 0.552 0.928 0.563 2.079 0.029 3.017 C 89.074 82.715 88.079 83.294 87 83.294 z M 8.276 77.294 h 73.449 L 45 15.573 L 8.276 77.294 z"
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+                        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                </g>
+            </svg></span>
+        <span class="control-button" title="help"><svg xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="35px" height="35px"
+                viewBox="0 0 256 256" xml:space="preserve">
+
+                <defs>
+                </defs>
+                <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;"
+                    transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+                    <path
+                        d="M 49.083 71.489 l 5.776 -21.96 l 4.186 -15.247 c 3.497 -16.18 -32.704 -2.439 -38.002 1.695 l 0.425 4.853 c 4.824 -3.395 23.091 -7.744 19.449 4.275 l -1.634 6.135 l 0 0 l -8.329 31.071 c -3.497 16.18 32.704 2.439 38.002 -1.695 l -0.425 -4.853 C 63.708 79.159 45.441 83.508 49.083 71.489 z"
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+                        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                    <circle cx="53.871" cy="11.201" r="11.201"
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+                        transform="  matrix(1 0 0 1 0 0) " />
+                </g>
+            </svg></span>
     </div>
     <footer>
         <!-- <img src="http://jamesduncombe.com/logo.svg" /> -->
@@ -265,11 +404,6 @@
             inputContainerDiv.classList.add('input-container');
             inputContainerDiv.innerHTML = `
                 <div class="prompt">$ <input type="text" class="input command" onkeydown="handleInput(event)" placeholder="Type your command..."></div>
-                <div class="controls">
-                    <button class="control-button">AI</button>
-                    <button class="control-button">Error</button>
-                    <button class="control-button">Help</button>
-                </div>
             `;
             terminalBody.appendChild(inputContainerDiv);
             const newCommandInput = inputContainerDiv.querySelector('.command');
