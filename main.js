@@ -86,7 +86,7 @@ async function askLLMCommand(prompt) {
   var res = await model.invoke(
     "Create a Linux command to " +
       prompt +
-      ". Then provide the command without any additional explanation, remove extra space and new line characters and only give the command."
+      " Then provide the command without any additional explanation, remove extra space and new line characters and only give the command."
   );
   res = res.replace(/\\n|"/g, "");
   console.log(JSON.stringify(res));
@@ -94,9 +94,9 @@ async function askLLMCommand(prompt) {
 }
 async function askLLMCommandExplanation(command) {
   var res = await model.invoke(
-    "give me the explanation of this linux command in three bullet points: 1. what does it do 2. How does it work 3. Syntax and Optiona in markdown format" +
+    "give me the explanation of this linux command in three bullet points: 1. what does it do 2. How does it work 3. Syntax and Options in markdown format" +
       command +
-      "give in nicely formatted in markdown, bullet points code and syntax highlighting is must and return newline in break tag not \n i.e newline character"
+      "Please provide the Explanation within 200 words and ensure it's nicely formatted in Markdown with bullet points and syntax highlighting for the command. Justify the content and also remove any <code>\\n</code> in the beginning and return newline in break tag not \n."
   );
 
   console.log(JSON.stringify(res));
@@ -108,16 +108,16 @@ async function askLLMError(command, commandError) {
       command +
       "and this is the error i got :" +
       commandError +
-      "Provide me the solution to fix this error,give solution nicely formatted in markdown, heading, bullet points code and syntax highlighting is must and return newline in break tag not"
+      "Please provide the Solution within 200 words also provide command and ensure it's nicely formatted in Markdown with bullet points and syntax highlighting for the command. Justify the content and also remove any <code>\\n</code> in the beginning and return newline in break tag not \n."
   );
   console.log(JSON.stringify(res));
   return JSON.stringify(res);
 }
 async function askLLMHelp(command) {
   var res = await model.invoke(
-    "give me the summarized explanation of this linux command and why it is used in detailed markdown format" +
+    "give me the summarized explanation of this linux command in three bullet points: 1. what does it do 2. How does it work 3. Syntax and Options in markdown format" +
       command +
-      "give summary nicely formatted in markdown, heading, bullet points code and syntax highlighting is must and return newline in break tag not \n"
+      "Please provide the Summary within 200 words and ensure it's nicely formatted in Markdown with bullet points and syntax highlighting for the command. Justify the content and also remove any <code>\\n</code> in the beginning and return newline in break tag not \n."
   );
   console.log(JSON.stringify(res));
   return JSON.stringify(res);
