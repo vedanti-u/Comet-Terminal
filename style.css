@@ -162,6 +162,7 @@ body {
   align-items: center;
 }
 
+
 .controls {
   display: flex;
   gap: 5px;
@@ -192,7 +193,7 @@ body {
   padding: 0;
   display: inline;
   line-height: 1.5;
-  width: 70%;
+  width: 600px;
 }
 
 .input:focus {
@@ -269,6 +270,11 @@ body {
 .btn::after {
   background: #32c146;
   margin-left: 20px;
+}
+
+.collab-btn {
+  position: absolute;
+  margin-left:730px;
 }
 
 .body {
