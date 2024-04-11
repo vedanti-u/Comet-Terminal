@@ -21,29 +21,15 @@
         <div class="btn"></div>
       </div>
       <div class="body" style="height: 100vh">
-        <pre>
-              <!-- <div class="comment"># run this command:</div>
-              <div class="output">$ hi</div> -->
-                                          _____        
-              ___________________ __________  /_       
-              _  ___/  __ \_  __ `__ \  _ \  __/       
-              / /__ / /_/ /  / / / / /  __/ /_         
-              \___/ \____//_/ /_/ /_/\___/\__/   
-              
-              
-          </pre>
-        <pre>
-                  ###########################################
-                  #                                         #
-                  #                                         #
-                  #       ____ ___  __  __ _____ _____      #
-                  #      / ___/ _ \|  \/  | ____|_   _|     #
-                  #     | |  | | | | |\/| |  _|   | |       #
-                  #     | |__| |_| | |  | | |___  | |       #
-                  #      \____\___/|_|  |_|_____| |_|       #
-                  #                                         #
-                  #                                         #
-                  ###########################################</pre
+        <pre class="art">
+                                _____        
+    ___________________ __________  /_       
+    _  ___/  __ \_  __ `__ \  _ \  __/       
+    / /__ / /_/ /  / / / / /  __/ /_         
+    \___/ \____//_/ /_/ /_/\___/\__/         
+
+    
+</pre
         >
       </div>
     </div>
@@ -160,7 +146,7 @@
         const latestInputContainer = terminalBody.querySelector(
           ".input-container:last-child"
         );
-        latestInputContainer.style.backgroundColor = "rgba(0, 0, 255, 0.1)";
+        latestInputContainer.style.backgroundColor = "rgb(255,0,153,0.1)";
         latestInputContainer.appendChild(outputDiv);
       }
       function appendAiErrorSolution(text) {
@@ -173,6 +159,7 @@
         const latestInputContainer = terminalBody.querySelector(
           ".input-container:last-child"
         );
+        latestInputContainer.style.backgroundColor = "rgb(3,180,163,0.1)";
         latestInputContainer.appendChild(outputDiv);
       }
       function appendHelp(text) {
@@ -185,6 +172,7 @@
         const latestInputContainer = terminalBody.querySelector(
           ".input-container:last-child"
         );
+        latestInputContainer.style.backgroundColor = "rgb(145,253,68,0.1)";
         latestInputContainer.appendChild(outputDiv);
       }
 
