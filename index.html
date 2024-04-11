@@ -1,194 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modern Terminal</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/awesomplete/awesomplete.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/awesomplete/awesomplete.min.js"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Modern Terminal</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/awesomplete/awesomplete.css" />
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/awesomplete/awesomplete.min.js"></script>
-</head>
-
-<body>
-  <h1 class="title">COMET</h1>
-  <p class="subtitle">Your AI Terminal</p>
-  <div class="window">
-    <div class="bar">
-      <div class="btn"></div>
-    </div>
-    <div  class="body" style="height: 100vh;">
-      <pre>
+  <body>
+    <h1 class="title">COMET</h1>
+    <p class="subtitle">Your AI Terminal</p>
+    <div class="window">
+      <div class="bar">
+        <div class="btn"></div>
+      </div>
+      <div class="body" style="height: 100vh">
+        <pre>
               <div class="comment"># run this command:</div>
               <div class="output">$ hi</div>
           </pre>
+      </div>
     </div>
-  </div>
-  <footer>
-    <!-- <img src="http://jamesduncombe.com/logo.svg" /> -->
-  </footer>
+    <footer>
+      <!-- <img src="http://jamesduncombe.com/logo.svg" /> -->
+    </footer>
 
-  <script>
-    const { ipcRenderer } = require("electron");
+    <script>
+      const { ipcRenderer } = require("electron");
 
-    let inputHistory = [];
-    var inputIndex = 0;
-    // Load Input History from JSON File
-    function loadInputHistory() {
-      ipcRenderer.send('load-input-history');
-    }
-
-    ipcRenderer.on('input-history-loaded', (event, data) => {
-      console.log(data)
-      inputHistory = data;
-      const inputElement = document.querySelector(".input.command");
-      new Awesomplete(inputElement, { list: inputHistory });
-    });
-
-    function saveInputHistory() {
-      ipcRenderer.send('save-input-history', inputHistory);
-    }
-
-    function handleInput(event) {
-      if (event.key === "Enter") {
-        const inputText = event.target.value; // Get the input text
-        inputHistory.push(inputText); // Save input in history
-        saveInputHistory();
-        ipcRenderer.send("run-command", inputText); // Send the input text to the main process
+      let inputHistory = [];
+      var inputIndex = 0;
+      let lastErrorOutput = "";
+      // Load Input History from JSON File
+      function loadInputHistory() {
+        ipcRenderer.send("load-input-history");
       }
-    }
 
-    window.onload = function () {
-      loadInputHistory();
+      ipcRenderer.on("input-history-loaded", (event, data) => {
+        console.log(data);
+        inputHistory = data;
+        const inputElement = document.querySelector(".input.command");
+        new Awesomplete(inputElement, { list: inputHistory });
+      });
 
-      appendInputContainer();
-      // Listen for command output
-      ipcRenderer.on("command-output", (event, output) => {
-        appendOutput(output); // Use the existing function to append the output
-        appendInputContainer();
-      });
-      ipcRenderer.on("command-error", (event, output) => {
-        appendError(output); // Use the existing function to append the output
-        appendInputContainer();
-      });
-      ipcRenderer.on("command-ai", (event, output) => {
-        console.log("\n this is explaination ->>>" + output.explaination);
-        appendAi(output.explaination);
-        output.explaination = output.explaination.replace(/^"|"$/g, "");
-        console.log("\nthis is output ->>>" + output.command); // Use the existing function to append the output
-        output.command = output.command.replace(/\\n|"/g, "");
-        appendInputContainer(output.command);
-      });
-      ipcRenderer.on("command-error-ai", (event, output) => {
-        appendAiError(output); // Use the existing function to append the output
-        appendInputContainer();
-      });
-    };
-
-    function handleInput(event) {
-      if (event.key === "Enter") {
-        const inputText = event.target.value; // Get the input text
-        inputHistory.push(inputText); // Save input in history
-        saveInputHistory();
-        ipcRenderer.send("run-command", inputText); // Send the input text to the main process
+      function saveInputHistory() {
+        ipcRenderer.send("save-input-history", inputHistory);
       }
-    }
 
-    function appendOutput(text) {
-      const terminalBody = document.querySelector(".body");
-      const outputDiv = document.createElement("div");
-      outputDiv.classList.add("output");
-      outputDiv.textContent = text;
-      terminalBody.appendChild(outputDiv);
-    }
-    function appendError(text) {
-      const terminalBody = document.querySelector(".body");
-      const outputDiv = document.createElement("div");
-      outputDiv.classList.add("error");
-      outputDiv.textContent = text;
-      terminalBody.appendChild(outputDiv);
-    }
-    function appendAi(text) {
-      const terminalBody = document.querySelector(".body");
-      const outputDiv = document.createElement("div");
-      outputDiv.classList.add("ai");
-      console.log(typeof (text));
-      const unescapedText = text.replace(/\\n/g, '\n');
-      outputDiv.innerHTML = marked.parse(unescapedText);
-      terminalBody.appendChild(outputDiv);
-    }
-    function appendAiError(text) {
-      const terminalBody = document.querySelector(".body");
-      const outputDiv = document.createElement("div");
-      outputDiv.classList.add("ai-error");
-      outputDiv.innerHTML = text;
-      terminalBody.appendChild(outputDiv);
-    }
+      function handleInput(event) {
+        if (event.key === "Enter") {
+          const inputText = event.target.value; // Get the input text
+          inputHistory.push(inputText); // Save input in history
+          saveInputHistory();
+          ipcRenderer.send("run-command", inputText); // Send the input text to the main process
+        }
+      }
 
-    function appendInputContainer(defaultInput) {
-      inputIndex++;
-      loadInputHistory();
-      //console.log(defaultInput);
-      const terminalBody = document.querySelector(".body");
-      const inputContainerDiv = document.createElement("div");
-      inputContainerDiv.classList.add("input-container");
-      inputContainerDiv.innerHTML = `
+      window.onload = function () {
+        loadInputHistory();
+
+        appendInputContainer();
+        // Listen for command output
+        ipcRenderer.on("command-output", (event, output) => {
+          appendOutput(output); // Use the existing function to append the output
+          appendInputContainer();
+        });
+        ipcRenderer.on("command-error", (event, output) => {
+          appendError(output); // Use the existing function to append the output
+          appendInputContainer();
+        });
+        ipcRenderer.on("command-ai", (event, output) => {
+          console.log("\n this is explaination ->>>" + output.explaination);
+          appendAi(output.explaination);
+          output.explaination = output.explaination.replace(/^"|"$/g, "");
+          console.log("\nthis is output ->>>" + output.command); // Use the existing function to append the output
+          output.command = output.command.replace(/\\n|"/g, "");
+          appendInputContainer(output.command);
+        });
+        ipcRenderer.on("command-error-ai", (event, output) => {
+          console.log("this is the solution i found :", output);
+          appendAiErrorSolution(output); // Use the existing function to append the output
+          appendInputContainer();
+        });
+      };
+
+      function handleInput(event) {
+        if (event.key === "Enter") {
+          const inputText = event.target.value; // Get the input text
+          inputHistory.push(inputText); // Save input in history
+          saveInputHistory();
+          ipcRenderer.send("run-command", inputText); // Send the input text to the main process
+        }
+      }
+
+      function appendOutput(text) {
+        const terminalBody = document.querySelector(".body");
+        const outputDiv = document.createElement("div");
+        outputDiv.classList.add("output");
+        outputDiv.textContent = text;
+        terminalBody.appendChild(outputDiv);
+      }
+      function appendError(text) {
+        const terminalBody = document.querySelector(".body");
+        const outputDiv = document.createElement("div");
+        outputDiv.classList.add("error");
+        outputDiv.textContent = text;
+        terminalBody.appendChild(outputDiv);
+        lastErrorOutput = text;
+      }
+      function appendAi(text) {
+        const terminalBody = document.querySelector(".body");
+        const outputDiv = document.createElement("div");
+        outputDiv.classList.add("ai");
+        console.log(typeof text);
+        const unescapedText = text.replace(/\\n/g, "\n");
+        outputDiv.innerHTML = marked.parse(unescapedText);
+        terminalBody.appendChild(outputDiv);
+      }
+      function appendAiErrorSolution(text) {
+        const terminalBody = document.querySelector(".body");
+        const outputDiv = document.createElement("div");
+        outputDiv.classList.add("ai-error-solution");
+        const unescapedText = text.replace(/\\n/g, "\n");
+        outputDiv.innerHTML = marked.parse(unescapedText);
+        console.log("this is unescapedText", unescapedText);
+        terminalBody.appendChild(outputDiv);
+      }
+
+      function appendInputContainer(defaultInput) {
+        inputIndex++;
+        loadInputHistory();
+        //console.log(defaultInput);
+        const terminalBody = document.querySelector(".body");
+        const inputContainerDiv = document.createElement("div");
+        inputContainerDiv.classList.add("input-container");
+        inputContainerDiv.innerHTML = `
       <div class="prompt">$ <input type="text" id="input-${inputIndex}" class="input command" onkeydown="handleInput(event)" placeholder="Type your command..."></div>
       <div class="controls">
          <button class="control-button" onclick="clickAI()">AI</button>
-         <button class="control-button">Error</button>
+         <button class="control-button" onclick="clickAIError()">Error</button>
          <button class="control-button">Help</button>
      </div>
 `;
-      terminalBody.appendChild(inputContainerDiv);
-      const newCommandInput = inputContainerDiv.querySelector(".command");
-      if (defaultInput !== undefined) {
-        newCommandInput.value = defaultInput;
-      }
-      newCommandInput.focus();
+        terminalBody.appendChild(inputContainerDiv);
+        const newCommandInput = inputContainerDiv.querySelector(".command");
+        if (defaultInput !== undefined) {
+          newCommandInput.value = defaultInput;
+        }
+        newCommandInput.focus();
 
-      const olderInputContainers = terminalBody.querySelectorAll(
-        ".input-container:not(:last-child) .controls"
-      );
-      olderInputContainers.forEach((container) => {
-        container.style.visibility = "hidden";
-        const inputs = container.parentElement.querySelectorAll(".input");
-        inputs.forEach((input) => {
-          input.disabled = true;
+        const olderInputContainers = terminalBody.querySelectorAll(
+          ".input-container:not(:last-child) .controls"
+        );
+        olderInputContainers.forEach((container) => {
+          container.style.visibility = "hidden";
+          const inputs = container.parentElement.querySelectorAll(".input");
+          inputs.forEach((input) => {
+            input.disabled = true;
+          });
         });
-      });
-      // Remove controls from previous input, if any
-      const previousInputContainer = terminalBody.querySelector(
-        ".input-container:nth-last-child(2)"
-      );
-      if (previousInputContainer) {
-        const previousInputControls =
-          previousInputContainer.querySelector(".controls");
-        previousInputControls.remove();
+        // Remove controls from previous input, if any
+        const previousInputContainer = terminalBody.querySelector(
+          ".input-container:nth-last-child(2)"
+        );
+        if (previousInputContainer) {
+          const previousInputControls =
+            previousInputContainer.querySelector(".controls");
+          previousInputControls.remove();
+        }
+        const inputElement = document.querySelector(`#input-${inputIndex}`);
+        new Awesomplete(inputElement, { list: inputHistory });
+        newCommandInput.focus();
       }
-      const inputElement = document.querySelector(`#input-${inputIndex}`);
-      new Awesomplete(inputElement, { list: inputHistory });
-      newCommandInput.focus();
-    }
 
-    function clickAI() {
-      const inputText = document.querySelector(".input.command").value;
-      console.log("in Click ai", inputText);
-      ipcRenderer.send("command-ai", inputText);
-    }
+      function clickAI() {
+        const inputText = document.querySelector(".input.command").value;
+        console.log("in Click ai", inputText);
+        ipcRenderer.send("command-ai", inputText);
+      }
 
-    function clickAIError() {
-      const inputText = document.querySelector(".input.command").value;
-      console.log("in Click AI Error", inputText);
-      ipcRenderer.send("command-ai", inputText);
-    }
+      function clickAIError() {
+        const inputText = inputHistory[inputHistory.length - 1]; // Get the last input command
+        const outputText = lastErrorOutput;
+        // Safely get the last error output
+        console.log(
+          "in Click AI Error, Input command : " +
+            inputText +
+            " Output command :" +
+            outputText
+        );
+        ipcRenderer.send("command-ai-error", {
+          input: inputText,
+          output: outputText,
+        });
+      }
 
-    // Step 2: Autocomplete in Direct Input Bar using Awesomplete
-    // const inputElement = document.querySelector(".input.command");
-    // new Awesomplete(inputElement, { list: inputHistory });
-
-  </script>
-</body>
-
+      // Step 2: Autocomplete in Direct Input Bar using Awesomplete
+      // const inputElement = document.querySelector(".input.command");
+      // new Awesomplete(inputElement, { list: inputHistory });
+    </script>
+  </body>
 </html>

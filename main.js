@@ -2,7 +2,7 @@ const { app, BrowserWindow, ipcMain } = require("electron");
 const { exec } = require("child_process");
 const { OpenAI } = require("@langchain/openai");
 const dotenv = require("dotenv").config();
-const fs = require('fs');
+const fs = require("fs");
 
 let mainWindow;
 
@@ -56,9 +56,8 @@ ipcMain.on("command-ai", async (event, text) => {
   console.log("Received AI command:", text);
   var command = await askLLMCommand(text);
   var explaination = await askLLMCommandExplanation(command);
-  var output = {command : command, explaination : explaination}
+  var output = { command: command, explaination: explaination };
   event.sender.send("command-ai", output);
-
 });
 ipcMain.on("dummy", async (event, text) => {
   console.log("Received error for ai command:", text);
@@ -66,9 +65,14 @@ ipcMain.on("dummy", async (event, text) => {
   //event.sender.send("command-error-ai",data);
 });
 
-ipcMain.on("command-error-ai", async (event, text) => {
-  console.log("Received error for ai command:", text);
-  var data = await askLLMError(text);
+ipcMain.on("command-ai-error", async (event, text) => {
+  var command = text.input;
+  var commandError = text.output;
+  console.log(
+    "Received error for ai command:" + command + "error is :" + commandError
+  );
+
+  var data = await askLLMError(command, commandError);
   event.sender.send("command-error-ai", data);
 });
 
@@ -86,31 +90,38 @@ async function askLLMCommand(prompt) {
 async function askLLMCommandExplanation(command) {
   const model = new OpenAI({});
   var res = await model.invoke(
-    "give me the explanation of this linux command in detailed markdown format" + command + "give explanation nicely formatted in markdown, heading, bullet points code and syntax highlighting is must and return newline in break tag not \n"
+    "give me the explanation of this linux command in detailed markdown format" +
+      command +
+      "give explanation nicely formatted in markdown, heading, bullet points code and syntax highlighting is must and return newline in break tag not \n"
   );
   console.log(JSON.stringify(res));
   return JSON.stringify(res);
 }
-async function askLLMError(error) {
+async function askLLMError(command, commandError) {
   const model = new OpenAI({});
   const res = await model.invoke(
-    "Create a Linux command to fix this error" +
-      error +
-      "then provide explanation"
+    "this is the command I entered :" +
+      command +
+      "and this is the error i got :" +
+      commandError +
+      "Provide me the solution to fix this error,give solution nicely formatted in markdown, heading, bullet points code and syntax highlighting is must and return newline in break tag not"
   );
   console.log(JSON.stringify(res));
   return JSON.stringify(res);
 }
 
 // Handle saving input history in the main process
-ipcMain.on('save-input-history', (event, inputHistory) => {
-  fs.writeFileSync(__dirname+'/inputHistory.json', JSON.stringify(inputHistory));
+ipcMain.on("save-input-history", (event, inputHistory) => {
+  fs.writeFileSync(
+    __dirname + "/inputHistory.json",
+    JSON.stringify(inputHistory)
+  );
 });
 
 // Handle loading input history in the main process
-ipcMain.on('load-input-history', (event) => {
-  if (fs.existsSync(__dirname+'/inputHistory.json')) {
-    const data = fs.readFileSync(__dirname+'/inputHistory.json');
-    event.sender.send('input-history-loaded', JSON.parse(data));
+ipcMain.on("load-input-history", (event) => {
+  if (fs.existsSync(__dirname + "/inputHistory.json")) {
+    const data = fs.readFileSync(__dirname + "/inputHistory.json");
+    event.sender.send("input-history-loaded", JSON.parse(data));
   }
 });

@@ -130,6 +130,7 @@ p {
 
 @keyframes pulse {
   0% {
+  
     opacity: 0;
   }
 
@@ -214,7 +215,7 @@ body {
   color: blue;
 }
 
-.ai-error {
+.ai-error-solution {
   color: rgb(241, 150, 38);
 }
 
