@@ -56,6 +56,7 @@ ipcMain.on("command-ai", async (event, text) => {
   console.log("Received AI command:", text);
   var command = await askLLMCommand(text);
   var explaination = await askLLMCommandExplanation(command);
+
   var output = { command: command, explaination: explaination };
   event.sender.send("command-ai", output);
 });
@@ -83,9 +84,9 @@ ipcMain.on("command-help", async (event, text) => {
 
 async function askLLMCommand(prompt) {
   var res = await model.invoke(
-    "Create a Linux command to" +
+    "Create a Linux command to " +
       prompt +
-      "then provide the command without any additional explanation, remove extra space and new line charcters only give command"
+      ". Then provide the command without any additional explanation, remove extra space and new line characters and only give the command."
   );
   res = res.replace(/\\n|"/g, "");
   console.log(JSON.stringify(res));
@@ -93,10 +94,11 @@ async function askLLMCommand(prompt) {
 }
 async function askLLMCommandExplanation(command) {
   var res = await model.invoke(
-    "give me the explanation of this linux command in detailed markdown format" +
+    "give me the explanation of this linux command in three bullet points: 1. what does it do 2. How does it work 3. Syntax and Optiona in markdown format" +
       command +
-      "give explanation nicely formatted in markdown, heading, bullet points code and syntax highlighting is must and return newline in break tag not \n"
+      "give in nicely formatted in markdown, bullet points code and syntax highlighting is must and return newline in break tag not \n i.e newline character"
   );
+
   console.log(JSON.stringify(res));
   return JSON.stringify(res);
 }
