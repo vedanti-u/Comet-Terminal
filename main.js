@@ -104,20 +104,24 @@ async function askLLMCommandExplanation(command) {
 }
 async function askLLMError(command, commandError) {
   const res = await model.invoke(
-    "this is the command I entered :" +
+    "This is the command I entered:<br>" +
+      "<code>" +
       command +
-      "and this is the error i got :" +
+      "</code><br>" +
+      "And this is the error I got:<br>" +
+      "<code>" +
       commandError +
-      "Please provide the Solution within 200 words also provide command and ensure it's nicely formatted in Markdown with bullet points and syntax highlighting for the command. Justify the content and also remove any <code>\\n</code> in the beginning and return newline in break tag not \n."
+      "</code><br>" +
+      "Please provide the direct solution within 150 words and ensure it is formatted in Markdown with subheadings as bullet points without a top heading. Also, provide the command with syntax highlighting. Justify the content and remove any <code>\\n</code> in the beginning, returning newlines as <br> tags."
   );
   console.log(JSON.stringify(res));
   return JSON.stringify(res);
 }
 async function askLLMHelp(command) {
   var res = await model.invoke(
-    "give me the summarized explanation of this linux command in three bullet points: 1. what does it do 2. How does it work 3. Syntax and Options in markdown format" +
+    "give me the summarized explanation of this linux command direct in three bullet points: 1. what does it do 2. How does it work 3. Syntax and Options in markdown format" +
       command +
-      "Please provide the Summary within 200 words and ensure it's nicely formatted in Markdown with bullet points and syntax highlighting for the command. Justify the content and also remove any <code>\\n</code> in the beginning and return newline in break tag not \n."
+      "Please provide the Summary within 200 words and ensure it's nicely formatted in Markdown with bullet points and syntax highlighting for the command. Justify the content and also remove any \n in the beginning and return newline in single break tag not newline character"
   );
   console.log(JSON.stringify(res));
   return JSON.stringify(res);
