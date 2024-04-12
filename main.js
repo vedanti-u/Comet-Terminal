@@ -104,15 +104,11 @@ async function askLLMCommandExplanation(command) {
 }
 async function askLLMError(command, commandError) {
   const res = await model.invoke(
-    "This is the command I entered:<br>" +
-      "<code>" +
+    "This is the command I entered: " +
       command +
-      "</code><br>" +
-      "And this is the error I got:<br>" +
-      "<code>" +
+      " And this is the error I got: " +
       commandError +
-      "</code><br>" +
-      "Please provide the direct solution within 150 words and ensure it is formatted in Markdown with subheadings as bullet points without a top heading. Also, provide the command with syntax highlighting. Justify the content and remove any <code>\\n</code> in the beginning, returning newlines as <br> tags."
+      " Please provide the direct solution within 150 words and ensure it's nicely formatted in Markdown with bullet points and syntax highlighting for the command. Justify the content and also remove any \n in the beginning and return newline in single break tag not newline character"
   );
   console.log(JSON.stringify(res));
   return JSON.stringify(res);

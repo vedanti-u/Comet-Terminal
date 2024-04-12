@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Modern Terminal</title>
+    <title>COMET</title>
     <link rel="stylesheet" href="style.css" />
     <link
       rel="stylesheet"
@@ -83,9 +83,9 @@
         });
         ipcRenderer.on("command-ai", (event, output) => {
           //console.log("\n this is explaination ->>>" + output.explaination);
-          appendAi(output.explaination);
-          output.explaination = output.explaination.replace(/^"|"$/g, "");
 
+          output.explaination = output.explaination.replace(/^"|"$/g, "");
+          appendAi(output.explaination);
           // Use the existing function to append the output
           output.command = output.command.replace(/\\n|"/g, "");
           output.command = output.command.trim();
@@ -141,7 +141,13 @@
         const outputDiv = document.createElement("div");
         outputDiv.classList.add("ai");
         console.log(typeof text);
-        const unescapedText = text.replace(/\\n/g, "\n");
+        const unescapedText = text
+          .replace(/\\n/g, "\n")
+          .replace(/\n\n\n/g, "\n")
+          .replace(/\n\n/g, "\n")
+          .replace(/\\n/g, "\n")
+          .trim();
+        console.log("this is final appenai output", unescapedText);
         outputDiv.innerHTML = marked.parse(unescapedText);
         const latestInputContainer = terminalBody.querySelector(
           ".input-container:last-child"
@@ -153,7 +159,14 @@
         const terminalBody = document.querySelector(".body");
         const outputDiv = document.createElement("div");
         outputDiv.classList.add("ai-error-sol");
-        const unescapedText = text.replace(/\\n/g, "\n");
+
+        const unescapedText = text
+          .replace(/^"|"$/g, "")
+          .replace(/\\n/g, "\n")
+          .replace(/\n\n\n/g, "\n")
+          .replace(/\n\n/g, "\n")
+          .replace(/\\n/g, "\n")
+          .trim();
         outputDiv.innerHTML = marked.parse(unescapedText);
         console.log("this is unescapedText", unescapedText);
         const latestInputContainer = terminalBody.querySelector(
@@ -166,7 +179,11 @@
         const terminalBody = document.querySelector(".body");
         const outputDiv = document.createElement("div");
         outputDiv.classList.add("help");
-        const unescapedText = text.replace(/\\n/g, "\n");
+        const unescapedText = text
+          .replace(/\n\n\n/g, "\n")
+          .replace(/\n\n/g, "\n")
+          .replace(/\\n/g, "\n")
+          .trim();
         outputDiv.innerHTML = marked.parse(unescapedText);
         console.log("this is unescapedText", unescapedText);
         const latestInputContainer = terminalBody.querySelector(
@@ -229,7 +246,9 @@
       }
 
       function clickAI() {
-        const inputText = document.querySelector(".input.command").value;
+        const inputText = document.querySelector(
+          ".input-container:last-child .input.command"
+        ).value;
         console.log("in Click ai", inputText);
         ipcRenderer.send("command-ai", inputText);
       }
@@ -251,7 +270,9 @@
       }
 
       function clickHelp() {
-        const inputText = document.querySelector(".input.command").value;
+        const inputText = document.querySelector(
+          ".input-container:last-child .input.command"
+        ).value;
         console.log("in Click Help", inputText);
         ipcRenderer.send("command-help", inputText);
       }
