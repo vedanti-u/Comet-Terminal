@@ -178,15 +178,27 @@ body {
 }
 
 .control-button {
-  background-color: #232323;
+  background-color:rgba(0, 0, 0, 0.4);
   color: #fff;
   border: none;
   padding: 8px 10px;
   cursor: pointer;
-  border-radius: 5px;
-  margin: 3px;
+  border-radius: 12px;
+  margin: 2px;
 }
-
+.btn-img-ai {
+  width: 39px; /* Adjust as needed */
+  height: 39px;
+  
+}
+.btn-img-err {
+  width: 33px; /* Adjust as needed */
+  height: 33px;
+}
+.btn-img-help {
+  width: 34px; /* Adjust as needed */
+  height: 34px;
+}
 .control-button:hover {
   background-color: #333;
 }
@@ -208,7 +220,7 @@ body {
   width: 600px;
 }
 .input-arrow {
-  color: rgb(0, 204, 255);
+  color: #00ccff;
   font-weight: bold;
   font-size: 20px;
 }
