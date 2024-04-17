@@ -203,9 +203,15 @@
         inputContainerDiv.innerHTML = `
       <div class="prompt"><span class="input-arrow">$</span> <input type="text" id="input-${inputIndex}" class="input command" onkeydown="handleInput(event)" placeholder="Type your command..."></div>
       <div class="controls">
-         <button class="control-button" onclick="clickAI()">AI</button>
-         <button class="control-button" onclick="clickAIError()">Error</button>
-         <button class="control-button" onclick="clickHelp()">Help</button>
+         <button class="control-button" onclick="clickAI()">
+            <img src="assets/icon-ai-white.png" class="btn-img-ai" alt="AI">
+         </button>
+         <button class="control-button" onclick="clickAIError()">
+            <img src="assets/icon-search-white.png" class="btn-img-err" alt="Error">
+         </button>
+         <button class="control-button" onclick="clickHelp()">
+            <img src="assets/icon-summary-white.png" class="btn-img-help" alt="Search">
+         </button>
      </div>
 `;
         terminalBody.appendChild(inputContainerDiv);
