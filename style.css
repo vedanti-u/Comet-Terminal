@@ -493,17 +493,38 @@ body {
   display: flex;
   justify-content: space-around; /* Distribute content evenly */
   align-items: center; /* Vertically center content */
-  height: 100px;
+  height: 50px;
   width: 100%; /* Adjust width as needed */
   text-align: center;
+  padding: 10px;
 }
 
-/* Remove labels and axes */
-#memory-chart,
-#ram-chart,
-#memory-change-chart {
-    margin: 0 10px; /* Add margin around the charts */
+#memory-usage{
+  font-size:18px;
+  font-weight: bold;
+  color:#55a0b3;
+
+  /* padding-top: 8px;
+  padding-bottom: 8px;  */
+
 }
+#cpu-usage{
+  font-size:18px;
+  font-weight: bold;
+  color: #c07474;
+  padding: 15px; /* Add padding */
+  margin: 15px; /* Add margin */
+}
+
+#memory-chart,
+#cpu-chart,
+#internet-speed-chart {
+  width: 600px; /* Adjust width as needed */
+  height: 200px; 
+  margin: 3px 10px; 
+/* Keep height as it is */
+}
+
 
 .chart-container {
     position: relative;
@@ -517,3 +538,30 @@ body {
     left: 0;
     pointer-events: none;
 }
+/* Set footer background color */
+#main-footer {
+  background: #191919;
+  color: #ffffff; /* Set text color */
+}
+
+/* Position the footer at the bottom of the page */
+#main-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.chart-icon-memory {
+  height: 46px;
+  width: 46px;
+}
+.chart-icon-cpu {
+  height: 40px;
+  width: 40px;
+}
+.chart-icon-internet {
+  height: 40px;
+  width: 40px;
+}
+/* Style the content within the footer */
+

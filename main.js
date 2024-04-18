@@ -60,9 +60,10 @@ ipcMain.on("command-ai", async (event, text) => {
   var output = { command: command, explaination: explaination };
   event.sender.send("command-ai", output);
 });
+
 ipcMain.on("dummy", async (event, text) => {
-  console.log("Received error for ai command:", text);
-  var data = await askLLMCommandExplanation(text);
+  console.log("Received dummy", text);
+  var data = await calculateInternetSpeed();
   //event.sender.send("command-error-ai",data);
 });
 
