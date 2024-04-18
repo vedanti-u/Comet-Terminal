@@ -11,6 +11,8 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/awesomplete/awesomplete.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
   </head>
 
   <body>
@@ -33,8 +35,24 @@
         >
       </div>
     </div>
-    <footer>
-      <!-- <img src="http://jamesduncombe.com/logo.svg" /> -->
+    <footer style="background: #191919">
+      <div>
+        <div class="footer-content">
+          <div class="usage-info">
+            <span id="memory-usage">Memory Usage:</span>
+          </div>
+
+          <canvas id="memory-chart" width="400" height="200"></canvas>
+
+          <span id="cpu-usage">CPU Usage:</span>
+
+          <canvas id="cpu-chart" width="400" height="200"></canvas>
+
+          <span id="internet-speed-label">Internet Speed:</span>
+
+          <canvas id="internet-speed-chart" width="400" height="200"></canvas>
+        </div>
+      </div>
     </footer>
 
     <script>
@@ -201,19 +219,19 @@
         const inputContainerDiv = document.createElement("div");
         inputContainerDiv.classList.add("input-container");
         inputContainerDiv.innerHTML = `
-      <div class="prompt"><span class="input-arrow">$</span> <input type="text" id="input-${inputIndex}" class="input command" onkeydown="handleInput(event)" placeholder="Type your command..."></div>
-      <div class="controls">
-         <button class="control-button" onclick="clickAI()">
-            <img src="assets/icon-ai-white.png" class="btn-img-ai" alt="AI">
-         </button>
-         <button class="control-button" onclick="clickAIError()">
-            <img src="assets/icon-search-white.png" class="btn-img-err" alt="Error">
-         </button>
-         <button class="control-button" onclick="clickHelp()">
-            <img src="assets/icon-summary-white.png" class="btn-img-help" alt="Search">
-         </button>
-     </div>
-`;
+            <div class="prompt"><span class="input-arrow">$</span> <input type="text" id="input-${inputIndex}" class="input command" onkeydown="handleInput(event)" placeholder="Type your command..."></div>
+            <div class="controls">
+               <button class="control-button" onclick="clickAI()">
+                  <img src="assets/icon-ai-white.png" class="btn-img-ai" alt="AI">
+               </button>
+               <button class="control-button" onclick="clickAIError()">
+                  <img src="assets/icon-search-white.png" class="btn-img-err" alt="Error">
+               </button>
+               <button class="control-button" onclick="clickHelp()">
+                  <img src="assets/icon-summary-white.png" class="btn-img-help" alt="Search">
+               </button>
+           </div>
+      `;
         terminalBody.appendChild(inputContainerDiv);
         const newCommandInput = inputContainerDiv.querySelector(".command");
         if (defaultInput !== undefined) {
@@ -283,9 +301,216 @@
         ipcRenderer.send("command-help", inputText);
       }
 
-      // Step 2: Autocomplete in Direct Input Bar using Awesomplete
-      // const inputElement = document.querySelector(".input.command");
-      // new Awesomplete(inputElement, { list: inputHistory });
+      // Initialize Memory Chart
+      // Initialize Memory Chart
+      const memoryChartCtx = document
+        .getElementById("memory-chart")
+        .getContext("2d");
+      const memoryChart = new Chart(memoryChartCtx, {
+        type: "line",
+        data: {
+          labels: [],
+          datasets: [
+            {
+              label: "Memory Usage",
+              data: [],
+              borderColor: "rgb(75, 192, 192)",
+              tension: 0.1,
+              fill: false,
+              borderWidth: 1,
+              pointRadius: 0,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            x: {
+              display: false,
+            },
+            y: {
+              display: false,
+            },
+          },
+          plugins: {
+            decimation: {
+              enabled: true,
+              algorithm: "lttb",
+              samples: 100,
+              threshold: null,
+            },
+            legend: {
+              display: false,
+            },
+          },
+        },
+      });
+
+      const cpuChartCtx = document.getElementById("cpu-chart").getContext("2d");
+      const cpuChart = new Chart(cpuChartCtx, {
+        type: "line",
+        data: {
+          labels: [],
+          datasets: [
+            {
+              label: "CPU Usage",
+              data: [],
+              borderColor: "rgb(255, 99, 132)",
+              tension: 0.1,
+              fill: false,
+              borderWidth: 1,
+              pointRadius: 0,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            x: {
+              display: false,
+            },
+            y: {
+              display: false,
+            },
+          },
+          plugins: {
+            decimation: {
+              enabled: true,
+              algorithm: "lttb",
+              samples: 100,
+              threshold: null,
+            },
+            legend: {
+              display: false,
+            },
+          },
+        },
+      });
+
+      const internetSpeedChartCtx = document
+        .getElementById("internet-speed-chart")
+        .getContext("2d");
+      const internetSpeedChart = new Chart(internetSpeedChartCtx, {
+        type: "line",
+        data: {
+          labels: [],
+          datasets: [
+            {
+              label: "Download Speed",
+              data: [],
+              borderColor: "rgb(75, 192, 192)",
+              tension: 0.1,
+              fill: false,
+              borderWidth: 1,
+              pointRadius: 0,
+            },
+            {
+              label: "Upload Speed",
+              data: [],
+              borderColor: "rgb(255, 99, 132)",
+              tension: 0.1,
+              fill: false,
+              borderWidth: 1,
+              pointRadius: 0,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            x: {
+              display: false,
+            },
+            y: {
+              display: false,
+            },
+          },
+          plugins: {
+            decimation: {
+              enabled: true,
+              algorithm: "lttb",
+              samples: 100,
+              threshold: null,
+            },
+            legend: {
+              display: true,
+            },
+          },
+        },
+      });
+
+      let previousMemoryUsage = 0;
+
+      function updateMemoryUsage() {
+        const memoryUsageElement = document.getElementById("memory-usage");
+        const os = require("os");
+        const totalRAM = os.totalmem();
+        const freeRAM = os.freemem();
+        const usedRAM = totalRAM - freeRAM;
+        memoryUsageElement.textContent = `${(
+          usedRAM /
+          (1024 * 1024 * 1024)
+        ).toFixed(2)} GB`;
+
+        memoryChart.data.labels.push(new Date().toLocaleTimeString());
+        memoryChart.data.datasets[0].data.push(usedRAM);
+        memoryChart.update();
+      }
+
+      function updateCPUUsage() {
+        const cpuUsageElement = document.getElementById("cpu-usage");
+        const os = require("os");
+        const cpuUsagePercentage = os.loadavg()[0] * 100;
+        cpuUsageElement.textContent = `${cpuUsagePercentage.toFixed(2)} %`;
+
+        cpuChart.data.labels.push(new Date().toLocaleTimeString());
+        cpuChart.data.datasets[0].data.push(cpuUsagePercentage);
+        cpuChart.update();
+      }
+
+      async function calculateInternetSpeed() {
+        const speedTest = require("speedtest-net");
+        try {
+          const speed = await speedTest({ maxTime: 5000 });
+          const downloadSpeed = speed.download.bandwidth / 1024 / 1024;
+          const uploadSpeed = speed.upload.bandwidth / 1024 / 1024;
+          console.log("this is download speeeeed :" + downloadSpeed);
+
+          console.log("this is upload speeeeed :" + uploadSpeed);
+          return { downloadSpeed, uploadSpeed };
+        } catch (error) {
+          console.error("Speed test failed:", error.message);
+          return null;
+        }
+      }
+
+      async function updateInternetSpeed() {
+        try {
+          const speed = await calculateInternetSpeed();
+          console.log("Speed test result:", speed); // Log speed test result
+          const timeNow = new Date().toLocaleTimeString();
+
+          internetSpeedChart.data.labels.push(timeNow);
+          internetSpeedChart.data.datasets[0].data.push(speed.downloadSpeed);
+          internetSpeedChart.data.datasets[1].data.push(speed.uploadSpeed);
+
+          const MAX_DATA_POINTS = 10;
+          if (internetSpeedChart.data.labels.length > MAX_DATA_POINTS) {
+            internetSpeedChart.data.labels.shift();
+            internetSpeedChart.data.datasets.forEach((dataset) => {
+              dataset.data.shift();
+            });
+          }
+
+          internetSpeedChart.update();
+        } catch (error) {
+          console.error("Failed to update internet speed:", error.message);
+        }
+      }
+
+      updateMemoryUsage();
+      updateCPUUsage();
+      updateInternetSpeed();
+      setInterval(updateMemoryUsage, 500);
+      setInterval(updateCPUUsage, 500);
+      setInterval(updateInternetSpeed, 5000);
     </script>
   </body>
 </html>
