@@ -483,3 +483,37 @@ body {
   border: none;
   /* No border */
 }
+#memory-usage,
+#ram-usage {
+    color: white;
+    margin-right: 50px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-around; /* Distribute content evenly */
+  align-items: center; /* Vertically center content */
+  height: 100px;
+  width: 100%; /* Adjust width as needed */
+  text-align: center;
+}
+
+/* Remove labels and axes */
+#memory-chart,
+#ram-chart,
+#memory-change-chart {
+    margin: 0 10px; /* Add margin around the charts */
+}
+
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.chart-container canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}

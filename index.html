@@ -11,6 +11,8 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/awesomplete/awesomplete.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
   </head>
 
   <body>
@@ -32,9 +34,65 @@
 </pre
         >
       </div>
+
+      <canvas id="performance-chart" width="800" height="400"></canvas>
+      <br />
+      <div class="usage-info">
+        <span
+          id="memory-usage"
+          style="color: white; margin-left: 5px; margin-right: 10px"
+          >Memory Usage:
+        </span>
+      </div>
+
+      <canvas id="memory-chart"></canvas>
+
+      <span
+        id="ram-usage"
+        style="color: white; margin-left: 5px; margin-right: 10px"
+        >RAM Usage:
+      </span>
+
+      <canvas id="ram-chart"></canvas>
+
+      <span
+        id="memory-change"
+        style="color: white; margin-left: 5px; margin-right: 10px"
+        >Memory Change:
+      </span>
+
+      <canvas id="memory-change-chart"></canvas>
     </div>
-    <footer>
-      <!-- <img src="http://jamesduncombe.com/logo.svg" /> -->
+    <footer style="background: #191919">
+      <footer style="background: #191919">
+        <div class="footer-content" style="height: 80px; width: 100%">
+          <!-- <div class="usage-info">
+            <span
+              id="memory-usage"
+              style="color: white; margin-left: 5px; margin-right: 10px"
+              >Memory Usage:
+            </span>
+          </div>
+
+          <canvas id="memory-chart"></canvas>
+
+          <span
+            id="ram-usage"
+            style="color: white; margin-left: 5px; margin-right: 10px"
+            >RAM Usage:
+          </span>
+
+          <canvas id="ram-chart"></canvas>
+
+          <span
+            id="memory-change"
+            style="color: white; margin-left: 5px; margin-right: 10px"
+            >Memory Change:
+          </span>
+
+          <canvas id="memory-change-chart"></canvas> -->
+        </div>
+      </footer>
     </footer>
 
     <script>
@@ -283,9 +341,256 @@
         ipcRenderer.send("command-help", inputText);
       }
 
-      // Step 2: Autocomplete in Direct Input Bar using Awesomplete
-      // const inputElement = document.querySelector(".input.command");
-      // new Awesomplete(inputElement, { list: inputHistory });
+      // Initialize Memory Chart
+      // Initialize Memory Chart
+      const memoryChartCtx = document
+        .getElementById("memory-chart")
+        .getContext("2d");
+      const memoryChart = new Chart(memoryChartCtx, {
+        type: "line",
+        data: {
+          labels: [],
+          datasets: [
+            {
+              label: "Memory Usage",
+              data: [],
+              borderColor: "rgb(75, 192, 192)",
+              tension: 0.1,
+              fill: false,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+          plugins: {
+            decimation: {
+              enabled: true,
+              algorithm: "lttb",
+              samples: 100, // Increase the number of samples
+              threshold: null,
+            },
+          },
+        },
+      });
+
+      // Initialize RAM Chart
+      const ramChartCtx = document.getElementById("ram-chart").getContext("2d");
+      const ramChart = new Chart(ramChartCtx, {
+        type: "line",
+        data: {
+          labels: [],
+          datasets: [
+            {
+              label: "RAM Usage",
+              data: [],
+              borderColor: "rgb(255, 99, 132)",
+              tension: 0.1,
+              fill: false,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+          plugins: {
+            decimation: {
+              enabled: true,
+              algorithm: "lttb",
+              samples: 100, // Increase the number of samples
+              threshold: null,
+            },
+          },
+        },
+      });
+
+      // Initialize Memory Change Chart
+      const memoryChangeChartCtx = document
+        .getElementById("memory-change-chart")
+        .getContext("2d");
+      const memoryChangeChart = new Chart(memoryChangeChartCtx, {
+        type: "line",
+        data: {
+          labels: [],
+          datasets: [
+            {
+              label: "Memory Change",
+              data: [],
+              borderColor: "rgb(75, 192, 192)",
+              tension: 0.1,
+              fill: false,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+
+      // Global variable to store previous memory usage
+      let previousMemoryUsage = 0;
+
+      // Function to update Memory Usage
+      function updateMemoryUsage() {
+        const memoryUsageElement = document.getElementById("memory-usage");
+        const os = require("os");
+        const totalRAM = os.totalmem();
+        const freeRAM = os.freemem();
+        const usedRAM = totalRAM - freeRAM;
+        memoryUsageElement.textContent = `${(
+          usedRAM /
+          (1024 * 1024 * 1024)
+        ).toFixed(2)} GB`;
+
+        // Add new data point to Memory Chart
+        memoryChart.data.labels.push(new Date().toLocaleTimeString());
+        memoryChart.data.datasets[0].data.push(usedRAM); // Convert to MB
+        memoryChart.update();
+      }
+
+      // Function to update RAM Usage
+      function updateRAMUsage() {
+        const ramUsageElement = document.getElementById("ram-usage");
+        const os = require("os");
+        const totalRAM = os.totalmem();
+        const freeRAM = os.freemem();
+        const usedRAM = totalRAM - freeRAM;
+        const ramUsagePercentage = ((usedRAM / totalRAM) * 100).toFixed(2);
+        ramUsageElement.textContent = `${ramUsagePercentage} %`;
+
+        // Add new data point to RAM Chart
+        ramChart.data.labels.push(new Date().toLocaleTimeString());
+        ramChart.data.datasets[0].data.push(ramUsagePercentage);
+        ramChart.update();
+      }
+
+      // Function to update Memory Change
+      function updateMemoryChange() {
+        const memoryChangeElement = document.getElementById("memory-change");
+        const currentMemoryUsage = process.memoryUsage().rss;
+        const memoryChange = currentMemoryUsage - previousMemoryUsage;
+        const changeText =
+          memoryChange >= 0
+            ? `${(memoryChange / 1024).toFixed(1)} kb increasing`
+            : `${(-memoryChange / 1024).toFixed(1)} kb decreasing`;
+        memoryChangeElement.textContent = changeText;
+
+        // Add new data point to Memory Change Chart
+        const timeNow = new Date().toLocaleTimeString();
+        memoryChangeChart.data.labels.push(timeNow);
+        memoryChangeChart.data.datasets[0].data.push(memoryChange / 1024); // Convert to KB
+
+        // Limit the number of data points to display for better performance
+        const MAX_DATA_POINTS = 10;
+        if (memoryChangeChart.data.labels.length > MAX_DATA_POINTS) {
+          memoryChangeChart.data.labels.shift(); // Remove the oldest label
+          memoryChangeChart.data.datasets[0].data.shift(); // Remove the oldest data point
+        }
+
+        // Update the chart
+        memoryChangeChart.update();
+
+        // Update previous memory usage
+        previousMemoryUsage = currentMemoryUsage;
+      }
+
+      // Update charts initially and then periodically
+      updateMemoryUsage();
+      updateRAMUsage();
+      updateMemoryChange();
+      setInterval(updateMemoryUsage, 1000);
+      setInterval(updateRAMUsage, 1000);
+      setInterval(updateMemoryChange, 1000);
+
+      const ctx = document.getElementById("performance-chart").getContext("2d");
+      const performanceChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: [],
+          datasets: [
+            {
+              label: "Memory Usage",
+              data: [],
+              borderColor: "rgb(75, 192, 192)",
+              tension: 0.1,
+              fill: false,
+            },
+            {
+              label: "RAM Usage",
+              data: [],
+              borderColor: "rgb(255, 99, 132)",
+              tension: 0.1,
+              fill: false,
+            },
+            {
+              label: "Memory Change",
+              data: [],
+              borderColor: "rgb(75, 192, 192)",
+              tension: 0.1,
+              fill: false,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+          plugins: {
+            decimation: {
+              // Configure the Data Decimation plugin
+              enabled: true,
+              algorithm: "lttb", // Choose the decimation algorithm ('lttb' or 'min-max')
+              samples: null, // Number of samples in the output dataset (defaults to canvas width)
+              threshold: null, // Threshold value for triggering decimation (defaults to 4 times canvas width)
+            },
+          },
+        },
+      });
+
+      // Function to update Memory Usage
+      function updateMemoryUsage1() {
+        // Your memory usage update logic here
+        const memoryUsage = Math.random() * 100; // Example data, replace with actual logic
+        performanceChart.data.datasets[0].data.push(memoryUsage);
+        performanceChart.data.labels.push(new Date().toLocaleTimeString());
+        performanceChart.update();
+      }
+
+      // Function to update RAM Usage
+      function updateRAMUsage1() {
+        // Your RAM usage update logic here
+        const ramUsage = Math.random() * 100; // Example data, replace with actual logic
+        performanceChart.data.datasets[1].data.push(ramUsage);
+        performanceChart.update();
+      }
+
+      // Function to update Memory Change
+      function updateMemoryChange1() {
+        // Your memory change update logic here
+        const memoryChange = Math.random() * 20 - 10; // Example data, replace with actual logic
+        performanceChart.data.datasets[2].data.push(memoryChange);
+        performanceChart.update();
+      }
+
+      // Update charts initially and then periodically
+      updateMemoryUsage1();
+      updateRAMUsage1();
+      updateMemoryChange1();
+      setInterval(updateMemoryUsage1, 1000);
+      setInterval(updateRAMUsage1, 1000);
+      setInterval(updateMemoryChange1, 1000);
     </script>
   </body>
 </html>
