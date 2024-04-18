@@ -34,39 +34,11 @@
 </pre
         >
       </div>
-
-      <canvas id="performance-chart" width="800" height="400"></canvas>
-      <br />
-      <div class="usage-info">
-        <span
-          id="memory-usage"
-          style="color: white; margin-left: 5px; margin-right: 10px"
-          >Memory Usage:
-        </span>
-      </div>
-
-      <canvas id="memory-chart"></canvas>
-
-      <span
-        id="ram-usage"
-        style="color: white; margin-left: 5px; margin-right: 10px"
-        >RAM Usage:
-      </span>
-
-      <canvas id="ram-chart"></canvas>
-
-      <span
-        id="memory-change"
-        style="color: white; margin-left: 5px; margin-right: 10px"
-        >Memory Change:
-      </span>
-
-      <canvas id="memory-change-chart"></canvas>
     </div>
     <footer style="background: #191919">
       <footer style="background: #191919">
         <div class="footer-content" style="height: 80px; width: 100%">
-          <!-- <div class="usage-info">
+          <div class="usage-info">
             <span
               id="memory-usage"
               style="color: white; margin-left: 5px; margin-right: 10px"
@@ -90,7 +62,7 @@
             >Memory Change:
           </span>
 
-          <canvas id="memory-change-chart"></canvas> -->
+          <canvas id="memory-change-chart"></canvas>
         </div>
       </footer>
     </footer>
@@ -259,19 +231,19 @@
         const inputContainerDiv = document.createElement("div");
         inputContainerDiv.classList.add("input-container");
         inputContainerDiv.innerHTML = `
-      <div class="prompt"><span class="input-arrow">$</span> <input type="text" id="input-${inputIndex}" class="input command" onkeydown="handleInput(event)" placeholder="Type your command..."></div>
-      <div class="controls">
-         <button class="control-button" onclick="clickAI()">
-            <img src="assets/icon-ai-white.png" class="btn-img-ai" alt="AI">
-         </button>
-         <button class="control-button" onclick="clickAIError()">
-            <img src="assets/icon-search-white.png" class="btn-img-err" alt="Error">
-         </button>
-         <button class="control-button" onclick="clickHelp()">
-            <img src="assets/icon-summary-white.png" class="btn-img-help" alt="Search">
-         </button>
-     </div>
-`;
+            <div class="prompt"><span class="input-arrow">$</span> <input type="text" id="input-${inputIndex}" class="input command" onkeydown="handleInput(event)" placeholder="Type your command..."></div>
+            <div class="controls">
+               <button class="control-button" onclick="clickAI()">
+                  <img src="assets/icon-ai-white.png" class="btn-img-ai" alt="AI">
+               </button>
+               <button class="control-button" onclick="clickAIError()">
+                  <img src="assets/icon-search-white.png" class="btn-img-err" alt="Error">
+               </button>
+               <button class="control-button" onclick="clickHelp()">
+                  <img src="assets/icon-summary-white.png" class="btn-img-help" alt="Search">
+               </button>
+           </div>
+      `;
         terminalBody.appendChild(inputContainerDiv);
         const newCommandInput = inputContainerDiv.querySelector(".command");
         if (defaultInput !== undefined) {
@@ -357,13 +329,20 @@
               borderColor: "rgb(75, 192, 192)",
               tension: 0.1,
               fill: false,
+              borderCapStyle: "butt",
+              borderWidth: 1,
+              pointRadius: 0,
+              borderJoinStyle: "miter",
             },
           ],
         },
         options: {
           scales: {
+            x: {
+              display: false,
+            },
             y: {
-              beginAtZero: true,
+              display: false,
             },
           },
           plugins: {
@@ -372,6 +351,9 @@
               algorithm: "lttb",
               samples: 100, // Increase the number of samples
               threshold: null,
+            },
+            legend: {
+              display: false,
             },
           },
         },
@@ -390,13 +372,20 @@
               borderColor: "rgb(255, 99, 132)",
               tension: 0.1,
               fill: false,
+              borderCapStyle: "butt",
+              borderWidth: 1,
+              pointRadius: 0,
+              borderJoinStyle: "miter",
             },
           ],
         },
         options: {
           scales: {
+            x: {
+              display: false,
+            },
             y: {
-              beginAtZero: true,
+              display: false,
             },
           },
           plugins: {
@@ -405,6 +394,9 @@
               algorithm: "lttb",
               samples: 100, // Increase the number of samples
               threshold: null,
+            },
+            legend: {
+              display: false,
             },
           },
         },
@@ -425,13 +417,32 @@
               borderColor: "rgb(75, 192, 192)",
               tension: 0.1,
               fill: false,
+              borderCapStyle: "butt",
+              borderWidth: 1,
+              pointRadius: 0,
+              borderJoinStyle: "miter",
+              spanGaps: true,
             },
           ],
         },
         options: {
           scales: {
+            x: {
+              display: false,
+            },
             y: {
-              beginAtZero: true,
+              display: false,
+            },
+          },
+          plugins: {
+            decimation: {
+              enabled: true,
+              algorithm: "lttb",
+              samples: 100, // Increase the number of samples
+              threshold: null,
+            },
+            legend: {
+              display: false,
             },
           },
         },
@@ -508,89 +519,90 @@
       updateMemoryUsage();
       updateRAMUsage();
       updateMemoryChange();
-      setInterval(updateMemoryUsage, 1000);
-      setInterval(updateRAMUsage, 1000);
-      setInterval(updateMemoryChange, 1000);
+      setInterval(updateMemoryUsage, 500);
+      setInterval(updateRAMUsage, 500);
+      setInterval(updateMemoryChange, 500);
 
-      const ctx = document.getElementById("performance-chart").getContext("2d");
-      const performanceChart = new Chart(ctx, {
-        type: "line",
-        data: {
-          labels: [],
-          datasets: [
-            {
-              label: "Memory Usage",
-              data: [],
-              borderColor: "rgb(75, 192, 192)",
-              tension: 0.1,
-              fill: false,
-            },
-            {
-              label: "RAM Usage",
-              data: [],
-              borderColor: "rgb(255, 99, 132)",
-              tension: 0.1,
-              fill: false,
-            },
-            {
-              label: "Memory Change",
-              data: [],
-              borderColor: "rgb(75, 192, 192)",
-              tension: 0.1,
-              fill: false,
-            },
-          ],
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-            },
-          },
-          plugins: {
-            decimation: {
-              // Configure the Data Decimation plugin
-              enabled: true,
-              algorithm: "lttb", // Choose the decimation algorithm ('lttb' or 'min-max')
-              samples: null, // Number of samples in the output dataset (defaults to canvas width)
-              threshold: null, // Threshold value for triggering decimation (defaults to 4 times canvas width)
-            },
-          },
-        },
-      });
+      // const ctx = document.getElementById("performance-chart").getContext("2d");
+      // const performanceChart = new Chart(ctx, {
+      //   type: "line",
+      //   data: {
+      //     labels: [],
+      //     datasets: [
+      //       {
+      //         label: "Memory Usage",
+      //         data: [],
+      //         borderColor: "rgb(75, 192, 192)",
+      //         tension: 0.1,
+      //         fill: false,
+      //       },
+      //       {
+      //         label: "RAM Usage",
+      //         data: [],
+      //         borderColor: "rgb(255, 99, 132)",
+      //         tension: 0.1,
+      //         fill: false,
+      //       },
+      //       {
+      //         label: "Memory Change",
+      //         data: [],
+      //         borderColor: "rgb(75, 192, 192)",
+      //         tension: 0.1,
+      //         fill: false,
+      //         borderCapStyle: butt,
+      //       },
+      //     ],
+      //   },
+      //   options: {
+      //     scales: {
+      //       y: {
+      //         beginAtZero: true,
+      //       },
+      //     },
+      //     plugins: {
+      //       decimation: {
+      //         // Configure the Data Decimation plugin
+      //         enabled: true,
+      //         algorithm: "lttb", // Choose the decimation algorithm ('lttb' or 'min-max')
+      //         samples: null, // Number of samples in the output dataset (defaults to canvas width)
+      //         threshold: null, // Threshold value for triggering decimation (defaults to 4 times canvas width)
+      //       },
+      //     },
+      //   },
+      // });
 
-      // Function to update Memory Usage
-      function updateMemoryUsage1() {
-        // Your memory usage update logic here
-        const memoryUsage = Math.random() * 100; // Example data, replace with actual logic
-        performanceChart.data.datasets[0].data.push(memoryUsage);
-        performanceChart.data.labels.push(new Date().toLocaleTimeString());
-        performanceChart.update();
-      }
+      // // Function to update Memory Usage
+      // function updateMemoryUsage1() {
+      //   // Your memory usage update logic here
+      //   const memoryUsage = Math.random() * 100; // Example data, replace with actual logic
+      //   performanceChart.data.datasets[0].data.push(memoryUsage);
+      //   performanceChart.data.labels.push(new Date().toLocaleTimeString());
+      //   performanceChart.update();
+      // }
 
-      // Function to update RAM Usage
-      function updateRAMUsage1() {
-        // Your RAM usage update logic here
-        const ramUsage = Math.random() * 100; // Example data, replace with actual logic
-        performanceChart.data.datasets[1].data.push(ramUsage);
-        performanceChart.update();
-      }
+      // // Function to update RAM Usage
+      // function updateRAMUsage1() {
+      //   // Your RAM usage update logic here
+      //   const ramUsage = Math.random() * 100; // Example data, replace with actual logic
+      //   performanceChart.data.datasets[1].data.push(ramUsage);
+      //   performanceChart.update();
+      // }
 
-      // Function to update Memory Change
-      function updateMemoryChange1() {
-        // Your memory change update logic here
-        const memoryChange = Math.random() * 20 - 10; // Example data, replace with actual logic
-        performanceChart.data.datasets[2].data.push(memoryChange);
-        performanceChart.update();
-      }
+      // // Function to update Memory Change
+      // function updateMemoryChange1() {
+      //   // Your memory change update logic here
+      //   const memoryChange = Math.random() * 20 - 10; // Example data, replace with actual logic
+      //   performanceChart.data.datasets[2].data.push(memoryChange);
+      //   performanceChart.update();
+      // }
 
-      // Update charts initially and then periodically
-      updateMemoryUsage1();
-      updateRAMUsage1();
-      updateMemoryChange1();
-      setInterval(updateMemoryUsage1, 1000);
-      setInterval(updateRAMUsage1, 1000);
-      setInterval(updateMemoryChange1, 1000);
+      // // Update charts initially and then periodically
+      // updateMemoryUsage1();
+      // updateRAMUsage1();
+      // updateMemoryChange1();
+      // setInterval(updateMemoryUsage1, 1000);
+      // setInterval(updateRAMUsage1, 1000);
+      // setInterval(updateMemoryChange1, 1000);
     </script>
   </body>
 </html>
