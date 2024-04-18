@@ -36,35 +36,23 @@
       </div>
     </div>
     <footer style="background: #191919">
-      <footer style="background: #191919">
-        <div class="footer-content" style="height: 80px; width: 100%">
+      <div>
+        <div class="footer-content">
           <div class="usage-info">
-            <span
-              id="memory-usage"
-              style="color: white; margin-left: 5px; margin-right: 10px"
-              >Memory Usage:
-            </span>
+            <span id="memory-usage">Memory Usage:</span>
           </div>
 
-          <canvas id="memory-chart"></canvas>
+          <canvas id="memory-chart" width="400" height="200"></canvas>
 
-          <span
-            id="ram-usage"
-            style="color: white; margin-left: 5px; margin-right: 10px"
-            >RAM Usage:
-          </span>
+          <span id="cpu-usage">CPU Usage:</span>
 
-          <canvas id="ram-chart"></canvas>
+          <canvas id="cpu-chart" width="400" height="200"></canvas>
 
-          <span
-            id="memory-change"
-            style="color: white; margin-left: 5px; margin-right: 10px"
-            >Memory Change:
-          </span>
+          <span id="internet-speed-label">Internet Speed:</span>
 
-          <canvas id="memory-change-chart"></canvas>
+          <canvas id="internet-speed-chart" width="400" height="200"></canvas>
         </div>
-      </footer>
+      </div>
     </footer>
 
     <script>
@@ -329,10 +317,8 @@
               borderColor: "rgb(75, 192, 192)",
               tension: 0.1,
               fill: false,
-              borderCapStyle: "butt",
               borderWidth: 1,
               pointRadius: 0,
-              borderJoinStyle: "miter",
             },
           ],
         },
@@ -349,7 +335,7 @@
             decimation: {
               enabled: true,
               algorithm: "lttb",
-              samples: 100, // Increase the number of samples
+              samples: 100,
               threshold: null,
             },
             legend: {
@@ -359,23 +345,20 @@
         },
       });
 
-      // Initialize RAM Chart
-      const ramChartCtx = document.getElementById("ram-chart").getContext("2d");
-      const ramChart = new Chart(ramChartCtx, {
+      const cpuChartCtx = document.getElementById("cpu-chart").getContext("2d");
+      const cpuChart = new Chart(cpuChartCtx, {
         type: "line",
         data: {
           labels: [],
           datasets: [
             {
-              label: "RAM Usage",
+              label: "CPU Usage",
               data: [],
               borderColor: "rgb(255, 99, 132)",
               tension: 0.1,
               fill: false,
-              borderCapStyle: "butt",
               borderWidth: 1,
               pointRadius: 0,
-              borderJoinStyle: "miter",
             },
           ],
         },
@@ -392,7 +375,7 @@
             decimation: {
               enabled: true,
               algorithm: "lttb",
-              samples: 100, // Increase the number of samples
+              samples: 100,
               threshold: null,
             },
             legend: {
@@ -402,26 +385,31 @@
         },
       });
 
-      // Initialize Memory Change Chart
-      const memoryChangeChartCtx = document
-        .getElementById("memory-change-chart")
+      const internetSpeedChartCtx = document
+        .getElementById("internet-speed-chart")
         .getContext("2d");
-      const memoryChangeChart = new Chart(memoryChangeChartCtx, {
+      const internetSpeedChart = new Chart(internetSpeedChartCtx, {
         type: "line",
         data: {
           labels: [],
           datasets: [
             {
-              label: "Memory Change",
+              label: "Download Speed",
               data: [],
               borderColor: "rgb(75, 192, 192)",
               tension: 0.1,
               fill: false,
-              borderCapStyle: "butt",
               borderWidth: 1,
               pointRadius: 0,
-              borderJoinStyle: "miter",
-              spanGaps: true,
+            },
+            {
+              label: "Upload Speed",
+              data: [],
+              borderColor: "rgb(255, 99, 132)",
+              tension: 0.1,
+              fill: false,
+              borderWidth: 1,
+              pointRadius: 0,
             },
           ],
         },
@@ -438,20 +426,18 @@
             decimation: {
               enabled: true,
               algorithm: "lttb",
-              samples: 100, // Increase the number of samples
+              samples: 100,
               threshold: null,
             },
             legend: {
-              display: false,
+              display: true,
             },
           },
         },
       });
 
-      // Global variable to store previous memory usage
       let previousMemoryUsage = 0;
 
-      // Function to update Memory Usage
       function updateMemoryUsage() {
         const memoryUsageElement = document.getElementById("memory-usage");
         const os = require("os");
@@ -463,146 +449,68 @@
           (1024 * 1024 * 1024)
         ).toFixed(2)} GB`;
 
-        // Add new data point to Memory Chart
         memoryChart.data.labels.push(new Date().toLocaleTimeString());
-        memoryChart.data.datasets[0].data.push(usedRAM); // Convert to MB
+        memoryChart.data.datasets[0].data.push(usedRAM);
         memoryChart.update();
       }
 
-      // Function to update RAM Usage
-      function updateRAMUsage() {
-        const ramUsageElement = document.getElementById("ram-usage");
+      function updateCPUUsage() {
+        const cpuUsageElement = document.getElementById("cpu-usage");
         const os = require("os");
-        const totalRAM = os.totalmem();
-        const freeRAM = os.freemem();
-        const usedRAM = totalRAM - freeRAM;
-        const ramUsagePercentage = ((usedRAM / totalRAM) * 100).toFixed(2);
-        ramUsageElement.textContent = `${ramUsagePercentage} %`;
+        const cpuUsagePercentage = os.loadavg()[0] * 100;
+        cpuUsageElement.textContent = `${cpuUsagePercentage.toFixed(2)} %`;
 
-        // Add new data point to RAM Chart
-        ramChart.data.labels.push(new Date().toLocaleTimeString());
-        ramChart.data.datasets[0].data.push(ramUsagePercentage);
-        ramChart.update();
+        cpuChart.data.labels.push(new Date().toLocaleTimeString());
+        cpuChart.data.datasets[0].data.push(cpuUsagePercentage);
+        cpuChart.update();
       }
 
-      // Function to update Memory Change
-      function updateMemoryChange() {
-        const memoryChangeElement = document.getElementById("memory-change");
-        const currentMemoryUsage = process.memoryUsage().rss;
-        const memoryChange = currentMemoryUsage - previousMemoryUsage;
-        const changeText =
-          memoryChange >= 0
-            ? `${(memoryChange / 1024).toFixed(1)} kb increasing`
-            : `${(-memoryChange / 1024).toFixed(1)} kb decreasing`;
-        memoryChangeElement.textContent = changeText;
+      async function calculateInternetSpeed() {
+        const speedTest = require("speedtest-net");
+        try {
+          const speed = await speedTest({ maxTime: 5000 });
+          const downloadSpeed = speed.download.bandwidth / 1024 / 1024;
+          const uploadSpeed = speed.upload.bandwidth / 1024 / 1024;
+          console.log("this is download speeeeed :" + downloadSpeed);
 
-        // Add new data point to Memory Change Chart
-        const timeNow = new Date().toLocaleTimeString();
-        memoryChangeChart.data.labels.push(timeNow);
-        memoryChangeChart.data.datasets[0].data.push(memoryChange / 1024); // Convert to KB
-
-        // Limit the number of data points to display for better performance
-        const MAX_DATA_POINTS = 10;
-        if (memoryChangeChart.data.labels.length > MAX_DATA_POINTS) {
-          memoryChangeChart.data.labels.shift(); // Remove the oldest label
-          memoryChangeChart.data.datasets[0].data.shift(); // Remove the oldest data point
+          console.log("this is upload speeeeed :" + uploadSpeed);
+          return { downloadSpeed, uploadSpeed };
+        } catch (error) {
+          console.error("Speed test failed:", error.message);
+          return null;
         }
-
-        // Update the chart
-        memoryChangeChart.update();
-
-        // Update previous memory usage
-        previousMemoryUsage = currentMemoryUsage;
       }
 
-      // Update charts initially and then periodically
+      async function updateInternetSpeed() {
+        try {
+          const speed = await calculateInternetSpeed();
+          console.log("Speed test result:", speed); // Log speed test result
+          const timeNow = new Date().toLocaleTimeString();
+
+          internetSpeedChart.data.labels.push(timeNow);
+          internetSpeedChart.data.datasets[0].data.push(speed.downloadSpeed);
+          internetSpeedChart.data.datasets[1].data.push(speed.uploadSpeed);
+
+          const MAX_DATA_POINTS = 10;
+          if (internetSpeedChart.data.labels.length > MAX_DATA_POINTS) {
+            internetSpeedChart.data.labels.shift();
+            internetSpeedChart.data.datasets.forEach((dataset) => {
+              dataset.data.shift();
+            });
+          }
+
+          internetSpeedChart.update();
+        } catch (error) {
+          console.error("Failed to update internet speed:", error.message);
+        }
+      }
+
       updateMemoryUsage();
-      updateRAMUsage();
-      updateMemoryChange();
+      updateCPUUsage();
+      updateInternetSpeed();
       setInterval(updateMemoryUsage, 500);
-      setInterval(updateRAMUsage, 500);
-      setInterval(updateMemoryChange, 500);
-
-      // const ctx = document.getElementById("performance-chart").getContext("2d");
-      // const performanceChart = new Chart(ctx, {
-      //   type: "line",
-      //   data: {
-      //     labels: [],
-      //     datasets: [
-      //       {
-      //         label: "Memory Usage",
-      //         data: [],
-      //         borderColor: "rgb(75, 192, 192)",
-      //         tension: 0.1,
-      //         fill: false,
-      //       },
-      //       {
-      //         label: "RAM Usage",
-      //         data: [],
-      //         borderColor: "rgb(255, 99, 132)",
-      //         tension: 0.1,
-      //         fill: false,
-      //       },
-      //       {
-      //         label: "Memory Change",
-      //         data: [],
-      //         borderColor: "rgb(75, 192, 192)",
-      //         tension: 0.1,
-      //         fill: false,
-      //         borderCapStyle: butt,
-      //       },
-      //     ],
-      //   },
-      //   options: {
-      //     scales: {
-      //       y: {
-      //         beginAtZero: true,
-      //       },
-      //     },
-      //     plugins: {
-      //       decimation: {
-      //         // Configure the Data Decimation plugin
-      //         enabled: true,
-      //         algorithm: "lttb", // Choose the decimation algorithm ('lttb' or 'min-max')
-      //         samples: null, // Number of samples in the output dataset (defaults to canvas width)
-      //         threshold: null, // Threshold value for triggering decimation (defaults to 4 times canvas width)
-      //       },
-      //     },
-      //   },
-      // });
-
-      // // Function to update Memory Usage
-      // function updateMemoryUsage1() {
-      //   // Your memory usage update logic here
-      //   const memoryUsage = Math.random() * 100; // Example data, replace with actual logic
-      //   performanceChart.data.datasets[0].data.push(memoryUsage);
-      //   performanceChart.data.labels.push(new Date().toLocaleTimeString());
-      //   performanceChart.update();
-      // }
-
-      // // Function to update RAM Usage
-      // function updateRAMUsage1() {
-      //   // Your RAM usage update logic here
-      //   const ramUsage = Math.random() * 100; // Example data, replace with actual logic
-      //   performanceChart.data.datasets[1].data.push(ramUsage);
-      //   performanceChart.update();
-      // }
-
-      // // Function to update Memory Change
-      // function updateMemoryChange1() {
-      //   // Your memory change update logic here
-      //   const memoryChange = Math.random() * 20 - 10; // Example data, replace with actual logic
-      //   performanceChart.data.datasets[2].data.push(memoryChange);
-      //   performanceChart.update();
-      // }
-
-      // // Update charts initially and then periodically
-      // updateMemoryUsage1();
-      // updateRAMUsage1();
-      // updateMemoryChange1();
-      // setInterval(updateMemoryUsage1, 1000);
-      // setInterval(updateRAMUsage1, 1000);
-      // setInterval(updateMemoryChange1, 1000);
+      setInterval(updateCPUUsage, 500);
+      setInterval(updateInternetSpeed, 5000);
     </script>
   </body>
 </html>
