@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Welcome to Comet !!</title>
+  </head>
+  <body>
+    <h1>Enter Your OpenAI Key</h1>
+    <form id="key-form">
+      <input type="text" id="key-input" placeholder="Your OpenAI key" />
+      <button type="submit">Submit</button>
+    </form>
+    <script>
+      const { ipcRenderer } = require("electron");
+      document
+        .getElementById("key-form")
+        .addEventListener("submit", (event) => {
+          event.preventDefault();
+          const key = document.getElementById("key-input").value.trim();
+          if (key != "") {
+            ipcRenderer.send("key-submitted", key);
+            window.close();
+          } else {
+            alert("Please enter your OpenAI key!");
+          }
+        });
+    </script>
+  </body>
+</html>
