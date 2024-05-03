@@ -2,14 +2,17 @@ const { app, BrowserWindow, ipcMain } = require("electron");
 const { exec } = require("child_process");
 const { OpenAI } = require("@langchain/openai");
 const dotenv = require("dotenv").config();
+const path = require("path");
 const fs = require("fs");
 
 let mainWindow;
+let isFirstTime = true;
 const model = new OpenAI({});
 process.chdir("/");
 
 function createWindow() {
   mainWindow = new BrowserWindow({
+    title: "Parent",
     width: 800,
     height: 600,
     webPreferences: {
@@ -21,6 +24,58 @@ function createWindow() {
   mainWindow.loadFile("index.html");
   mainWindow.on("closed", function () {
     mainWindow = null;
+  });
+
+  //check uf it is first time
+  const keyEnvPath = path.join(__dirname, "/.key-env");
+  if (isFirstTime && !fs.existsSync(keyEnvPath)) {
+    //isFirstTime = false;
+    showPopup();
+  }
+  showPopup();
+}
+
+function showPopup() {
+  let keyWindow = new BrowserWindow({
+    title: "child",
+    parent: mainWindow,
+    modal: true,
+    width: 400,
+    height: 200,
+    frame: true,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
+  });
+  keyWindow.loadFile("key-popup.html");
+  // mainWindow.setEnabled(true);
+  // keyWindow.on("focus", () => {
+  //   const parentPosition = mainWindow.getPosition();
+  //   const parentSize = mainWindow.getSize();
+  //   const childSize = keyWindow.getSize();
+  //   const x = parentPosition[0] + (parentSize[0] - childSize[0]) / 2;
+  //   const y = parentPosition[1] + (parentSize[1] - childSize[1]) / 2;
+  //   keyWindow.setPosition(x, y);
+  // });
+  keyWindow.on("closed", function () {
+    keyWindow = null;
+    mainWindow.focus(); // Focus on main window after closing the child window
+  });
+
+  // keyWindow.on("closed", function () {
+  //   mainWindow.setEnabled(true);
+  //   keyWindow = null;
+  // });
+
+  ipcMain.once("key-submitted", (event, key) => {
+    console.log("thisis dir", __dirname);
+    fs.writeFileSync(
+      path.join(__dirname, "/.key-env"),
+      `OPENAI_API_KEY=${key}`
+    );
+    // mainWindow.webContents.send("set-openai-key", key);
+    keyWindow.close();
   });
 }
 
@@ -35,6 +90,22 @@ app.on("window-all-closed", function () {
 app.on("activate", function () {
   if (mainWindow === null) {
     createWindow();
+  }
+});
+
+// Handle saving input history in the main process
+ipcMain.on("save-input-history", (event, inputHistory) => {
+  fs.writeFileSync(
+    __dirname + "/inputHistory.json",
+    JSON.stringify(inputHistory)
+  );
+});
+
+// Handle loading input history in the main process
+ipcMain.on("load-input-history", (event) => {
+  if (fs.existsSync(__dirname + "/inputHistory.json")) {
+    const data = fs.readFileSync(__dirname + "/inputHistory.json");
+    event.sender.send("input-history-loaded", JSON.parse(data));
   }
 });
 
@@ -62,8 +133,13 @@ ipcMain.on("command-ai", async (event, text) => {
 });
 
 ipcMain.on("dummy", async (event, text) => {
-  console.log("Received dummy", text);
-  var data = await calculateInternetSpeed();
+  // console.log("Received dummy", text);
+  // try {
+  //   const result = await runSpeedTest();
+  //   console.log("speedtest-result", result);
+  // } catch (error) {
+  //   console.log("speedtest-error", error.message);
+  // }
   //event.sender.send("command-error-ai",data);
 });
 
@@ -123,19 +199,3 @@ async function askLLMHelp(command) {
   console.log(JSON.stringify(res));
   return JSON.stringify(res);
 }
-
-// Handle saving input history in the main process
-ipcMain.on("save-input-history", (event, inputHistory) => {
-  fs.writeFileSync(
-    __dirname + "/inputHistory.json",
-    JSON.stringify(inputHistory)
-  );
-});
-
-// Handle loading input history in the main process
-ipcMain.on("load-input-history", (event) => {
-  if (fs.existsSync(__dirname + "/inputHistory.json")) {
-    const data = fs.readFileSync(__dirname + "/inputHistory.json");
-    event.sender.send("input-history-loaded", JSON.parse(data));
-  }
-});

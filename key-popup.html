@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Welcome to Comet !!</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <!-- Include Axios for making HTTP requests -->
+  </head>
+  <body>
+    <h1>Welcome to Comet</h1>
+
+    <h4>Level up your terminal experience with spice and shield of AI</h4>
+    <form id="key-form">
+      <input type="text" id="key-input" placeholder="Your OpenAI key" />
+      <button type="submit">Submit</button>
+    </form>
+    <script>
+      const { ipcRenderer } = require("electron");
+
+      async function isOpenAIKeyValid(openaiKey) {
+        const url = "https://api.openai.com/v1/models/gpt-3.5-turbo-instruct";
+
+        const headers = {
+          Authorization: `Bearer ${openaiKey}`,
+        };
+
+        try {
+          const response = await axios.get(url, { headers });
+          const data = response.data;
+
+          if (data.model && data.model.error) {
+            return false;
+          }
+          return true;
+        } catch (error) {
+          return false; // Handle network errors or other issues
+        }
+      }
+
+      document
+        .getElementById("key-form")
+        .addEventListener("submit", async (event) => {
+          event.preventDefault(); // Prevent form submission
+          const key = document.getElementById("key-input").value.trim();
+          let isValid = await isOpenAIKeyValid(key); // Call the function to check key validity
+          console.log("this is key", key);
+          if (isValid) {
+            console.log("SUCCESS", key);
+            alert("Validated successfully");
+            ipcRenderer.send("key-submitted", key);
+          } else {
+            console.log("FAILED", key);
+            alert("Please enter a valid OpenAI key!");
+          }
+        });
+    </script>
+  </body>
+</html>

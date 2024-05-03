@@ -128,6 +128,7 @@
           appendHelp(output); // Use the existing function to append the output
           appendInputContainer();
         });
+        ipcRenderer.send("run-speedtest");
       };
 
       function handleInput(event) {
