@@ -29,9 +29,10 @@ function createWindow() {
   //check uf it is first time
   const keyEnvPath = path.join(__dirname, "/.key-env");
   if (isFirstTime && !fs.existsSync(keyEnvPath)) {
-    isFirstTime = false;
+    //isFirstTime = false;
     showPopup();
   }
+  showPopup();
 }
 
 function showPopup() {
@@ -41,27 +42,31 @@ function showPopup() {
     modal: true,
     width: 400,
     height: 200,
-    frame: false,
+    frame: true,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
     },
   });
   keyWindow.loadFile("key-popup.html");
-  mainWindow.setEnabled(false);
-  keyWindow.on("focus", () => {
-    const parentPosition = mainWindow.getPosition();
-    const parentSize = mainWindow.getSize();
-    const childSize = keyWindow.getSize();
-    const x = parentPosition[0] + (parentSize[0] - childSize[0]) / 2;
-    const y = parentPosition[1] + (parentSize[1] - childSize[1]) / 2;
-    keyWindow.setPosition(x, y);
+  // mainWindow.setEnabled(true);
+  // keyWindow.on("focus", () => {
+  //   const parentPosition = mainWindow.getPosition();
+  //   const parentSize = mainWindow.getSize();
+  //   const childSize = keyWindow.getSize();
+  //   const x = parentPosition[0] + (parentSize[0] - childSize[0]) / 2;
+  //   const y = parentPosition[1] + (parentSize[1] - childSize[1]) / 2;
+  //   keyWindow.setPosition(x, y);
+  // });
+  keyWindow.on("closed", function () {
+    keyWindow = null;
+    mainWindow.focus(); // Focus on main window after closing the child window
   });
 
-  keyWindow.on("closed", function () {
-    mainWindow.setEnabled(true);
-    keyWindow = null;
-  });
+  // keyWindow.on("closed", function () {
+  //   mainWindow.setEnabled(true);
+  //   keyWindow = null;
+  // });
 
   ipcMain.once("key-submitted", (event, key) => {
     console.log("thisis dir", __dirname);
@@ -69,7 +74,7 @@ function showPopup() {
       path.join(__dirname, "/.key-env"),
       `OPENAI_API_KEY=${key}`
     );
-    mainWindow.webContents.send("set-openai-key", key);
+    // mainWindow.webContents.send("set-openai-key", key);
     keyWindow.close();
   });
 }
