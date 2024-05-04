@@ -25,6 +25,7 @@ footer img {
 
 footer small {
   color: #506479;
+  color: black;
   font-size: 0.9rem;
 }
 
@@ -569,3 +570,6 @@ body {
 }
 /* Style the content within the footer */
 
+::-webkit-scrollbar {
+  display: none;
+  }
