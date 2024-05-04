@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Welcome to Comet !!</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+
+  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
+  <!--Replace with your tailwind.css once created-->
+  <link href="https://unpkg.com/@tailwindcss/custom-forms/dist/custom-forms.min.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="first-page.css">
+  </link>
+  <!-- Include Axios for making HTTP requests -->
+</head>
+
+
+  <!-- <h4>Level up your terminal experience with spice and shield of AI</h4>
+    <form id="key-form">
+      <input type="text" id="key-input" placeholder="Your OpenAI key" />
+      <button type="submit">Submit</button>
+    </form> -->
+
+    <body>
+        <div class="">
+            <header class="py-4 bg-white sm:py-5" x-data="{expanded: false}">
+                <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+                    <nav class="flex items-center justify-between">
+                        <div class="flex shrink-0">
+                            <a href="#" title="" class="flex">
+                                <img class="w-auto h-8" src="https://landingfoliocom.imgix.net/store/collection/clarity-blog/images/logo.svg" alt="" />
+                            </a>
+                        </div>
+        
+                        <div class="flex md:hidden">
+                            <button type="button" class="text-gray-900" @click="expanded = !expanded" :aria-expanded="expanded">
+                                <span x-show="!expanded" aria-hidden="true">
+                                    <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" />
+                                    </svg>
+                                </span>
+        
+                                <span x-show="expanded" aria-hidden="true">
+                                    <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </span>
+                            </button>
+                        </div>
+        
+                        <div class="hidden md:items-center md:justify-start md:ml-16 md:mr-auto md:space-x-10 md:flex">
+                            <a href="#" title="" class="text-base font-medium text-gray-900 transition-all duration-200 hover:text-indigo-600"> Features </a>
+        
+                            <a href="#" title="" class="text-base font-medium text-gray-900 transition-all duration-200 hover:text-indigo-600"> Pricing </a>
+        
+                            <a href="#" title="" class="text-base font-medium text-gray-900 transition-all duration-200 hover:text-indigo-600"> Support </a>
+                        </div>
+        
+                        <div class="hidden md:block">
+                            <a
+                                href="#"
+                                title=""
+                                class="inline-flex items-center justify-center px-6 py-2 sm:py-2.5 text-base font-semibold text-white transition-all duration-200 bg-gray-900 rounded-lg sm:text-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
+                                role="button"
+                            >
+                                Join Email List
+                            </a>
+                        </div>
+                    </nav>
+        
+                    <nav x-show="expanded" x-collapse>
+                        <div class="px-1 pt-8 pb-4">
+                            <div class="grid gap-y-6">
+                                <a href="#" title="" class="flex items-center text-base font-medium text-gray-900 transition-all duration-200 focus:outline-none focus:ring-0"> Features </a>
+        
+                                <a href="#" title="" class="flex items-center text-base font-medium text-gray-900 transition-all duration-200 focus:outline-none focus:ring-0"> Pricing </a>
+        
+                                <a href="#" title="" class="flex items-center text-base font-medium text-gray-900 transition-all duration-200 focus:outline-none focus:ring-0"> Support </a>
+        
+                                <a
+                                    href="#"
+                                    title=""
+                                    class="inline-flex items-center justify-center px-6 py-2 text-base font-semibold leading-7 text-white transition-all duration-200 bg-gray-900 border border-transparent rounded-lg hover:bg-gray-600 font-pj focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
+                                    role="button"
+                                >
+                                    Join Email List
+                                </a>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </header>
+        
+            <section class="relative py-12 bg-white sm:py-16 lg:py-20">
+                <div class="absolute inset-0">
+                    <img class="object-cover w-full h-full" src="https://landingfoliocom.imgix.net/store/collection/clarity-blog/images/hero/5/grid-pattern.png" alt="" />
+                </div>
+        
+                <div class="relative px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
+                    <div class="max-w-xl mx-auto text-center">
+                        <h1 class="text-3xl font-bold text-gray-900 sm:text-4xl lg:text-5xl">Helping developers to get their dream job</h1>
+                        <p class="max-w-md mx-auto mt-6 text-base font-normal leading-7 text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vehicula massa in enim luctus. Rutrum arcu.</p>
+        
+                        <form action="#" method="POST" class="max-w-md mx-auto mt-8 space-y-4 sm:space-x-4 sm:flex sm:space-y-0 sm:items-end">
+                            <div class="flex-1">
+                                <label for="" class="sr-only"> Email address </label>
+                                <div>
+                                    <input type="email" name="" id="" class="block w-full px-4 py-3 sm:py-3.5 text-base font-medium text-gray-900 placeholder-gray-500 border border-gray-300 rounded-lg sm:text-sm focus:ring-gray-900 focus:border-gray-900" placeholder="Email address" />
+                                </div>
+                            </div>
+        
+                            <div class="relative group">
+                                <div class="absolute transitiona-all duration-1000 opacity-70 inset-0 bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-xl blur-lg filter group-hover:opacity-100 group-hover:duration-200"></div>
+        
+                                <button
+                                    type="button"
+                                    class="inline-flex relative items-center justify-center w-full sm:w-auto px-8 py-3 sm:text-sm text-base sm:py-3.5 font-semibold text-white transition-all duration-200 bg-indigo-600 border border-transparent rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
+                                >
+                                    Join Now
+                                </button>
+                            </div>
+                        </form>
+        
+                        <ul class="flex items-center justify-center mt-6 space-x-6 sm:space-x-8">
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 mr-2 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span class="text-xs font-medium text-gray-900 sm:text-sm"> Weekly new articles </span>
+                            </li>
+        
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 mr-2 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span class="text-xs font-medium text-gray-900 sm:text-sm"> Join other 1600+ Devs </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+        
+                <div class="flex w-full gap-6 pb-8 mt-12 overflow-x-auto sm:mt-16 lg:mt-20 snap-x">
+                    <div class="relative snap-center scroll-ml-6 shrink-0 first:pl-6 last:pr-6">
+                        <div class="overflow-hidden w-[300px] lg:w-[420px] transition-all duration-200 transform bg-white border border-gray-200 rounded-2xl hover:shadow-lg hover:-translate-y-1">
+                            <div class="px-4 py-5 sm:p-5">
+                                <div class="flex items-start lg:items-center">
+                                    <a href="#" title="" class="shrink-0">
+                                        <img class="lg:h-24 w-14 h-14 lg:w-24 rounded-xl object-cvoer" src="https://landingfoliocom.imgix.net/store/collection/clarity-blog/images/hero/5/thumbnail-1.png" alt="" />
+                                    </a>
+        
+                                    <div class="flex-1 ml-4 lg:ml-6">
+                                        <p class="text-xs font-medium text-gray-900 lg:text-sm">
+                                            <a href="#" title="" class=""> Growth </a>
+                                        </p>
+                                        <p class="mt-2 text-sm font-bold text-gray-900 lg:text-lg group-hover:text-gray-600">
+                                            <a href="#" title="" class=""> How a visual artist redefines success in graphic design </a>
+                                        </p>
+                                        <p class="mt-2 text-xs font-medium text-gray-500 lg:text-sm">April 09, 2022</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="relative snap-center scroll-ml-6 shrink-0 first:pl-6 last:pr-6">
+                        <div class="overflow-hidden w-[300px] lg:w-[420px] transition-all duration-200 transform bg-white border border-gray-200 rounded-2xl hover:shadow-lg hover:-translate-y-1">
+                            <div class="px-4 py-5 sm:p-5">
+                                <div class="flex items-start lg:items-center">
+                                    <a href="#" title="" class="shrink-0">
+                                        <img class="lg:h-24 w-14 h-14 lg:w-24 rounded-xl object-cvoer" src="https://landingfoliocom.imgix.net/store/collection/clarity-blog/images/hero/5/thumbnail-2.png" alt="" />
+                                    </a>
+        
+                                    <div class="flex-1 ml-4 lg:ml-6">
+                                        <p class="text-xs font-medium text-gray-900 lg:text-sm">
+                                            <a href="#" title="" class=""> Growth </a>
+                                        </p>
+                                        <p class="mt-2 text-sm font-bold text-gray-900 lg:text-lg group-hover:text-gray-600">
+                                            <a href="#" title="" class=""> How a visual artist redefines success in graphic design </a>
+                                        </p>
+                                        <p class="mt-2 text-xs font-medium text-gray-500 lg:text-sm">April 09, 2022</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="relative snap-center scroll-ml-6 shrink-0 first:pl-6 last:pr-6">
+                        <div class="overflow-hidden w-[300px] lg:w-[420px] transition-all duration-200 transform bg-white border border-gray-200 rounded-2xl hover:shadow-lg hover:-translate-y-1">
+                            <div class="px-4 py-5 sm:p-5">
+                                <div class="flex items-start lg:items-center">
+                                    <a href="#" title="" class="shrink-0">
+                                        <img class="lg:h-24 w-14 h-14 lg:w-24 rounded-xl object-cvoer" src="https://landingfoliocom.imgix.net/store/collection/clarity-blog/images/hero/5/thumbnail-3.png" alt="" />
+                                    </a>
+        
+                                    <div class="flex-1 ml-4 lg:ml-6">
+                                        <p class="text-xs font-medium text-gray-900 lg:text-sm">
+                                            <a href="#" title="" class=""> Growth </a>
+                                        </p>
+                                        <p class="mt-2 text-sm font-bold text-gray-900 lg:text-lg group-hover:text-gray-600">
+                                            <a href="#" title="" class=""> How a visual artist redefines success in graphic design </a>
+                                        </p>
+                                        <p class="mt-2 text-xs font-medium text-gray-500 lg:text-sm">April 09, 2022</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="relative snap-center scroll-ml-6 shrink-0 first:pl-6 last:pr-6">
+                        <div class="overflow-hidden w-[300px] lg:w-[420px] transition-all duration-200 transform bg-white border border-gray-200 rounded-2xl hover:shadow-lg hover:-translate-y-1">
+                            <div class="px-4 py-5 sm:p-5">
+                                <div class="flex items-start lg:items-center">
+                                    <a href="#" title="" class="shrink-0">
+                                        <img class="lg:h-24 w-14 h-14 lg:w-24 rounded-xl object-cvoer" src="https://landingfoliocom.imgix.net/store/collection/clarity-blog/images/hero/5/thumbnail-4.png" alt="" />
+                                    </a>
+        
+                                    <div class="flex-1 ml-4 lg:ml-6">
+                                        <p class="text-xs font-medium text-gray-900 lg:text-sm">
+                                            <a href="#" title="" class=""> Growth </a>
+                                        </p>
+                                        <p class="mt-2 text-sm font-bold text-gray-900 lg:text-lg group-hover:text-gray-600">
+                                            <a href="#" title="" class=""> How a visual artist redefines success in graphic design </a>
+                                        </p>
+                                        <p class="mt-2 text-xs font-medium text-gray-500 lg:text-sm">April 09, 2022</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="relative snap-center scroll-ml-6 shrink-0 first:pl-6 last:pr-6">
+                        <div class="overflow-hidden w-[300px] lg:w-[420px] transition-all duration-200 transform bg-white border border-gray-200 rounded-2xl hover:shadow-lg hover:-translate-y-1">
+                            <div class="px-4 py-5 sm:p-5">
+                                <div class="flex items-start lg:items-center">
+                                    <a href="#" title="" class="shrink-0">
+                                        <img class="lg:h-24 w-14 h-14 lg:w-24 rounded-xl object-cvoer" src="https://landingfoliocom.imgix.net/store/collection/clarity-blog/images/hero/5/thumbnail-5.png" alt="" />
+                                    </a>
+        
+                                    <div class="flex-1 ml-4 lg:ml-6">
+                                        <p class="text-xs font-medium text-gray-900 lg:text-sm">
+                                            <a href="#" title="" class=""> Growth </a>
+                                        </p>
+                                        <p class="mt-2 text-sm font-bold text-gray-900 lg:text-lg group-hover:text-gray-600">
+                                            <a href="#" title="" class=""> How a visual artist redefines success in graphic design </a>
+                                        </p>
+                                        <p class="mt-2 text-xs font-medium text-gray-500 lg:text-sm">April 09, 2022</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+  <script>
+    const { ipcRenderer } = require("electron");
+
+    async function isOpenAIKeyValid(openaiKey) {
+      const url = "https://api.openai.com/v1/models/gpt-3.5-turbo-instruct";
+
+      const headers = {
+        Authorization: `Bearer ${openaiKey}`,
+      };
+
+      try {
+        const response = await axios.get(url, { headers });
+        const data = response.data;
+
+        if (data.model && data.model.error) {
+          return false;
+        }
+        return true;
+      } catch (error) {
+        return false; // Handle network errors or other issues
+      }
+    }
+
+    document
+      .getElementById("key-form")
+      .addEventListener("submit", async (event) => {
+        event.preventDefault(); // Prevent form submission
+        const key = document.getElementById("key-input").value.trim();
+        let isValid = await isOpenAIKeyValid(key); // Call the function to check key validity
+        console.log("this is key", key);
+        if (isValid) {
+          console.log("SUCCESS", key);
+          alert("Validated successfully");
+          ipcRenderer.send("key-submitted", key);
+        } else {
+          console.log("FAILED", key);
+          alert("Please enter a valid OpenAI key!");
+        }
+      });
+  </script>
+</body>
+
+</html>
