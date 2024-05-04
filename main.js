@@ -13,14 +13,15 @@ process.chdir("/");
 function createWindow() {
   mainWindow = new BrowserWindow({
     title: "Parent",
-    width: 800,
-    height: 600,
+    width: 1800,
+    height: 1100,
+    frame: false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false, // Note: For better security, use contextIsolation: true with a preload script
     },
   });
-
+  //mainWindow.setFullScreen(true);
   mainWindow.loadFile("index.html");
   mainWindow.on("closed", function () {
     mainWindow = null;
@@ -29,7 +30,7 @@ function createWindow() {
   //check uf it is first time
   const keyEnvPath = path.join(__dirname, "/.key-env");
   if (isFirstTime && !fs.existsSync(keyEnvPath)) {
-    //isFirstTime = false;
+    isFirstTime = false;
     showPopup();
   }
   showPopup();
@@ -40,33 +41,29 @@ function showPopup() {
     title: "child",
     parent: mainWindow,
     modal: true,
-    width: 400,
-    height: 200,
+    width: 1400,
+    height: 800,
     frame: true,
+    frame: false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
     },
   });
   keyWindow.loadFile("key-popup.html");
-  // mainWindow.setEnabled(true);
-  // keyWindow.on("focus", () => {
-  //   const parentPosition = mainWindow.getPosition();
-  //   const parentSize = mainWindow.getSize();
-  //   const childSize = keyWindow.getSize();
-  //   const x = parentPosition[0] + (parentSize[0] - childSize[0]) / 2;
-  //   const y = parentPosition[1] + (parentSize[1] - childSize[1]) / 2;
-  //   keyWindow.setPosition(x, y);
-  // });
+  mainWindow.setEnabled(true);
+  keyWindow.on("focus", () => {
+    const parentPosition = mainWindow.getPosition();
+    const parentSize = mainWindow.getSize();
+    const childSize = keyWindow.getSize();
+    const x = parentPosition[0] + (parentSize[0] - childSize[0]) / 2;
+    const y = parentPosition[1] + (parentSize[1] - childSize[1]) / 2;
+    keyWindow.setPosition(x, y);
+  });
   keyWindow.on("closed", function () {
     keyWindow = null;
     mainWindow.focus(); // Focus on main window after closing the child window
   });
-
-  // keyWindow.on("closed", function () {
-  //   mainWindow.setEnabled(true);
-  //   keyWindow = null;
-  // });
 
   ipcMain.once("key-submitted", (event, key) => {
     console.log("thisis dir", __dirname);
