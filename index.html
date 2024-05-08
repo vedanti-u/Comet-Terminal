@@ -34,34 +34,38 @@
 </pre
         >
       </div>
+
+      <footer id="main-footer">
+        <div class="footer-content">
+          <div class="usage-info">
+            <img src="assets/icon-ram.png" alt="" class="chart-icon-memory" />
+            <span id="memory-usage">Memory Usage:</span>
+          </div>
+
+          <canvas id="memory-chart" width="900" height="200"></canvas>
+
+          <div class="usage-info">
+            <img
+              src="assets/icon-cpu-white.png"
+              alt=""
+              class="chart-icon-cpu"
+            />
+            <span id="cpu-usage">CPU Usage:</span>
+          </div>
+          <canvas id="cpu-chart" width="900" height="200"></canvas>
+
+          <div class="usage-info">
+            <img
+              src="assets/icon-internet.png"
+              alt=""
+              class="chart-icon-internet"
+            />
+            <span id="internet-speed-label">Internet Speed:</span>
+          </div>
+          <canvas id="internet-speed-chart" width="900" height="200"></canvas>
+        </div>
+      </footer>
     </div>
-    <footer id="main-footer">
-      <div class="footer-content">
-        <div class="usage-info">
-          <img src="assets/icon-ram.png" alt="" class="chart-icon-memory" />
-          <span id="memory-usage">Memory Usage:</span>
-        </div>
-
-        <canvas id="memory-chart" width="900" height="200"></canvas>
-
-        <div class="usage-info">
-          <img src="assets/icon-cpu-white.png" alt="" class="chart-icon-cpu" />
-          <span id="cpu-usage">CPU Usage:</span>
-        </div>
-        <canvas id="cpu-chart" width="900" height="200"></canvas>
-
-        <div class="usage-info">
-          <img
-            src="assets/icon-internet.png"
-            alt=""
-            class="chart-icon-internet"
-          />
-          <span id="internet-speed-label">Internet Speed:</span>
-        </div>
-        <canvas id="internet-speed-chart" width="900" height="200"></canvas>
-      </div>
-    </footer>
-
     <script>
       const { ipcRenderer } = require("electron");
 

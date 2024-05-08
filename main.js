@@ -13,9 +13,9 @@ process.chdir("/");
 function createWindow() {
   mainWindow = new BrowserWindow({
     title: "Parent",
-    width: 1800,
-    height: 1100,
-    frame: false,
+    width: 1400,
+    height: 900,
+    frame: true,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false, // Note: For better security, use contextIsolation: true with a preload script
@@ -33,7 +33,6 @@ function createWindow() {
     isFirstTime = false;
     showPopup();
   }
-  showPopup();
 }
 
 function showPopup() {
@@ -41,7 +40,7 @@ function showPopup() {
     title: "child",
     parent: mainWindow,
     modal: true,
-    width: 1400,
+    width: 1100,
     height: 800,
     frame: true,
     frame: false,
