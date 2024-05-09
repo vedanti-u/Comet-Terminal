@@ -13,6 +13,20 @@
     <script src="https://cdn.jsdelivr.net/npm/awesomplete/awesomplete.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Fira Code"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap"
+      rel="stylesheet"
+    />
   </head>
 
   <body>
@@ -119,7 +133,10 @@
           output.command = output.command.replace(/\\n|"/g, "");
           output.command = output.command.trim();
           console.log("\nthis is output ->>>" + output.command);
-          console.log("\n this is explaination ->>>" + output.explaination);
+          console.log(
+            "\n this is explaination but updated was printed in correct formatting ->>>" +
+              output.explaination
+          );
           appendInputContainer(output.command);
         });
         ipcRenderer.on("command-error-ai", (event, output) => {
@@ -172,13 +189,22 @@
         outputDiv.classList.add("ai");
         console.log(typeof text);
         const unescapedText = text
-          .replace(/\\n/g, "\n")
-          .replace(/\n\n\n/g, "\n")
-          .replace(/\n\n/g, "\n")
-          .replace(/\\n/g, "\n")
-          .trim();
+          .replace(/\n\n\n/g, "\n\n") // Replace triple newline with double newline
+          .replace(/\n\n/g, "\n") // Replace double newline with single newline
+          .replace(/\\n/g, "") // Remove all occurrences of '\\n'
+          .replace(/\s*(<[^>]*>)\s*/g, "$1") // Remove extra spaces outside HTML tags
+          .replace(/\n/g, "") // Remove all newline characters
+          .trim(); // Trim any leading or trailing whitespace
         console.log("this is final appenai output", unescapedText);
-        outputDiv.innerHTML = marked.parse(unescapedText);
+
+        const highlightedText = unescapedText.replace(
+          /<code>(.*?)<\/code>/g,
+          '<span style="background-color: #fef08a; color: blue; padding: 2px 4px; margin: 0 4px;">$1</span>'
+        );
+
+        outputDiv.innerHTML = marked.parse(highlightedText);
+
+        // outputDiv.innerHTML = marked.parse(unescapedText);
         const latestInputContainer = terminalBody.querySelector(
           ".input-container:last-child"
         );
@@ -231,19 +257,19 @@
         const inputContainerDiv = document.createElement("div");
         inputContainerDiv.classList.add("input-container");
         inputContainerDiv.innerHTML = `
-            <div class="prompt"><span class="input-arrow">$</span> <input type="text" id="input-${inputIndex}" class="input command" onkeydown="handleInput(event)" placeholder="Type your command..."></div>
-            <div class="controls">
-               <button class="control-button" onclick="clickAI()">
-                  <img src="assets/icon-ai-white.png" class="btn-img-ai" alt="AI">
-               </button>
-               <button class="control-button" onclick="clickAIError()">
-                  <img src="assets/icon-search-white.png" class="btn-img-err" alt="Error">
-               </button>
-               <button class="control-button" onclick="clickHelp()">
-                  <img src="assets/icon-summary-white.png" class="btn-img-help" alt="Search">
-               </button>
-           </div>
-      `;
+                  <div class="prompt"><span class="input-arrow">$</span> <input type="text" id="input-${inputIndex}" class="input command" onkeydown="handleInput(event)" placeholder="Type your command..."></div>
+                  <div class="controls">
+                     <button class="control-button" onclick="clickAI()">
+                        <img src="assets/icon-ai-white.png" class="btn-img-ai" alt="AI">
+                     </button>
+                     <button class="control-button" onclick="clickAIError()">
+                        <img src="assets/icon-search-white.png" class="btn-img-err" alt="Error">
+                     </button>
+                     <button class="control-button" onclick="clickHelp()">
+                        <img src="assets/icon-summary-white.png" class="btn-img-help" alt="Search">
+                     </button>
+                 </div>
+            `;
         terminalBody.appendChild(inputContainerDiv);
         const newCommandInput = inputContainerDiv.querySelector(".command");
         if (defaultInput !== undefined) {
