@@ -167,14 +167,31 @@ async function askLLMCommand(prompt) {
 }
 async function askLLMCommandExplanation(command) {
   var res = await model.invoke(
-    "give me the explanation of this linux command in three bullet points: 1. what does it do 2. How does it work 3. Syntax and Options in markdown format" +
-      command +
-      "Please provide the Explanation within 200 words and ensure it's nicely formatted in Markdown with bullet points and syntax highlighting for the command. Justify the content and also remove any <code>\\n</code> in the beginning and return newline in break tag not \n."
-  );
+    `your response should be in this format :
+      <ul>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li>Commonly used with options like <code></code> </li>
+          <li></li>
+      </ul>
 
+      <h3>Example:</h3>
+      <pre><code>$
+      </code></pre> ` +
+      "give me the explanation of this linux command in bullet points as given in format" +
+      command +
+      "Please provide the Explanation in short and Example in 30 words and ensure it's nicely formatted in html tags with bullet points and syntax highlighting for the command. Justify the content and also remove any extra space in the beginning and return newline in break tag only"
+  );
+  res = res.replace(/\\n|"/g, "").trim();
   console.log(JSON.stringify(res));
   return JSON.stringify(res);
 }
+
+// "give me the explanation of this linux command in three bullet points: 1. what does it do 2. How does it work 3. Syntax and Options in markdown format" +
+// command +
+// "Please provide the Explanation within 200 words and ensure it's nicely formatted in Markdown with bullet points and syntax highlighting for the command. Justify the content and also remove any <code>\\n</code> in the beginning and return newline in break tag not \n."
+// );
 async function askLLMError(command, commandError) {
   const res = await model.invoke(
     "This is the command I entered: " +
