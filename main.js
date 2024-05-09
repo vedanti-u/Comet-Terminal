@@ -169,23 +169,22 @@ async function askLLMCommandExplanation(command) {
   var res = await model.invoke(
     `your response should be in this format :
       <ul>
-          <li></li>
-          <li></li>
-          <li></li>
+          <li>What it is used for</li>
+          <li>what does it do</li>
+          <li>How does it work</li>
+          <li>Syntax and Options</li>
           <li>Commonly used with options like <code></code> </li>
-          <li></li>
       </ul>
 
-      <h3>Example:</h3>
-      <pre><code>$
-      </code></pre> ` +
-      "give me the explanation of this linux command in bullet points as given in format" +
+      <h3>Example:</h3><pre><code>$</code></pre> ` +
+      "give me the explanation of this linux command in bullet points as given in format and example in code format" +
       command +
-      "Please provide the Explanation in short and Example in 30 words and ensure it's nicely formatted in html tags with bullet points and syntax highlighting for the command. Justify the content and also remove any extra space in the beginning and return newline in break tag only"
+      "Please provide the Explanation in short and Example explanation in 20 words and ensure it's nicely formatted in html tags with bullet points and syntax highlighting of code for the command and it's options. Justify the content and also remove any extra space or \n in the beginning and return newline in break tag only"
   );
   res = res.replace(/\\n|"/g, "").trim();
-  console.log(JSON.stringify(res));
-  return JSON.stringify(res);
+  // console.log(JSON.stringify(res));
+  // return JSON.stringify(res);
+  return res;
 }
 
 // "give me the explanation of this linux command in three bullet points: 1. what does it do 2. How does it work 3. Syntax and Options in markdown format" +
@@ -193,22 +192,43 @@ async function askLLMCommandExplanation(command) {
 // "Please provide the Explanation within 200 words and ensure it's nicely formatted in Markdown with bullet points and syntax highlighting for the command. Justify the content and also remove any <code>\\n</code> in the beginning and return newline in break tag not \n."
 // );
 async function askLLMError(command, commandError) {
-  const res = await model.invoke(
+  var res = await model.invoke(
     "This is the command I entered: " +
       command +
       " And this is the error I got: " +
       commandError +
-      " Please provide the direct solution within 150 words and ensure it's nicely formatted in Markdown with bullet points and syntax highlighting for the command. Justify the content and also remove any \n in the beginning and return newline in single break tag not newline character"
+      `your response should be in this format :
+    <h3>Error : error overview under 15 words</h3>
+    <ul>
+        <li>why error occured in 20 words</li>
+        <li>what is wrong with inputted command under 15 words</li>
+        <li>Give solution to fix this error fix this error under 35 words</li>
+        <li>correct command if the provided command is wrong : <code></code> </li>
+    </ul>
+    <h3>Example(of correct command):</h3><pre><code>$</code></pre> ` +
+      "Please provide the solution in short and Example explanation in 20 words and ensure it's nicely formatted in html tags with bullet points and syntax highlighting of code for the command and it's options. Justify the content and also remove any \n in the beginning and return newline in single break tag only"
   );
+  res = res.replace(/\\n|"/g, "").trim();
   console.log(JSON.stringify(res));
   return JSON.stringify(res);
 }
 async function askLLMHelp(command) {
   var res = await model.invoke(
-    "give me the summarized explanation of this linux command direct in three bullet points: 1. what does it do 2. How does it work 3. Syntax and Options in markdown format" +
+    `your response should be in this format :
+    <ul>
+        <li>What it is used for</li>
+        <li>what does it do</li>
+        <li>How does it work</li>
+        <li>Syntax and Options</li>
+        <li>Commonly used with options like <code></code> </li>
+    </ul>
+
+    <h3>Example:</h3><pre><code>$</code></pre> ` +
+      "give me the direct summarized explanation of this linux command in bullet points as given in format and example in code format" +
       command +
-      "Please provide the Summary within 200 words and ensure it's nicely formatted in Markdown with bullet points and syntax highlighting for the command. Justify the content and also remove any \n in the beginning and return newline in single break tag not newline character"
+      "Please provide the summary in short and Example in 20 words and ensure it's nicely formatted in html tags with bullet points and syntax highlighting for the command and it's options. Justify the content and also remove any \n in the beginning and return newline in single break tag only"
   );
+  res = res.replace(/\\n|"/g, "").trim();
   console.log(JSON.stringify(res));
   return JSON.stringify(res);
 }
