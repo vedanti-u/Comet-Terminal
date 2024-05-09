@@ -146,13 +146,16 @@
       });
 
       function saveInputHistory() {
-        ipcRenderer.send("save-input-history", inputHistory);
+        console.log("This is inputHistory", inputHistory);
+        ipcRenderer.send("save-input-history", [...new Set(inputHistory)]);
       }
 
       function handleInput(event) {
         if (event.key === "Enter") {
           const inputText = event.target.value; // Get the input text
-          inputHistory.push(inputText); // Save input in history
+          if (!inputHistory.includes(inputText)) {
+            inputHistory.push(inputText); // Save input in history
+          }
           saveInputHistory();
           ipcRenderer.send("run-command", inputText); // Send the input text to the main process
         }
@@ -318,19 +321,19 @@
         const inputContainerDiv = document.createElement("div");
         inputContainerDiv.classList.add("input-container");
         inputContainerDiv.innerHTML = `
-                  <div class="prompt"><span class="input-arrow">$</span> <input type="text" id="input-${inputIndex}" class="input command" onkeydown="handleInput(event)" placeholder="type your command..."></div>
-                  <div class="controls">
-                     <button class="control-button" onclick="clickAI()">
-                        <img src="assets/icon-ai-white.png" class="btn-img-ai" alt="AI">
-                     </button>
-                     <button class="control-button" onclick="clickAIError()">
-                        <img src="assets/icon-search-white.png" class="btn-img-err" alt="Error">
-                     </button>
-                     <button class="control-button" onclick="clickHelp()">
-                        <img src="assets/icon-summary-white.png" class="btn-img-help" alt="Search">
-                     </button>
-                 </div>
-            `;
+                    <div class="prompt"><span class="input-arrow">$</span> <input type="text" id="input-${inputIndex}" class="input command" onkeydown="handleInput(event)" placeholder="type your command..."></div>
+                    <div class="controls">
+                       <button class="control-button" onclick="clickAI()">
+                          <img src="assets/icon-ai-white.png" class="btn-img-ai" alt="AI">
+                       </button>
+                       <button class="control-button" onclick="clickAIError()">
+                          <img src="assets/icon-search-white.png" class="btn-img-err" alt="Error">
+                       </button>
+                       <button class="control-button" onclick="clickHelp()">
+                          <img src="assets/icon-summary-white.png" class="btn-img-help" alt="Search">
+                       </button>
+                   </div>
+              `;
         terminalBody.appendChild(inputContainerDiv);
         const newCommandInput = inputContainerDiv.querySelector(".command");
         if (defaultInput !== undefined) {
