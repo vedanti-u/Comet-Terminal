@@ -672,3 +672,16 @@ code { font-family: 'Fira Code', monospace; }
   font-weight: 500;
   font-style: italic;
 }
+.awesomplete > ul {
+  border-radius: 0.3em;
+  margin: 0.2em 0 0;
+  background: hsla(0, 0%, 100%, 0.9);
+  background: linear-gradient(
+    to bottom right,
+    rgb(152, 69, 69),
+    hsla(247, 100%, 65%, 0.8)
+  );
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow: 0.05em 0.2em 0.6em rgba(0, 0, 0, 0.2);
+  text-shadow: none;
+}
