@@ -178,7 +178,8 @@ body {
   padding: 10px;
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 10px;
-  
+  margin-top: 10px;
+margin-bottom: 10px;
   /* background-color: rgba(255, 0, 0, 0.1); */
 
 
@@ -287,7 +288,7 @@ body {
  
   white-space: pre-wrap;
 /* Set border to transparent */
-  padding: 10px;
+  padding: 0px;
   margin-top: 10px;
   justify-content: center;
   text-align: left;
@@ -306,10 +307,10 @@ body {
 .help {
   color: rgb(231, 226, 117);
   /* background-color: #181e25; */
-  white-space: pre-wrap;
+  /* white-space: pre-wrap; */
   justify-content: left;
   text-align: left;
-  padding: 10px;
+  padding: 0px;
   margin-top: 10px;
   /* Use border-image to set the gradient */
   border-image: linear-gradient(
@@ -328,10 +329,10 @@ body {
   /* background-color: #181e25; */
   font-size: 16px;
 
-  white-space: pre-wrap;
+  /* white-space: pre-wrap; */
   justify-content: left;
   text-align: left; 
-  padding: 10px;
+  padding: 0px;
   margin-top: 10px;
   
 
