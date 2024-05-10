@@ -1,1 +1,1 @@
-["ls","mkdir","mkdr","mks","mkdd","mkdsds","mk","mkdir NewFolder","mkdir new "]
+["ls","mkdir","mkdr","mks","mkdd","mkdsds","mk","mkdir NewFolder","mkdir new ","ls -l","ls -l | grep -c ^d","mkdir rcoem","mkdor","lss","la"]

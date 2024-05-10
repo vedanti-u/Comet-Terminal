@@ -539,6 +539,13 @@ margin-bottom: 10px;
   bottom: 0;
   /* margin-bottom: 2rem; */
   height: auto;
+  border-image: linear-gradient(
+    to right,
+    #3823a3,#105a7a,#168647
+    
+  );
+  border-image-slice: 1; 
+  border-top: 1px solid rgba(255, 255, 255, 0.3);  
 
 }
 #memory-usage,
@@ -556,7 +563,7 @@ margin-bottom: 10px;
   align-content: center;
   justify-content: space-around;
   align-items: center;
-  height: 66px;
+  height: 50px;
   width: 100%; /* Adjust width as needed */
   text-align: center;
   padding: 10px;
