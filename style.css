@@ -553,9 +553,9 @@ margin-bottom: 10px;
   
   flex-direction: row;
   flex-wrap: nowrap;
-  align-content: stretch;
+  align-content: center;
   justify-content: space-around;
-  align-items: stretch;
+  align-items: center;
   height: 66px;
   width: 100%; /* Adjust width as needed */
   text-align: center;
@@ -585,9 +585,9 @@ margin-bottom: 10px;
 #memory-chart,
 #cpu-chart,
 #internet-speed-chart {
-  width: 600px; /* Adjust width as needed */
-  height: 200px; 
-  margin: 3px 10px; 
+  width: 60px; /* Adjust width as needed */
+  height: 20px; 
+  margin: 3px 5px; 
 /* Keep height as it is */
 }
 
@@ -622,8 +622,8 @@ margin-bottom: 10px;
 }
 
 .usage-info canvas {
-  width: 600px; /* Adjust width as needed */
-  height: 200px; 
+  width: 60px; /* Adjust width as needed */
+  height: 20px; 
   margin-left: 20px; /* Add some space between graph and next usage info */
 }
 ::-webkit-scrollbar {
