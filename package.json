@@ -12,6 +12,7 @@
   "dependencies": {
     "@langchain/community": "^0.0.40",
     "@langchain/openai": "^0.0.21",
+    "custom-electron-titlebar": "^4.2.8",
     "dotenv": "^16.4.5",
     "electron": "^29.1.4",
     "electron-rebuild": "^3.2.9",

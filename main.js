@@ -2,6 +2,13 @@ const { app, BrowserWindow, ipcMain } = require("electron");
 const { exec } = require("child_process");
 const { OpenAI } = require("@langchain/openai");
 const dotenv = require("dotenv").config();
+const {
+  setupTitlebar,
+  attachTitlebarToWindow,
+} = require("custom-electron-titlebar/main");
+
+// setup the titlebar main process
+setupTitlebar();
 const path = require("path");
 const fs = require("fs");
 
@@ -16,13 +23,19 @@ function createWindow() {
     width: 1400,
     height: 900,
     frame: true,
+
+    titleBarStyle: "hidden",
+    titleBarOverlay: true,
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false, // Note: For better security, use contextIsolation: true with a preload script
+      contextIsolation: false,
+      sandbox: false,
+      preload: path.join(__dirname, "preload.js"), // Note: For better security, use contextIsolation: true with a preload script
     },
   });
   //mainWindow.setFullScreen(true);
   mainWindow.loadFile("index.html");
+  attachTitlebarToWindow(mainWindow);
   mainWindow.on("closed", function () {
     mainWindow = null;
   });
@@ -42,11 +55,12 @@ function showPopup() {
     modal: true,
     width: 1100,
     height: 800,
-    frame: true,
     frame: false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
+      // sandbox: false,
+      // preload: path.join(__dirname, "preload.js"),
     },
   });
   keyWindow.loadFile("key-popup.html");
