@@ -1,14 +1,20 @@
-const { app, BrowserWindow, ipcMain } = require("electron");
+const {
+  app,
+  BrowserWindow,
+  Menu,
+  nativeImage,
+  ipcMain,
+  nativeTheme,
+} = require("electron");
 const { exec } = require("child_process");
 const { OpenAI } = require("@langchain/openai");
 const dotenv = require("dotenv").config();
-// const {
-//   setupTitlebar,
-//   attachTitlebarToWindow,
-// } = require("custom-electron-titlebar/main");
-
-// setup the titlebar main process
-// setupTitlebar();
+const {
+  setupTitlebar,
+  attachTitlebarToWindow,
+} = require("custom-electron-titlebar/main");
+// Setup the titlebar
+setupTitlebar();
 const path = require("path");
 const fs = require("fs");
 
@@ -20,19 +26,22 @@ process.chdir("/");
 function createWindow() {
   mainWindow = new BrowserWindow({
     title: "Parent",
-    width: 1400,
+    width: 1100,
     height: 900,
-    frame: true,
-
-    // titleBarStyle: "hidden",
-    // titleBarOverlay: true,
+    frame: false,
+    titleBarStyle: "hidden",
+    titleBarOverlay: true,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-      // sandbox: false,
-      // preload: path.join(__dirname, "preload.js"), // Note: For better security, use contextIsolation: true with a preload script
+      sandbox: false,
+      preload: path.join(__dirname, "preload.js"),
     },
   });
+  attachTitlebarToWindow(mainWindow);
+  Menu.setApplicationMenu(null);
+  // const menu = Menu.buildFromTemplate(exampleMenuTemplate);
+  // Menu.setApplicationMenu(menu);
   //mainWindow.setFullScreen(true);
   mainWindow.loadFile("index.html");
   // attachTitlebarToWindow(mainWindow);
@@ -102,6 +111,163 @@ app.on("activate", function () {
     createWindow();
   }
 });
+
+const exampleMenuTemplate = [
+  {
+    label: "Simple O&ptions",
+    submenu: [
+      {
+        label: "Quit",
+        click: () => app.quit(),
+      },
+      {
+        label: "Radio1",
+        type: "radio",
+        checked: true,
+      },
+      {
+        label: "Radio2",
+        type: "radio",
+      },
+      {
+        label: "Check&box1",
+        type: "checkbox",
+        checked: true,
+        click: (item) => {
+          console.log("item is checked? " + item.checked);
+        },
+      },
+      { type: "separator" },
+      {
+        label: "Che&ckbox2",
+        type: "checkbox",
+        checked: false,
+        click: (item) => {
+          console.log("item is checked? " + item.checked);
+        },
+      },
+    ],
+  },
+  {
+    label: "With &Icons",
+    submenu: [
+      {
+        icon: nativeImage.createFromPath(
+          path.join(__dirname, "assets", "home.png")
+        ),
+        label: "Go to &Home using Native Image",
+      },
+      {
+        icon: path.join(__dirname, "/assets", "run.png"),
+        label: "Run using string",
+        submenu: [
+          {
+            label: "Submenu of run",
+          },
+          {
+            label: "Print",
+            accelerator: "CmdOrCtrl+P",
+          },
+          {
+            type: "separator",
+          },
+          {
+            label: "Item 2 of submenu of run",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    label: "A&dvanced Options",
+    submenu: [
+      {
+        label: "Quit",
+        click: () => app.quit(),
+      },
+      {
+        label: "Radio1",
+        type: "radio",
+        checked: true,
+      },
+      {
+        label: "Radio2",
+        type: "radio",
+      },
+      {
+        label: "Checkbox1",
+        type: "checkbox",
+        checked: true,
+        click: (item) => {
+          console.log("item is checked? " + item.checked);
+        },
+      },
+      { type: "separator" },
+      {
+        label: "Checkbox2",
+        type: "checkbox",
+        checked: false,
+        click: (item) => {
+          console.log("item is checked? " + item.checked);
+        },
+      },
+      {
+        label: "Radio Test",
+        submenu: [
+          {
+            label: "S&ample Checkbox",
+            type: "checkbox",
+            checked: true,
+          },
+          {
+            label: "Radio1",
+            checked: true,
+            type: "radio",
+          },
+          {
+            label: "Radio2",
+            type: "radio",
+          },
+          {
+            label: "Radio3",
+            type: "radio",
+          },
+          { type: "separator" },
+          {
+            label: "Radio1",
+            checked: true,
+            type: "radio",
+          },
+          {
+            label: "Radio2",
+            type: "radio",
+          },
+          {
+            label: "Radio3",
+            type: "radio",
+          },
+        ],
+      },
+      {
+        label: "zoomIn",
+        role: "zoomIn",
+      },
+      {
+        label: "zoomOut",
+        role: "zoomOut",
+      },
+      {
+        label: "Radio1",
+        type: "radio",
+      },
+      {
+        label: "Radio2",
+        checked: true,
+        type: "radio",
+      },
+    ],
+  },
+];
 
 // Handle saving input history in the main process
 ipcMain.on("save-input-history", (event, inputHistory) => {
