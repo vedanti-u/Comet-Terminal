@@ -2,6 +2,7 @@ const { app, BrowserWindow, ipcMain } = require("electron");
 const { exec } = require("child_process");
 const { OpenAI } = require("@langchain/openai");
 const dotenv = require("dotenv").config();
+
 const path = require("path");
 const fs = require("fs");
 
@@ -13,16 +14,23 @@ process.chdir("/");
 function createWindow() {
   mainWindow = new BrowserWindow({
     title: "Parent",
-    width: 1400,
+    width: 1100,
     height: 900,
-    frame: true,
+    frame: false,
+    backgroundColor: "#FFF",
+    // titleBarStyle: "hidden",
+    // titleBarOverlay: true,
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false, // Note: For better security, use contextIsolation: true with a preload script
+      contextIsolation: false,
+      // sandbox: false,
+      // preload: path.join(__dirname, "preload.js"), // Note: For better security, use contextIsolation: true with a preload script
     },
   });
+
   //mainWindow.setFullScreen(true);
   mainWindow.loadFile("index.html");
+  // attachTitlebarToWindow(mainWindow);
   mainWindow.on("closed", function () {
     mainWindow = null;
   });
@@ -33,6 +41,22 @@ function createWindow() {
     isFirstTime = false;
     showPopup();
   }
+
+  mainWindow.on("unmaximize", () => {
+    mainWindow.webContents.send("window-restored");
+  });
+
+  mainWindow.on("maximize", () => {
+    mainWindow.webContents.send("window-maximized");
+  });
+
+  mainWindow.webContents.on("did-stop-loading", () => {
+    if (mainWindow.isMaximized()) {
+      mainWindow.webContents.send("window-maximized");
+    } else {
+      mainWindow.webContents.send("window-restored");
+    }
+  });
 }
 
 function showPopup() {
@@ -42,11 +66,12 @@ function showPopup() {
     modal: true,
     width: 1100,
     height: 800,
-    frame: true,
     frame: false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
+      // sandbox: false,
+      // preload: path.join(__dirname, "preload.js"),
     },
   });
   keyWindow.loadFile("key-popup.html");
@@ -88,7 +113,9 @@ app.on("activate", function () {
     createWindow();
   }
 });
-
+ipcMain.on("TITLE_BAR_ACTION", (event, args) => {
+  handleTitleBarActions(mainWindow, args);
+});
 // Handle saving input history in the main process
 ipcMain.on("save-input-history", (event, inputHistory) => {
   fs.writeFileSync(
@@ -154,6 +181,22 @@ ipcMain.on("command-help", async (event, text) => {
   var helpOutput = await askLLMHelp(text);
   event.sender.send("command-help", helpOutput);
 });
+
+function handleTitleBarActions(windowObj, args) {
+  if (args === "MAXIMIZE_WINDOW") {
+    if (windowObj.isMaximized()) {
+      windowObj.unmaximize();
+    } else {
+      windowObj.maximize();
+    }
+  } else if (args === "MINIMIZE_WINDOW") {
+    windowObj.minimize();
+  } else if (args === "CLOSE_APP") {
+    windowObj.close();
+  } else if (args === "RESTORE_WINDOW") {
+    windowObj.restore();
+  }
+}
 
 async function askLLMCommand(prompt) {
   var res = await model.invoke(

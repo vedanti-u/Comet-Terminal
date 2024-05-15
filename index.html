@@ -32,10 +32,64 @@
   <body>
     <!-- <h1 class="title">COMET</h1>
     <p class="subtitle">Your AI Terminal</p> -->
-    <div class="window">
-      <div class="bar">
-        <div class="btn"></div>
+    <header id="titlebar">
+      <div id="drag-region">
+        <header id="titlebar">
+          <div id="drag-region">
+            <div id="window-title">
+              <img
+                id="logo"
+                src="assets/comet-logo.png"
+                style="height: 35px; width: 70px"
+                alt="my logo"
+              />
+            </div>
+            <div id="window-controls">
+              <div class="button window-hover" id="min-button">
+                <img
+                  class="icon"
+                  id="min"
+                  alt="minimize"
+                  srcset="assets/min-w-10.png"
+                  draggable="false"
+                />
+              </div>
+              <div class="button window-hover" id="max-button">
+                <img
+                  class="icon"
+                  id="max"
+                  alt="maximize"
+                  srcset="assets/max-w-10.png"
+                  draggable="false"
+                />
+              </div>
+              <div class="button window-hover" id="restore-button">
+                <img
+                  class="icon"
+                  id="restore"
+                  alt="restore"
+                  srcset="assets/restore-w-10.png"
+                  draggable="false"
+                />
+              </div>
+              <div class="button window-hover-close" id="close-button">
+                <img
+                  class="icon"
+                  id="close"
+                  alt="close"
+                  srcset="assets/close-w-10.png"
+                  draggable="false"
+                />
+              </div>
+            </div>
+          </div>
+        </header>
       </div>
+    </header>
+    <div class="window">
+      <!-- <div class="bar">
+        <div class="btn"></div>
+      </div> -->
       <div class="body" style="height: 100%">
         <!-- <pre class="art">
                                 _____        
@@ -133,6 +187,48 @@
       let inputHistory = [];
       var inputIndex = 0;
       let lastErrorOutput = "";
+
+      document.addEventListener("DOMContentLoaded", function () {
+        handleWindowControls();
+      });
+
+      function handleWindowControls() {
+        // Make minimise/maximise/restore/close buttons work when they are clicked
+        document
+          .getElementById("min-button")
+          .addEventListener("click", (event) => {
+            ipcRenderer.send("TITLE_BAR_ACTION", "MINIMIZE_WINDOW");
+          });
+
+        document
+          .getElementById("max-button")
+          .addEventListener("click", (event) => {
+            ipcRenderer.send("TITLE_BAR_ACTION", "MAXIMIZE_WINDOW");
+          });
+
+        document
+          .getElementById("restore-button")
+          .addEventListener("click", (event) => {
+            ipcRenderer.send("TITLE_BAR_ACTION", "MAXIMIZE_WINDOW");
+          });
+
+        document
+          .getElementById("close-button")
+          .addEventListener("click", (event) => {
+            ipcRenderer.send("TITLE_BAR_ACTION", "CLOSE_APP");
+          });
+      }
+      if (window.process) {
+        ipcRenderer.on("unmaximized", () => {
+          document.getElementById("restore-button").style.display = "none";
+          document.getElementById("max-button").style.display = "flex";
+        });
+        ipcRenderer.on("maximized", () => {
+          document.getElementById("restore-button").style.display = "flex";
+          document.getElementById("max-button").style.display = "none";
+        });
+      }
+
       // Load Input History from JSON File
       function loadInputHistory() {
         ipcRenderer.send("load-input-history");
