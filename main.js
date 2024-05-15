@@ -2,13 +2,13 @@ const { app, BrowserWindow, ipcMain } = require("electron");
 const { exec } = require("child_process");
 const { OpenAI } = require("@langchain/openai");
 const dotenv = require("dotenv").config();
-const {
-  setupTitlebar,
-  attachTitlebarToWindow,
-} = require("custom-electron-titlebar/main");
+// const {
+//   setupTitlebar,
+//   attachTitlebarToWindow,
+// } = require("custom-electron-titlebar/main");
 
 // setup the titlebar main process
-setupTitlebar();
+// setupTitlebar();
 const path = require("path");
 const fs = require("fs");
 
@@ -24,18 +24,18 @@ function createWindow() {
     height: 900,
     frame: true,
 
-    titleBarStyle: "hidden",
-    titleBarOverlay: true,
+    // titleBarStyle: "hidden",
+    // titleBarOverlay: true,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-      sandbox: false,
-      preload: path.join(__dirname, "preload.js"), // Note: For better security, use contextIsolation: true with a preload script
+      // sandbox: false,
+      // preload: path.join(__dirname, "preload.js"), // Note: For better security, use contextIsolation: true with a preload script
     },
   });
   //mainWindow.setFullScreen(true);
   mainWindow.loadFile("index.html");
-  attachTitlebarToWindow(mainWindow);
+  // attachTitlebarToWindow(mainWindow);
   mainWindow.on("closed", function () {
     mainWindow = null;
   });
