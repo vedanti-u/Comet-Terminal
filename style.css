@@ -792,7 +792,8 @@ code { font-family: 'Fira Code', monospace; }
 .comet-label-logo {
   height: 50px; /* Adjust height as needed */
   width: auto; /* This ensures the width scales proportionally */
-
+  user-drag: none;
+  -webkit-user-drag: none; 
 }
 
 @font-face {
@@ -846,3 +847,23 @@ code { font-family: 'Fira Code', monospace; }
 }
 
 
+.comet-logo-container {
+
+
+  display: block;
+  width: 100px;
+  height: 100px;
+
+  transition:
+    width 2s,
+    height 2s,
+    background-color 2s,
+    rotate 2s;
+}
+
+.comet-logo-container:hover {
+
+  width: 100px;
+  height: 100px;
+  rotate: 360deg;
+}
