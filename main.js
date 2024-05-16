@@ -13,6 +13,12 @@ const {
   setupTitlebar,
   attachTitlebarToWindow,
 } = require("custom-electron-titlebar/main");
+
+const AsciiBar = require("ascii-bar").default;
+const { simpleSpinner } = require("ascii-bar");
+
+let bar;
+
 // Setup the titlebar
 setupTitlebar();
 const path = require("path");
@@ -305,6 +311,7 @@ ipcMain.on("command-ai", async (event, text) => {
   var explaination = await askLLMCommandExplanation(command);
 
   var output = { command: command, explaination: explaination };
+  event.sender.send("progress-complete");
   event.sender.send("command-ai", output);
 });
 
@@ -411,4 +418,50 @@ async function askLLMHelp(command) {
   res = res.replace(/\\n|"/g, "").trim();
   console.log(JSON.stringify(res));
   return JSON.stringify(res);
+}
+
+ipcMain.on("start-progress", (event, total) => {
+  bar = new AsciiBar({
+    formatString:
+      "#spinner ##red #count #percent ##default#bar |##bright##blue Time to finish: #ttf",
+    total: 50,
+    enableSpinner: true,
+  });
+
+  simulateProgress(1, event);
+});
+
+// ipcMain.on("stop-progress", (event) => {
+//   // Stop the progress bar
+//   if (bar) {
+//     bar.stop(false);
+//     event.sender.send("progress-stopped");
+//   }
+// });
+
+function simulateProgress(current, event) {
+  if (current > 12) {
+    bar.spinner = simpleSpinner;
+    bar.formatString =
+      "#spinner ##yellow #count #percent ##default#bar |##bright##blue Time to finish: #ttf";
+  }
+  if (current > 27) {
+    bar.spinner = simpleSpinner;
+    bar.formatString =
+      "#spinner ##green #count #percent ##default#bar |##bright##blue Time to finish: #ttf";
+  }
+
+  if (current >= bar.total) {
+    bar.stop(false);
+    event.sender.send("progress-complete");
+    return;
+  }
+
+  if (current <= bar.total) {
+    bar.update(current, "Currently at " + current);
+    event.sender.send("update-progress", {
+      progress: (current / bar.total) * 100,
+    }); // Send current progress state to renderer
+    setTimeout(() => simulateProgress(current + 1, event), 200);
+  }
 }
