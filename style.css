@@ -833,7 +833,7 @@ code { font-family: 'Fira Code', monospace; }
   content : "";
 
   /* (B2) KEYFRAMES | TIME | TIMING FUNCTION | LOOP */
-  animation: writer 4s linear infinite;
+  animation: writer 3s linear forwards;
 }
 
 /* (C) OPTIONAL CURSOR WITH ::AFTER */

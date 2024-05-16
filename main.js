@@ -459,9 +459,9 @@ function simulateProgress(current, event) {
 
   if (current <= bar.total) {
     bar.update(current, "Currently at " + current);
-    event.sender.send("update-progress", {
-      progress: (current / bar.total) * 100,
-    }); // Send current progress state to renderer
+    //console.log("bar render line :", bar.renderLine());
+    const progressLine = bar.renderLine().replace(/\x1b\[[0-9;]*m/g, ""); // Remove ANSI escape codes
+    event.sender.send("update-progress", progressLine); // Send current progress state to renderer
     setTimeout(() => simulateProgress(current + 1, event), 200);
   }
 }

@@ -284,10 +284,50 @@
       }
 
       ipcRenderer.on("update-progress", (event, progressLine) => {
-        console.log("ye progress line hai ", progressLine);
+        //console.log("ye progress line hai ", progressLine);
         const progressBarElement = document.getElementById("progressBar");
-        progressBarElement.textContent = progressLine; // Display the progress bar as text // Optional: Display text
+
+        const formattedString = addColorFormatting(progressLine);
+        progressBarElement.innerHTML = formattedString; // Display the progress bar as text // Optional: Display text
       });
+      function addColorFormatting(string) {
+        const parts = string.split(" ");
+        let formattedString = "";
+
+        const spinnerChars = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
+
+        parts.forEach((part, index) => {
+          console.log(part);
+          let colorStyle = "";
+
+          // Check for specific content in each part to determine color
+          if (part.startsWith("[")) {
+            // Progress indicator like [46/50]
+            colorStyle = "color: red;";
+          } else if (!isNaN(parseInt(part))) {
+            // Percentage like 92%
+            colorStyle = "color: cyan;";
+          } else if (spinnerChars.includes(part)) {
+            // Spinner characters
+            colorStyle = "color: yellow;";
+          } else if (
+            part === "-" ||
+            part === "\\" ||
+            part === "|" ||
+            part === "/"
+          ) {
+            // Divider
+            colorStyle = "color: blue;";
+          } else {
+            // Time to finish
+            colorStyle = "color: white; font-weight: bold;";
+          }
+
+          formattedString += `<span style="${colorStyle}">${part}</span> `;
+        });
+
+        return formattedString.trim();
+      }
 
       ipcRenderer.on("progress-complete", () => {
         const progressBarDiv = document.querySelector(
