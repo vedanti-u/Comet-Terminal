@@ -28,7 +28,7 @@ function createWindow() {
     title: "Parent",
     width: 1100,
     height: 900,
-    frame: false,
+    frame: true,
     titleBarStyle: "hidden",
     titleBarOverlay: true,
     webPreferences: {
@@ -39,7 +39,7 @@ function createWindow() {
     },
   });
   attachTitlebarToWindow(mainWindow);
-  Menu.setApplicationMenu(null);
+  // Menu.setApplicationMenu(null);
   // const menu = Menu.buildFromTemplate(exampleMenuTemplate);
   // Menu.setApplicationMenu(menu);
   //mainWindow.setFullScreen(true);
