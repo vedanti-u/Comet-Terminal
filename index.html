@@ -137,16 +137,19 @@
         background: hsl(226, 100%, 62%);
         color: inherit;
       }
+
       .awesomplete > ul {
         border-radius: 0.3em;
         margin: 0.2em 0 0;
 
-        background: hsla(220, 18%, 10%, 0); /* Opaque background */
+        background: hsla(220, 18%, 10%, 0);
+        /* Opaque background */
         background: linear-gradient(to right, #374151, #111827);
         border: 1px solid rgba(0, 0, 0, 0.3);
         box-shadow: 0.05em 0.2em 0.6em rgba(0, 0, 0, 0.2);
         text-shadow: none;
       }
+
       /*# sourceMappingURL=awesomplete.css.map */
     </style>
   </head>
@@ -160,7 +163,17 @@
       </div> -->
       <div class="body" style="height: 100%">
         <div class="top-title">
-          <img src="assets/comet-logo.png" alt="Placeholder Image" />
+          <div class="comet-label">
+            <div class="comet-logo-container">
+              <img
+                src="assets/comet-logo-short.png"
+                alt="Comet"
+                class="comet-lable-logo"
+              />
+            </div>
+            <div class="comet-label-title" id="typewriter"></div>
+          </div>
+
           <div class="card-container">
             <div class="card">
               <div class="card-title-icon">
@@ -191,6 +204,13 @@
             </div>
           </div>
         </div>
+        <!-- <div class="logo-spin">
+          <img
+            src="assets/comet-logo-short.png"
+            alt="Comet"
+            class="comet-lable-logo-spin"
+          />
+        </div> -->
         <!-- here the title end -->
       </div>
 

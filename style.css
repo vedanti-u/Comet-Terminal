@@ -688,6 +688,8 @@ code { font-family: 'Fira Code', monospace; }
 .top-title {
   display: flex;
   align-items: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 
@@ -703,8 +705,8 @@ code { font-family: 'Fira Code', monospace; }
   width: 200px; /* Increased width for better layout */
   height: auto;
   padding: 7px;
-  margin-top: 5px;
-  margin-bottom: 10px;
+  /* margin-top: 5px; */
+  /* margin-bottom: 10px; */
   margin-left: 20px;
   border: 0.2px solid #000000;
   border-radius: 15px;
@@ -777,4 +779,91 @@ code { font-family: 'Fira Code', monospace; }
   padding-top: 2px;
   padding-bottom: 2px;  
   margin: 5px;
+}
+
+
+.comet-label{
+  display: flex;
+  flex-direction: center;
+}
+.comet-logo-container{
+  padding: 10px;
+}
+.comet-label-logo {
+  height: 50px; /* Adjust height as needed */
+  width: auto; /* This ensures the width scales proportionally */
+  user-drag: none;
+  -webkit-user-drag: none; 
+}
+
+@font-face {
+  font-family: 'henderson_sansbasic_semibold';
+  src: url('font/fonnts.com-Henderson_Sans_Basic_SemiBold.otf') format('opentype'), /* OTF format */
+       url('font/fonnts.com-Henderson_Sans_Basic_SemiBold.woff2') format('woff2'), /* WOFF2 format */
+       url('font/fonnts.com-Henderson_Sans_Basic_SemiBold.woff') format('woff'); /* WOFF format */
+  font-weight: normal;
+  font-style: normal;
+}
+
+#typewriter {
+  font-size: 77px;
+  font-weight:normal;/* Change to 500 if you want semi-bold */
+  font-family: 'henderson_sansbasic_semibold';
+  /* line-height: 2; */
+}
+.comet-label-title{
+  font-size: 77px;
+  font-weight: normal;
+  font-family: 'henderson_sansbasic_semibold';
+  margin: 0; /* Remove default margin */
+}
+
+@keyframes writer {
+  0% { content: ""; }
+  10% { content: "C"; }
+  20% { content: "Co"; }
+  60% { content: "Com"; }
+  80% { content: "Come"; }
+  100% { content: "Comet"; }
+}
+
+/* (B) ATTACH KEYFRAMES TO ::BEFORE */
+#typewriter::before {
+  /* (B1) REQUIRED - EMPTY CONTENT */
+  content : "";
+
+  /* (B2) KEYFRAMES | TIME | TIMING FUNCTION | LOOP */
+  animation: writer 4s linear infinite;
+}
+
+/* (C) OPTIONAL CURSOR WITH ::AFTER */
+@keyframes blink {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+#typewriter::after {
+  content: "|";
+  animation: blink infinite alternate 0.4s;
+}
+
+
+.comet-logo-container {
+
+
+  display: block;
+  width: 100px;
+  height: 100px;
+
+  transition:
+    width 2s,
+    height 2s,
+    background-color 2s,
+    rotate 2s;
+}
+
+.comet-logo-container:hover {
+
+  width: 100px;
+  height: 100px;
+  rotate: 360deg;
 }
