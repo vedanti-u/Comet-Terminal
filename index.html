@@ -161,6 +161,7 @@
       <!-- <div class="bar">
         <div class="btn"></div>
       </div> -->
+
       <div class="body" style="height: 100%">
         <div class="top-title">
           <div class="comet-label">
@@ -204,6 +205,8 @@
             </div>
           </div>
         </div>
+        <!-- <button onclick="startProgress()">Start Progress</button>
+        <div id="progressBar"></div> -->
         <!-- <div class="logo-spin">
           <img
             src="assets/comet-logo-short.png"
@@ -247,6 +250,7 @@
     </div>
     <script>
       const { ipcRenderer } = require("electron");
+      const AsciiBar = require("ascii-bar").default;
 
       let inputHistory = [];
       var inputIndex = 0;
@@ -278,6 +282,70 @@
           ipcRenderer.send("run-command", inputText); // Send the input text to the main process
         }
       }
+
+      ipcRenderer.on("update-progress", (event, progressLine) => {
+        //console.log("ye progress line hai ", progressLine);
+        const progressBarElement = document.getElementById("progressBar");
+
+        const formattedString = addColorFormatting(progressLine);
+        progressBarElement.innerHTML = formattedString; // Display the progress bar as text // Optional: Display text
+      });
+      function addColorFormatting(string) {
+        const parts = string.split(" ");
+        let formattedString = "";
+
+        const spinnerChars = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
+
+        parts.forEach((part, index) => {
+          console.log(part);
+          let colorStyle = "";
+
+          // Check for specific content in each part to determine color
+          if (part.startsWith("[") && part.includes("/")) {
+            // Progress indicator like [10/50]
+            colorStyle = "color: red;";
+          } else if (part.startsWith("[") && part.includes(">")) {
+            // Progress bar like [>>>>---------]
+            colorStyle = "color: #FFFFFF;";
+          } else if (spinnerChars.includes(part)) {
+            // Spinner characters
+            colorStyle = "color: yellow;";
+          } else if (
+            part === "\\" ||
+            part === "|" ||
+            part === "/" ||
+            part === "-"
+          ) {
+            // Divider
+            colorStyle = "color: gold;";
+          } else if (
+            part.toLowerCase().includes("time") ||
+            part.toLowerCase().includes("to") ||
+            part.toLowerCase().includes("finish")
+          ) {
+            // Time to finish
+            colorStyle =
+              "color: magenta ; font-weight: bold; font-style: italic";
+          } else if (part.match(/^\d+s$/)) {
+            // Last number with s like 6s
+            colorStyle = "color: cyan;";
+          } else if (!isNaN(parseInt(part))) {
+            // Percentage like 20%
+            colorStyle = "color: lime; ";
+          }
+
+          formattedString += `<span style="${colorStyle}">${part}</span> `;
+        });
+
+        return formattedString.trim();
+      }
+
+      ipcRenderer.on("progress-complete", () => {
+        const progressBarDiv = document.querySelector(
+          ".progress-bar-container"
+        );
+        progressBarDiv.remove(); //
+      });
 
       window.onload = function () {
         loadInputHistory();
@@ -494,6 +562,29 @@
           ".input-container:last-child .input.command"
         ).value;
         console.log("in Click ai", inputText);
+
+        // Check if the progress bar container already exists
+        let progressBarContainer = document.getElementById(
+          "progressBarContainer"
+        );
+        if (!progressBarContainer) {
+          const terminalBody = document.querySelector(".body");
+          progressBarContainer = document.createElement("div");
+          progressBarContainer.id = "progressBarContainer";
+          progressBarContainer.classList.add("progress-bar-container");
+          terminalBody.appendChild(progressBarContainer);
+        }
+
+        // Create or update the progress bar element
+        let progressBar = document.getElementById("progressBar");
+        if (!progressBar) {
+          progressBar = document.createElement("div");
+          progressBar.id = "progressBar";
+          progressBar.classList.add("progress-bar");
+          progressBarContainer.appendChild(progressBar);
+        }
+
+        ipcRenderer.send("start-progress", 50);
         ipcRenderer.send("command-ai", inputText);
       }
 
@@ -507,6 +598,28 @@
             " Output command :" +
             outputText
         );
+        // Check if the progress bar container already exists
+        let progressBarContainer = document.getElementById(
+          "progressBarContainer"
+        );
+        if (!progressBarContainer) {
+          const terminalBody = document.querySelector(".body");
+          progressBarContainer = document.createElement("div");
+          progressBarContainer.id = "progressBarContainer";
+          progressBarContainer.classList.add("progress-bar-container");
+          terminalBody.appendChild(progressBarContainer);
+        }
+
+        // Create or update the progress bar element
+        let progressBar = document.getElementById("progressBar");
+        if (!progressBar) {
+          progressBar = document.createElement("div");
+          progressBar.id = "progressBar";
+          progressBar.classList.add("progress-bar");
+          progressBarContainer.appendChild(progressBar);
+        }
+
+        ipcRenderer.send("start-progress", 50);
         ipcRenderer.send("command-error-ai", {
           input: inputText,
           output: outputText,
@@ -518,6 +631,28 @@
           ".input-container:last-child .input.command"
         ).value;
         console.log("in Click Help", inputText);
+        // Check if the progress bar container already exists
+        let progressBarContainer = document.getElementById(
+          "progressBarContainer"
+        );
+        if (!progressBarContainer) {
+          const terminalBody = document.querySelector(".body");
+          progressBarContainer = document.createElement("div");
+          progressBarContainer.id = "progressBarContainer";
+          progressBarContainer.classList.add("progress-bar-container");
+          terminalBody.appendChild(progressBarContainer);
+        }
+
+        // Create or update the progress bar element
+        let progressBar = document.getElementById("progressBar");
+        if (!progressBar) {
+          progressBar = document.createElement("div");
+          progressBar.id = "progressBar";
+          progressBar.classList.add("progress-bar");
+          progressBarContainer.appendChild(progressBar);
+        }
+
+        ipcRenderer.send("start-progress", 50);
         ipcRenderer.send("command-help", inputText);
       }
 

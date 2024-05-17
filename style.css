@@ -833,7 +833,7 @@ code { font-family: 'Fira Code', monospace; }
   content : "";
 
   /* (B2) KEYFRAMES | TIME | TIMING FUNCTION | LOOP */
-  animation: writer 4s linear infinite;
+  animation: writer 3s linear forwards;
 }
 
 /* (C) OPTIONAL CURSOR WITH ::AFTER */
@@ -867,3 +867,18 @@ code { font-family: 'Fira Code', monospace; }
   height: 100px;
   rotate: 360deg;
 }
+
+/* .progress-bar-container {
+  width: 100%;
+  background-color: #eee;
+  padding: 3px;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 20px;
+  background-color: #4CAF50;
+  text-align: center;
+  line-height: 20px;
+  color: white;
+} */
