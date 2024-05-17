@@ -301,26 +301,37 @@
           let colorStyle = "";
 
           // Check for specific content in each part to determine color
-          if (part.startsWith("[")) {
-            // Progress indicator like [46/50]
-            colorStyle = "color: red;";
+          if (part.startsWith("[") && part.includes("/")) {
+            // Progress indicator like [10/50]
+            colorStyle = "color: #FF0000;";
+          } else if (part.startsWith("[") && part.includes(">")) {
+            // Progress bar like [>>>>---------]
+            colorStyle = "color: #FFFFFF;";
           } else if (!isNaN(parseInt(part))) {
-            // Percentage like 92%
-            colorStyle = "color: cyan;";
+            // Percentage like 20%
+            colorStyle = "color: #1da1f2; ";
           } else if (spinnerChars.includes(part)) {
             // Spinner characters
-            colorStyle = "color: yellow;";
+            colorStyle = "color: #FFFF00;";
           } else if (
-            part === "-" ||
             part === "\\" ||
             part === "|" ||
-            part === "/"
+            part === "/" ||
+            part === "-"
           ) {
             // Divider
-            colorStyle = "color: blue;";
-          } else {
+            colorStyle = "color: #1da1f2;";
+          } else if (
+            part.toLowerCase().includes("time") ||
+            part.toLowerCase().includes("to") ||
+            part.toLowerCase().includes("finish")
+          ) {
             // Time to finish
-            colorStyle = "color: white; font-weight: bold;";
+            colorStyle =
+              "color: #00FFFF ; font-weight: bold; font-style: italic";
+          } else if (part.match(/^\d+s$/)) {
+            // Last number with s like 6s
+            colorStyle = "color: #6633FF;";
           }
 
           formattedString += `<span style="${colorStyle}">${part}</span> `;
