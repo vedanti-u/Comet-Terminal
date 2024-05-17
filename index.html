@@ -177,6 +177,10 @@
 
           <div class="card-container">
             <div class="card">
+              <div class="card-title-icon"></div>
+              <div class="usage-info"></div>
+            </div>
+            <div class="card">
               <div class="card-title-icon">
                 <span id="memory-usage"></span>
                 <img
@@ -507,7 +511,7 @@
         const inputContainerDiv = document.createElement("div");
         inputContainerDiv.classList.add("input-container");
         inputContainerDiv.innerHTML = `
-                    <div class="prompt"><span class="input-arrow">$</span> <input type="text" id="input-${inputIndex}" class="input command" onkeydown="handleInput(event)" placeholder="type your command..."></div>
+                    <div class="prompt"><span class="input-arrow">$</span> <input type="text" id="input-${inputIndex}" class="input command" onkeydown="handleInput(event)" placeholder="type your command..." size="30"></div>
                     <div class="controls">
                        <button class="control-button" onclick="clickAI()">
                           <img src="assets/icon-ai-white.png" class="btn-img-ai" alt="AI">
