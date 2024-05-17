@@ -334,11 +334,13 @@ ipcMain.on("command-error-ai", async (event, text) => {
   );
 
   var data = await askLLMError(command, commandError);
+  event.sender.send("progress-complete");
   event.sender.send("command-error-ai", data);
 });
 ipcMain.on("command-help", async (event, text) => {
   console.log("Received command for help:", text);
   var helpOutput = await askLLMHelp(text);
+  event.sender.send("progress-complete");
   event.sender.send("command-help", helpOutput);
 });
 

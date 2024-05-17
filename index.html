@@ -303,16 +303,13 @@
           // Check for specific content in each part to determine color
           if (part.startsWith("[") && part.includes("/")) {
             // Progress indicator like [10/50]
-            colorStyle = "color: #FF0000;";
+            colorStyle = "color: red;";
           } else if (part.startsWith("[") && part.includes(">")) {
             // Progress bar like [>>>>---------]
             colorStyle = "color: #FFFFFF;";
-          } else if (!isNaN(parseInt(part))) {
-            // Percentage like 20%
-            colorStyle = "color: #1da1f2; ";
           } else if (spinnerChars.includes(part)) {
             // Spinner characters
-            colorStyle = "color: #FFFF00;";
+            colorStyle = "color: yellow;";
           } else if (
             part === "\\" ||
             part === "|" ||
@@ -320,7 +317,7 @@
             part === "-"
           ) {
             // Divider
-            colorStyle = "color: #1da1f2;";
+            colorStyle = "color: gold;";
           } else if (
             part.toLowerCase().includes("time") ||
             part.toLowerCase().includes("to") ||
@@ -328,10 +325,13 @@
           ) {
             // Time to finish
             colorStyle =
-              "color: #00FFFF ; font-weight: bold; font-style: italic";
+              "color: magenta ; font-weight: bold; font-style: italic";
           } else if (part.match(/^\d+s$/)) {
             // Last number with s like 6s
-            colorStyle = "color: #6633FF;";
+            colorStyle = "color: cyan;";
+          } else if (!isNaN(parseInt(part))) {
+            // Percentage like 20%
+            colorStyle = "color: lime; ";
           }
 
           formattedString += `<span style="${colorStyle}">${part}</span> `;
@@ -598,6 +598,28 @@
             " Output command :" +
             outputText
         );
+        // Check if the progress bar container already exists
+        let progressBarContainer = document.getElementById(
+          "progressBarContainer"
+        );
+        if (!progressBarContainer) {
+          const terminalBody = document.querySelector(".body");
+          progressBarContainer = document.createElement("div");
+          progressBarContainer.id = "progressBarContainer";
+          progressBarContainer.classList.add("progress-bar-container");
+          terminalBody.appendChild(progressBarContainer);
+        }
+
+        // Create or update the progress bar element
+        let progressBar = document.getElementById("progressBar");
+        if (!progressBar) {
+          progressBar = document.createElement("div");
+          progressBar.id = "progressBar";
+          progressBar.classList.add("progress-bar");
+          progressBarContainer.appendChild(progressBar);
+        }
+
+        ipcRenderer.send("start-progress", 50);
         ipcRenderer.send("command-error-ai", {
           input: inputText,
           output: outputText,
@@ -609,6 +631,28 @@
           ".input-container:last-child .input.command"
         ).value;
         console.log("in Click Help", inputText);
+        // Check if the progress bar container already exists
+        let progressBarContainer = document.getElementById(
+          "progressBarContainer"
+        );
+        if (!progressBarContainer) {
+          const terminalBody = document.querySelector(".body");
+          progressBarContainer = document.createElement("div");
+          progressBarContainer.id = "progressBarContainer";
+          progressBarContainer.classList.add("progress-bar-container");
+          terminalBody.appendChild(progressBarContainer);
+        }
+
+        // Create or update the progress bar element
+        let progressBar = document.getElementById("progressBar");
+        if (!progressBar) {
+          progressBar = document.createElement("div");
+          progressBar.id = "progressBar";
+          progressBar.classList.add("progress-bar");
+          progressBarContainer.appendChild(progressBar);
+        }
+
+        ipcRenderer.send("start-progress", 50);
         ipcRenderer.send("command-help", inputText);
       }
 
