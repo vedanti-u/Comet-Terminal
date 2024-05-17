@@ -473,6 +473,7 @@ margin-bottom: 10px;
   background: #000000;
   background: #161c22;
   padding: 18px;
+
   
   /* font-family: "Monaco", Courier, monospace; */
   /* Monospace font for authenticity */
@@ -888,7 +889,14 @@ code { font-family: 'Fira Code', monospace; }
   height: 100px;
   rotate: 360deg;
 }
-
+/* body {
+    border-radius: 40px; /* Adjust the radius as needed */
+    /* overflow: hidden; /* Prevents scrollbars from appearing outside the rounded corners */
+    /* width: 100vw;
+    height: 100vh; */
+    /* background: #fff; Background color */
+    /* box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Optional: adds shadow for better visibility */
+/* }  */
 /* .progress-bar-container {
   width: 100%;
   background-color: #eee;
