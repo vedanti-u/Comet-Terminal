@@ -34,7 +34,8 @@ function createWindow() {
     title: "Parent",
     width: 1100,
     height: 900,
-    frame: true,
+    frame: false,
+    transparent: true,
     titleBarStyle: "hidden",
     titleBarOverlay: true,
     webPreferences: {
@@ -45,7 +46,7 @@ function createWindow() {
     },
   });
   attachTitlebarToWindow(mainWindow);
-  // Menu.setApplicationMenu(null);
+  Menu.setApplicationMenu(null);
   // const menu = Menu.buildFromTemplate(exampleMenuTemplate);
   // Menu.setApplicationMenu(menu);
   //mainWindow.setFullScreen(true);
@@ -103,7 +104,7 @@ function showPopup() {
     keyWindow.close();
   });
 }
-
+// app.disableHardwareAcceleration(); // T
 app.on("ready", createWindow);
 
 app.on("window-all-closed", function () {
@@ -467,3 +468,15 @@ function simulateProgress(current, event) {
     setTimeout(() => simulateProgress(current + 1, event), 200);
   }
 }
+// ipcMain.on("calculate-internet-speed", async (event) => {
+//   try {
+//     const test = speedTest({ acceptLicense: true, acceptGdpr: true });
+//     const result = await test;
+//     const downloadSpeed = (result.download.bandwidth * 8) / (1024 * 1024); // Convert from bytes per second to Mbps
+//     const uploadSpeed = (result.upload.bandwidth * 8) / (1024 * 1024); // Convert from bytes per second to Mbps
+//     event.sender.send("internet-speed-result", { downloadSpeed, uploadSpeed });
+//   } catch (error) {
+//     console.error("Speed test failed:", error);
+//     event.sender.send("internet-speed-error", "Failed to perform speed test.");
+//   }
+// });

@@ -176,6 +176,10 @@
           </div>
 
           <div class="card-container">
+            <!-- <div class="card">
+              <div class="card-title-icon">Hello !</div>
+              <div class="usage-info">Vedanti_u</div>
+            </div> -->
             <div class="card">
               <div class="card-title-icon">
                 <span id="memory-usage"></span>
@@ -385,7 +389,16 @@
           appendHelp(output); // Use the existing function to append the output
           appendInputContainer();
         });
-        ipcRenderer.send("run-speedtest");
+        // ipcRenderer.on("internet-speed-result", (event, speeds) => {
+        //   console.log("Download Speed:", speeds.downloadSpeed, "Mbps");
+        //   console.log("Upload Speed:", speeds.uploadSpeed, "Mbps");
+        //   // Update your chart or display elements here
+        // });
+
+        // ipcRenderer.on("internet-speed-error", (event, message) => {
+        //   console.error(message);
+        //   // Handle errors, such as updating the UI to show an error message
+        // });
       };
 
       function handleInput(event) {
@@ -507,7 +520,7 @@
         const inputContainerDiv = document.createElement("div");
         inputContainerDiv.classList.add("input-container");
         inputContainerDiv.innerHTML = `
-                    <div class="prompt"><span class="input-arrow">$</span> <input type="text" id="input-${inputIndex}" class="input command" onkeydown="handleInput(event)" placeholder="type your command..."></div>
+                    <div class="prompt"><span class="input-arrow">$</span> <input type="text" id="input-${inputIndex}" class="input command" onkeydown="handleInput(event)" placeholder="type your command..." size="30"></div>
                     <div class="controls">
                        <button class="control-button" onclick="clickAI()">
                           <img src="assets/icon-ai-white.png" class="btn-img-ai" alt="AI">
@@ -790,12 +803,6 @@
       //       },
       //     },
       //     plugins: {
-      //       decimation: {
-      //         enabled: true,
-      //         algorithm: "lttb",
-      //         samples: 100,
-      //         threshold: null,
-      //       },
       //       legend: {
       //         display: false,
       //       },
@@ -839,92 +846,8 @@
         cpuChart.update();
       }
 
-      // const speedTest = require("speedtest-net");
-
-      // async function calculateInternetSpeed() {
-      //   try {
-      //     const speed = await speedTest({ maxTime: 5000 });
-      //     const downloadSpeed = speed.download.bandwidth / 1024 / 1024;
-      //     const uploadSpeed = speed.upload.bandwidth / 1024 / 1024;
-      //     console.log("Download speed:", downloadSpeed, "Mbps");
-      //     console.log("Upload speed:", uploadSpeed, "Mbps");
-      //     return { downloadSpeed, uploadSpeed };
-      //   } catch (error) {
-      //     console.error("Speed test failed:", error.message);
-      //     return null;
-      //   }
-      // }
-
-      // async function updateInternetSpeed() {
-      //   try {
-      //     const speed = await calculateInternetSpeed();
-      //     if (speed !== null) {
-      //       const timeNow = new Date().toLocaleTimeString();
-      //       // Push new data to the chart datasets
-      //       internetSpeedChart.data.labels.push(timeNow);
-      //       internetSpeedChart.data.datasets[0].data.push(speed.downloadSpeed);
-      //       internetSpeedChart.data.datasets[1].data.push(speed.uploadSpeed);
-
-      //       // Limit the number of data points displayed on the chart
-      //       const MAX_DATA_POINTS = 10;
-      //       if (internetSpeedChart.data.labels.length > MAX_DATA_POINTS) {
-      //         internetSpeedChart.data.labels.shift();
-      //         internetSpeedChart.data.datasets.forEach((dataset) => {
-      //           dataset.data.shift();
-      //         });
-      //       }
-
-      //       // Update the chart with the new data
-      //       internetSpeedChart.update();
-      //     }
-      //   } catch (error) {
-      //     console.error("Failed to update internet speed:", error.message);
-      //   }
-      // }
-      // const { Speedtest } = require("fast-speedtest-api");
-
-      // // Create a new instance of the Speedtest class
-      // const speedtest = new Speedtest();
-
-      // async function calculateInternetSpeed() {
-      //   try {
-      //     const { download, upload } = await speedtest.getSpeed();
-      //     const downloadSpeed = download / 1024 / 1024;
-      //     const uploadSpeed = upload / 1024 / 1024;
-      //     console.log("Download speed:", downloadSpeed, "Mbps");
-      //     console.log("Upload speed:", uploadSpeed, "Mbps");
-      //     return { downloadSpeed, uploadSpeed };
-      //   } catch (error) {
-      //     console.error("Speed test failed:", error);
-      //     return null;
-      //   }
-      // }
-
-      // async function updateInternetSpeed() {
-      //   try {
-      //     const speed = await calculateInternetSpeed();
-      //     if (speed !== null) {
-      //       const timeNow = new Date().toLocaleTimeString();
-      //       // Push new data to the chart datasets
-      //       internetSpeedChart.data.labels.push(timeNow);
-      //       internetSpeedChart.data.datasets[0].data.push(speed.downloadSpeed);
-      //       internetSpeedChart.data.datasets[1].data.push(speed.uploadSpeed);
-
-      //       // Limit the number of data points displayed on the chart
-      //       const MAX_DATA_POINTS = 10;
-      //       if (internetSpeedChart.data.labels.length > MAX_DATA_POINTS) {
-      //         internetSpeedChart.data.labels.shift();
-      //         internetSpeedChart.data.datasets.forEach((dataset) => {
-      //           dataset.data.shift();
-      //         });
-      //       }
-
-      //       // Update the chart with the new data
-      //       internetSpeedChart.update();
-      //     }
-      //   } catch (error) {
-      //     console.error("Failed to update internet speed:", error);
-      //   }
+      // function updateInternetSpeed() {
+      //   ipcRenderer.send("calculate-internet-speed");
       // }
 
       updateMemoryUsage();
@@ -932,6 +855,7 @@
       // updateInternetSpeed();
       setInterval(updateMemoryUsage, 1000);
       setInterval(updateCPUUsage, 1000);
+      // setInterval(updateInternetSpeed, 10000);
       //setInterval(updateInternetSpeed, 5000);
     </script>
   </body>
