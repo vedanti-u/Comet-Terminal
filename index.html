@@ -117,17 +117,23 @@
       }
 
       .awesomplete > ul > li:hover {
-        background: hsl(0, 0%, 63%);
+        background: #1a16161b;
         color: rgb(34, 0, 255);
+
+        border: 1.5px solid transparent; /* Set border to transparent to show the gradient */
+        border-image: linear-gradient(to right, #870000, #190a05) 1;
       }
 
       .awesomplete > ul > li[aria-selected="true"] {
-        background: hwb(248 45% 32%);
+        /* background: hwb(248 45% 32%); */
+        background: #1a16161b;
         color: white;
+        border: 1.5px solid transparent; /* Set border to transparent to show the gradient */
+        border-image: linear-gradient(to right, #6441a5, #2a0845) 1; /* Added missing comma */
       }
 
       .awesomplete mark {
-        background: hsl(64, 100%, 74%);
+        background: hsla(64, 100%, 74%, 0.458);
       }
 
       .awesomplete li:hover mark {
