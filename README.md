@@ -1,55 +1,253 @@
-# COMET-TERMINAL
+<div align="center">
+<a href="https://refine.dev/">
+    <img alt="dbsense ai logo" src="assets\comeettu.png">
+</a>
+</div>
+<!-- <div style="font-family: 'Lucida Console', 'Courier New', monospace; font-size: 25px;  font-family: Arial, Helvetica, sans-serif;
+			background: linear-gradient(to right, #f32170,
+					#ff6b08, #cf23cf, #eedd44);
+			-webkit-text-fill-color: transparent;
+			-webkit-background-clip: text;;">DbSenseAi</div> -->
 
-Introducing COMET-TERMINAL Your Intelligent Terminal. Say goodbye to repetitive commands and hello to streamlined terminal interactions with the power of artificial intelligence.
-COMET isn't just your ordinary terminal emulator; it's your virtual assistant for navigating the complexities of coding workflows effortlessly.
-COMET intelligently interprets your commands and offers insightful suggestions to optimize your coding experience. But COMET isn't just about suggestions; it's also your go-to resource for resolving errors and clarifying uncertainties. With the click of a button, you can access detailed error descriptions and helpful insights to quickly troubleshoot any issues that arise during your coding sessions. No more scouring through documentation or forums – COMET puts the answers you need right at your fingertips.
+<!-- <br/> -->
+<!-- <div align="center">
+    <a href="" style="color: ;">Home Page</a> |
+    <a href="">Discord</a> |
+    <a href="">Blog</a> |
+    <a href="">Documentation</a>
+</div> -->
+<!-- <br/>
+<br/> -->
+<!-- <div align="center"><strong>Add Here <a href="">Something</a> Add here.</strong><br>add here</div> -->
 
+Next Generation AI Powered Terminal
+<br />
 
-# Why COMET-TERMINAL ?
+<div>
+<div align="center">
 
-Choosing COMET for your terminal needs is a decision rooted in a quest for efficiency, productivity, and a seamless coding experience. 
+[![npm version](https://img.shields.io/npm/v/@refinedev/core.svg)](https://www.npmjs.com/package/@refinedev/core)
+[![](https://img.shields.io/github/commit-activity/m/refinedev/refine)](https://github.com/refinedev/refine/commits/master)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)](CODE_OF_CONDUCT.md)
+<br/>
+<br/>
 
-- Intelligent Assistance: COMET isn't just another terminal emulator; it's your intelligent coding companion. With its AI-driven capabilities, COMET analyzes your commands, provides context-aware suggestions, and helps you navigate through coding challenges effortlessly. Whether you're a beginner seeking guidance or a seasoned developer looking to optimize your workflow, COMET is there to support you every step of the way.
-- Real-Time Error Detection: One of the most frustrating aspects of coding is encountering errors. With COMET, you can bid farewell to lengthy debugging sessions. Its real-time error detection feature instantly flags syntax errors and provides descriptive explanations to help you rectify them promptly. COMET saves you time and frustration, allowing you to focus on writing clean and efficient code.
-- Comprehensive Error Descriptions: COMET doesn't just point out errors; it provides comprehensive descriptions to help you understand and resolve them quickly. When an error occurs during your coding session, COMET generates clear and informative error messages directly within the terminal interface. Whether it's a syntax error, a logic flaw, COMET's error descriptions empower you to troubleshoot with confidence, saving you time.
+</div>
 
+</div align="left" >
 
-# Working 
+## About Comet Terminal
 
-Users interact with the terminal interface by inputting command line code, which serves as instructions for the emulator to execute various tasks. This input serves as the primary means through which users communicate with the emulator, providing commands, queries, or requests for assistance.
+**Comet** is a next-generation terminal emulator, a transformative tool designed to elevate developer productivity through cutting-edge AI features and robust cross-platform compatibility. Our terminal emulator ensures streamlined workflows, enhanced efficiency, and empowers developers to achieve excellence.
+</br>
 
-Upon receiving user input, the emulator evaluates the complexity and nature of the command. If the input command is deemed straightforward and does not require additional assistance or processing, it is executed as a regular command within the terminal environment. 
+### Features
 
-Users can utilize the "AI" button to access advanced assistance for their coding tasks. Upon clicking the button, users are prompted to input their query in natural language, enabling them toexpress their coding-related concerns or seek clarification on specific commands or tasks. Behind the scenes, the emulator's backend processes the user's input using OpenAI's powerful capabilities. Through natural language processing algorithms, the system comprehends the user's query and generates a tailored response. This response includes not only the appropriate command executionbut also a detailed explanation, elucidating the command's functionality and usage.
+- **Natural Language Queries**: _Write queries in natural language and receive commands tailored to your needs using AI._
+- **AI-Powered Autocomplete and Command Suggestions**: _Benefit from advanced AI capabilities that provide intelligent code completion, context-aware suggestions, and personalized workflow assistance._
+- **Instant Error Detection and Quick Fixes**: _Get real-time error identification and immediate, context-aware solutions to streamline coding workflows._
+- **Advanced Search Capabilities**: _Utilize our advanced search feature to access comprehensive details on any command._
+- **Cross-Platform Compatibility**: _Enjoy a unified coding experience across Windows, macOS, and Linux._
 
-In addition to AI assistance, users have the option to seek help or resolve errors by clicking on dedicated buttons within the terminal interface. When users click on the "Help" button, the system prompts them to provide clarification or additional context regarding their coding issue. Leveraging prompt engineering techniques, the emulator generates a solution tailored to the user's specific query. Similarly, clicking on the "Error" button allows users to specify the encountered issue, such as a syntax error or unexpected behavior. The system then generates a solution that not only corrects the error but also provides an explanation of the corrected command.
+Experience a new-age terminal with AI-driven features designed to streamline coding workflows and reduce development time, setting a new standard in developer productivity.
 
+## How Comet works ?
 
+```mermaid
+sequenceDiagram
+    participant User
+    participant HTML_UI
+    participant Electron_Backend
+    participant OS_Shell
+    participant OpenApiLLM
 
+    User->>HTML_UI: Writes Shell commands
+    HTML_UI->>Electron_Backend: Transfers command (command event)
+    Electron_Backend->>OS_Shell: Runs OS command
+    OS_Shell->>+Electron_Backend: Success/Error
+    alt Success
+        Electron_Backend->>HTML_UI: Sends success response
+    else Error
+        Electron_Backend->>OpenApiLLM: Send error stack
+    end
+    User->>HTML_UI: Requests AI to send command
+    HTML_UI->>Electron_Backend: Asks OpenApiLLM for command
+    Electron_Backend->>OpenApiLLM: Requests command
+    OpenApiLLM->>Electron_Backend: Returns command
+    Electron_Backend->>OS_Shell: Runs OS command
+    OS_Shell->>+Electron_Backend: Success/Error
+    alt Success
+        Electron_Backend->>HTML_UI: Sends success response
+    else Error
+        Electron_Backend->>OpenApiLLM: Send error stack
+    end
 
+```
 
-# Technology Used
+The sequence diagram illustrates the interaction between various components of our terminal emulator. When the user writes shell commands, the HTML UI transfers the command event to the Electron Backend, which executes the OS command. Upon success or error, the Electron Backend communicates the response accordingly. In case of success, a success response is sent to the HTML UI. However, if an error occurs, the Electron Backend sends the error stack to the OpenApiLLM. Additionally, users can request AI to send commands. In this scenario, the HTML UI asks the Electron Backend to fetch a command from the OpenApiLLM. The OpenApiLLM responds with the requested command, which is then executed by the Electron Backend. Again, success or error responses are handled similarly as in the previous scenario. This sequence ensures smooth interaction and efficient execution of commands within our terminal emulator.
 
-- Frontend : HTML, CSS with TailwindCSS
-- Backend : NodeJS
-- Terminal Interface : Xterm.js
-- Cross-Platform Desktop App : Electron.js
-- LLM : OpenAI GPT 3.5
+## ⚡ Try Comet
 
+## Installation
 
-# Get Started
+`Link to install`
 
-### To get started, just clone the repository 
+## Setting-up `.env`
 
-    $ git clone https://github.com/vedanti-u/comet-terminal.git
+# Contributing to Library
 
-### Install Dependencies
+### Prerequisites
 
-    $ npm install
+If you don't have git on your machine, [install it](https://docs.github.com/en/get-started/quickstart/set-up-git).
 
-### Run
+- #### **make**
 
-    $ npm run start
+  <details open>
+    <summary>Install make on Linux</summary>
 
+  ```bash
+  $ sudo apt install make
+  ```
 
+  Check version
 
+  ```bash
+  $ make -version
+  ```
+
+  </details>
+
+- #### **G++**
+
+    <details open>
+      <summary>Install G++ on Linux</summary>
+      
+    ```bash
+    $ sudo apt install g++
+    ```
+
+  Check version
+
+  ```bash
+  $ g++ --version
+  ```
+
+    </details>
+
+## Fork this repository
+
+<img align="right" width="500" src="https://github.com/vedanti-u/readme-assets/blob/main/fork-the-repo.png" alt="fork this repository" />
+
+Fork this repository by clicking on the fork button on the top of this page. This will create a copy of this repository in your account.
+</br>
+
+## Clone the repository
+
+<img align="right" width="500" src="https://github.com/vedanti-u/readme-assets/blob/main/clone-button.png" />
+<img align="right" width="500" src="https://github.com/vedanti-u/readme-assets/blob/main/copy-cloning-url.png" alt="fork this repository" />
+Now clone the forked repository to your machine. Go to your GitHub account, open the forked repository, click on the code button and then click the _copy to clipboard_ icon, this is the COPIED_URL.
+
+Open a terminal and run the following git command:
+
+```git
+git clone "COPIED_URL"
+```
+
+e.g : `git clone https://github.com/vedanti-u/db.ai.git`
+</br>
+
+---
+
+### Install dependencies
+
+```bash
+npm install
+```
+
+---
+
+### Create a branch
+
+Change to the repository directory on your computer (if you are not already there):
+
+```bash
+$ cd dbsense-ai
+```
+
+Now create a branch using the `git checkout` command:
+
+```bash
+$ git checkout -b new-branch-name
+```
+
+e.g : `git checkout -b llm-prompt-support`
+
+**Name your branch according to the feature you are working on :**
+
+e.g : you want to work on creating more llm prompt support, name your branch like `llm-prompt-support`
+
+_(follow this naming convention i.e using "-" in between)_
+
+### _Make necessary changes_
+
+#### Create a `.env` File with format
+
+```
+export OPENAI_API_KEY=<YOUR_OPENAI_KEY>
+DB_DATABASE=<YOUR_DATABASE_NAME>
+DB_HOST=<YOUR_DATABASE_HOST>
+DB_PORT=<YOUR_DATABASE_PORT>
+DB_USER=<YOUR_DATABASE_USER>
+DB_PASSWORD=<YOUR_DATABASE_PASSWORD>
+```
+
+### Linking the library locally
+
+```bash
+rm -rf dist
+tsc
+npm link
+npm link dbsense-ai
+```
+
+## Testing the library locally
+
+```bash
+node test/localLibrary.test.ts --env=.env
+```
+
+### Create a pull request
+
+  <details>
+   <summary>How to create pull request</summary>
+  </br>
+  Once you have modified an existing file or added a new file to the project of your choice, you can stage it to your local repository, which we can do with the `git add` command. In our example, `filename.md`, we will type the following command.
+
+<code>$ git add filename.md</code>
+
+where filename is the file you have modified or created
+
+If you are looking to add all the files you have modified in a particular directory, you can stage them all with the following command:
+`git add .`
+
+Or, alternatively, you can type `git add -all` for all new files to be staged.
+
+<h3>Commiting the changes</h3>
+<code>git commit -m "Added a new prompt in prompts.json file"</code>
+
+<h3>To PUSH your branch to your remote main</h3>
+<code>$ git push --set-upstream origin your-branch-name</code>
+</br>
+
+e.g : `$ git push --set-upstream origin optimise-binding`
+
+<h4>Open Github</h4>
+<img align="right" width="300" src="https://github.com/vedanti-u/readme-assets/blob/main/compare-and-pulll-request.png" alt="compare and pull request" />
+click on compare & pull request
+</br>
+<img align="right" width="300" src="https://github.com/vedanti-u/readme-assets/blob/main/create-pull-request.png" alt="create pull request" />
+write a description for your pull request specifing the changes you have made, title it and then, Click on create pull request
+
+_your branch will be merged on code review_
+
+  </details>

@@ -5,6 +5,7 @@ const {
   nativeImage,
   ipcMain,
   nativeTheme,
+  screen,
 } = require("electron");
 const { exec } = require("child_process");
 const { OpenAI } = require("@langchain/openai");
@@ -32,10 +33,13 @@ process.chdir("/");
 function createWindow() {
   mainWindow = new BrowserWindow({
     title: "Parent",
-    width: 1100,
+    width: 1300,
     height: 900,
+    minHeight: 600,
+    maxHeight: 900,
+    minWidth: 900,
+    maxWidth: 1200,
     frame: false,
-    transparent: true,
     titleBarStyle: "hidden",
     titleBarOverlay: true,
     webPreferences: {
@@ -45,18 +49,19 @@ function createWindow() {
       preload: path.join(__dirname, "preload.js"),
     },
   });
-  attachTitlebarToWindow(mainWindow);
+
   Menu.setApplicationMenu(null);
   // const menu = Menu.buildFromTemplate(exampleMenuTemplate);
   // Menu.setApplicationMenu(menu);
-  //mainWindow.setFullScreen(true);
+  mainWindow.setFullScreen(true);
   mainWindow.loadFile("index.html");
+  attachTitlebarToWindow(mainWindow);
   // attachTitlebarToWindow(mainWindow);
   mainWindow.on("closed", function () {
     mainWindow = null;
   });
+  mainWindow.center();
 
-  //check uf it is first time
   const keyEnvPath = path.join(__dirname, "/.key-env");
   if (isFirstTime && !fs.existsSync(keyEnvPath)) {
     isFirstTime = false;
@@ -69,14 +74,12 @@ function showPopup() {
     title: "child",
     parent: mainWindow,
     modal: true,
-    width: 1100,
+    width: 1400,
     height: 800,
     frame: false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-      // sandbox: false,
-      // preload: path.join(__dirname, "preload.js"),
     },
   });
   keyWindow.loadFile("key-popup.html");
