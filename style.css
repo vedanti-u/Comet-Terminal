@@ -300,11 +300,14 @@ margin-bottom: 10px;
 
 .ai {
   /* background-color: #181e25; */
-  color: papayawhip;
+  color: rgb(255, 229, 255);
  
   white-space: pre-wrap;
 /* Set border to transparent */
   padding: 0px;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  padding-right: 10px;
   margin-top: 10px;
   justify-content: center;
   text-align: left;
@@ -316,18 +319,25 @@ margin-bottom: 10px;
   );
   border-image-slice: 1; 
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);  
+  border-top: 1px solid rgba(255, 255, 255, 0.3);  
+  border-left: 1px solid rgba(255, 255, 255, 0.3);  
+  border-right:1px solid rgba(255, 255, 255, 0.3);  
+  border-radius: 5px;
   line-height: 1.3;
   font-size: 18px;
    font-family: 'DM Mono', sans-serif;
 }
 
 .help {
-  color: rgb(231, 226, 117);
+  color: rgb(255, 253, 215);
   /* background-color: #181e25; */
   /* white-space: pre-wrap; */
-  justify-content: left;
+  justify-content:center;
   text-align: left;
   padding: 0px;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  padding-right: 10px;
   margin-top: 10px;
   /* Use border-image to set the gradient */
   border-image: linear-gradient(
@@ -338,20 +348,26 @@ margin-bottom: 10px;
   ); /* Adjust colors as needed */
   border-image-slice: 1; 
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);  
+  border-top: 1px solid rgba(255, 255, 255, 0.3);  
+  border-left: 1px solid rgba(255, 255, 255, 0.3);  
+  border-right:1px solid rgba(255, 255, 255, 0.3);  
+  border-radius: 5px;
   line-height: 1.3;
   font-size: 18px;
+    font-family: 'DM Mono', sans-serif;
 }
 .ai-error-sol {
-  color: rgb(208, 163, 227);
+  color: rgb(226, 255, 233);
   /* background-color: #181e25; */
-  font-size: 16px;
-
   /* white-space: pre-wrap; */
-  justify-content: left;
-  text-align: left; 
   padding: 0px;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  padding-right: 10px;
   margin-top: 10px;
-  
+  /* white-space: pre-wrap; */
+  justify-content: center;
+  text-align: left; 
 
   /* Use border-image to set the gradient */
   border-image: linear-gradient(
@@ -360,9 +376,14 @@ margin-bottom: 10px;
     #0575E6
   ); /* Adjust colors as needed */
   border-image-slice: 1; 
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3); 
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);  
+  border-top: 1px solid rgba(255, 255, 255, 0.3);  
+  border-left: 1px solid rgba(255, 255, 255, 0.3);  
+  border-right:1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
   line-height: 1.3;
   font-size: 18px;
+  font-family: 'DM Mono', sans-serif;
 }
 
 .comment {
@@ -698,6 +719,8 @@ code { font-family: 'Fira Code', monospace; }
 #cpu-usage {
   font-size: 26px; /* Increased font size */
   font-weight: bold;
+  margin-bottom: 2px; 
+
   color: #ff0364; /* Memory usage color */
   margin-bottom: 2px; 
 }

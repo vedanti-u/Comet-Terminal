@@ -39,7 +39,7 @@ function createWindow() {
     maxHeight: 900,
     minWidth: 900,
     maxWidth: 1200,
-    frame: false,
+    frame: true,
     titleBarStyle: "hidden",
     titleBarOverlay: true,
     webPreferences: {
@@ -50,10 +50,10 @@ function createWindow() {
     },
   });
 
-  Menu.setApplicationMenu(null);
+  // Menu.setApplicationMenu(null);
   // const menu = Menu.buildFromTemplate(exampleMenuTemplate);
   // Menu.setApplicationMenu(menu);
-  mainWindow.setFullScreen(true);
+  // mainWindow.setFullScreen(true);
   mainWindow.loadFile("index.html");
   attachTitlebarToWindow(mainWindow);
   // attachTitlebarToWindow(mainWindow);
