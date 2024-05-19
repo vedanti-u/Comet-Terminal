@@ -89,6 +89,7 @@ Screenshot of landing page
 
 ## Setting-up the `OpenAI API key`
 
+<img align="center" width="500" src="" />
 ## 🤝 Contributing
 
 ### Dependencies
