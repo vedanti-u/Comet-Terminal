@@ -1,6 +1,6 @@
 <div align="center">
 <a href="https://refine.dev/">
-    <img alt="dbsense ai logo" src="assets\comet-logo-git-extended.png" height=160 width=550>
+    <img alt="dbsense ai logo" src="assets\comet-logo.png" height=160 width=550>
 </a>
 </div>
 <!-- <div style="font-family: 'Lucida Console', 'Courier New', monospace; font-size: 25px;  font-family: Arial, Helvetica, sans-serif;
