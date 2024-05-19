@@ -67,10 +67,13 @@ Screenshot of landing page
 
 <h3> 1️⃣ AI Command Generation</h3>
 <img align="center"  src="https://github.com/vedanti-u/comet-terminal/blob/readme-update/screenshots/comet-ai-command.png" />
+
 <h3> 2️⃣ Error Quick Fixes</h3>
 <img align="center"  src="https://github.com/vedanti-u/comet-terminal/blob/readme-update/screenshots/comet-ai-error.png" />
+
 <h3> 3️⃣ Command Summary</h3>
 <img align="center"  src="https://github.com/vedanti-u/comet-terminal/blob/readme-update/screenshots/comet-ai-summary-1.png" />
+
 <h3> 4️⃣ Autocomplete suggestion</h3>
 <img align="center"  src="https://github.com/vedanti-u/comet-terminal/blob/readme-update/screenshots/comet-autosuggestion.png" />
 
@@ -224,7 +227,7 @@ _your branch will be merged on code review_
 </details>
 
 
-### Statistics
+### ☄️ Statistics
 ![stars](https://img.shields.io/github/stars/{vedanti-u}/{comet-terminal}.svg)
 ![fork](https://img.shields.io/github/forks/{vedanti-u}/{comet-terminal}.svg)
 ![watchers](https://img.shields.io/github/watchers/{vedanti-u}/{comet-terminal}.svg)
