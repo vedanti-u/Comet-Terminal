@@ -1,34 +1,30 @@
 <div align="center">
 <a href="https://refine.dev/">
-    <img alt="dbsense ai logo" src="assets\comet-logo-git-extended.png" height=160 width=550>
+    <img alt="dbsense ai logo" src="assets\comet-logo.png" height=160 width=550>
 </a>
 </div>
-<!-- <div style="font-family: 'Lucida Console', 'Courier New', monospace; font-size: 25px;  font-family: Arial, Helvetica, sans-serif;
-			background: linear-gradient(to right, #f32170,
-					#ff6b08, #cf23cf, #eedd44);
-			-webkit-text-fill-color: transparent;
-			-webkit-background-clip: text;;">DbSenseAi</div> -->
 
-<!-- <br/> -->
-<!-- <div align="center">
-    <a href="" style="color: ;">Home Page</a> |
-    <a href="">Discord</a> |
-    <a href="">Blog</a> |
-    <a href="">Documentation</a>
-</div> -->
-<!-- <br/>
-<br/> -->
-<!-- <div align="center"><strong>Add Here <a href="">Something</a> Add here.</strong><br>add here</div> -->
-<br />
-
+<br/>
 <div>
 <div align="center">
 
-[![npm version](https://img.shields.io/npm/v/@refinedev/core.svg)](https://www.npmjs.com/package/@refinedev/core)
-[![](https://img.shields.io/github/commit-activity/m/refinedev/refine)](https://github.com/refinedev/refine/commits/master)
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)](CODE_OF_CONDUCT.md)
+![Linux](https://img.shields.io/badge/Linux-FCC624?style-plastic-green&logo=linux&logoColor=black)
+![Electron.js](https://img.shields.io/badge/Electron-191970?style-plastic-green&logo=Electron&logoColor=white)
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style-plastic-green&logo=node.js&logoColor=white)
+![Javascript](https://img.shields.io/badge/JavaScript-323330?style-plastic-green&logo=javascript&logoColor=F7DF1E)
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style-plastic-green&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style-plastic-green&logo=css3&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style-plastic-green&logo=tailwind-css&logoColor=white)
+![OpenAI](https://img.shields.io/badge/OpenAI-412991.svg?style-plastic-green&logo=OpenAI&logoColor=white)
+![Chart.js](https://img.shields.io/badge/chart.js-F5788D.svg?style-plastic-green&logo=chart.js&logoColor=white)
+![LangChain](https://img.shields.io/badge/langchain-purple)
 <br/>
 <br/>
+
+<!-- ![ElectronJS](https://img.shields.io/badge/Electron-2B2E3A?style-plastic-green&logo=electron&logoColor=9FEAF9)
+![Electron.js](https://img.shields.io/badge/Electron-47848F.svg?style-plastic-green&logo=Electron&logoColor=white) -->
+<!--
+![Javascript](https://img.shields.io/badge/JavaScript-F7DF1E.svg?style-plastic-green&logo=JavaScript&logoColor=black) -->
 
 </div>
 
