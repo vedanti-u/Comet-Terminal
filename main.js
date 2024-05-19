@@ -50,13 +50,13 @@ function createWindow() {
     },
   });
 
-  // Menu.setApplicationMenu(null);
+  Menu.setApplicationMenu(null);
   // const menu = Menu.buildFromTemplate(exampleMenuTemplate);
   // Menu.setApplicationMenu(menu);
-  // mainWindow.setFullScreen(true);
+  mainWindow.setFullScreen(true);
   mainWindow.loadFile("index.html");
   attachTitlebarToWindow(mainWindow);
-  // attachTitlebarToWindow(mainWindow);
+  attachTitlebarToWindow(mainWindow);
   mainWindow.on("closed", function () {
     mainWindow = null;
   });
