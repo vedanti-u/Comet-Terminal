@@ -89,27 +89,11 @@ Screenshot of landing page
 
 ## Setting-up the `OpenAI API key`
 
-## 🚀 Contribution
+## 🤝 Contributing
 
-### Prerequistes
+### Dependencies
 
-- #### **Node Version**
-
-```
-v20.11.1
-```
-
-- #### **NVM Version**
-
-```
-0.39.1
-```
-
-- #### **Electron Version**
-
-```
-^29.1.4
-```
+![Node Version](https://img.shields.io/badge/node-v20.11.1-blue?style=For-the-badge) ![NVM Version](https://img.shields.io/badge/nvm-v0.39.1-green?style=For-the-badge) ![NVM Version](https://img.shields.io/badge/Electron-v^29.1.4-red?style-plastic&logo=Electron&logoColor=white&style=)
 
 <details close>
   <summary>Fork this repository</summary>
@@ -206,3 +190,5 @@ _your branch will be merged on code review_
 
   </details>
 </details>
+
+![MadeWithLove](http://ForTheBadge.com/images/badges/built-with-love.svg) [![forthebadge](https://forthebadge.com/images/badges/license-mit.svg)](https://forthebadge.com)
