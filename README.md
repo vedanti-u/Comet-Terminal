@@ -45,6 +45,35 @@
 
 Experience a new-age terminal with AI-driven features designed to streamline coding workflows and reduce development time, setting a new standard in developer productivity.
 
+<h1><img src="assets/comet-logo-short.png" alt="Comet Logo" width="25" height="25"> Try Comet</h1>
+
+`Link to install`
+Screenshot of landing page
+
+## Setting-up the `OpenAI API key`
+
+<h4>Just enter your OpenAI Key in the input box, generate a new one if you don't have one.        <a href="https://platform.openai.com/api-keys" alt="see here"><img src="https://img.shields.io/badge/API_key-create_new-green?style=plastic&logo=OpenAI&logoColor=white" alt="OpenAI Key"></a></h4>
+
+<img align="center" width="400" src="https://github.com/vedanti-u/comet-terminal/blob/main/screenshots/comet-keypopup.png" />
+
+## 🚀 Features
+
+|  Buttons | Description |
+| ------------- | ------------- |
+| <img align="center" src="https://github.com/vedanti-u/comet-terminal/blob/main/assets/icon-ai.png" width="50" height="50"/>  | Write Query in Natural language and get command generated  |
+| <img align="center" src="https://github.com/vedanti-u/comet-terminal/blob/main/assets/icon-search.png" width="45" height="45"/>   | Get Instant error detection and quick fixes |
+| <img align="center" src="https://github.com/vedanti-u/comet-terminal/blob/main/assets/ai-summary-64px.png" width="50" height="50"/>  | Generate the detailed description of command  |
+</br>
+
+<h3> 1️⃣ AI Command Generation</h3>
+<img align="center"  src="https://github.com/vedanti-u/comet-terminal/blob/readme-update/screenshots/comet-ai-command.png" />
+<h3> 2️⃣ Error Quick Fixes</h3>
+<img align="center"  src="https://github.com/vedanti-u/comet-terminal/blob/readme-update/screenshots/comet-ai-error.png" />
+<h3> 3️⃣ Command Summary</h3>
+<img align="center"  src="https://github.com/vedanti-u/comet-terminal/blob/readme-update/screenshots/comet-ai-summary-1.png" />
+<h3> 4️⃣ Autocomplete suggestion</h3>
+<img align="center"  src="https://github.com/vedanti-u/comet-terminal/blob/readme-update/screenshots/comet-autosuggestion.png" />
+
 ## How Comet works ?
 
 ```mermaid
@@ -79,35 +108,6 @@ sequenceDiagram
 ```
 
 The sequence diagram illustrates the interaction between various components of our terminal emulator. When the user writes shell commands, the HTML UI transfers the command event to the Electron Backend, which executes the OS command. Upon success or error, the Electron Backend communicates the response accordingly. In case of success, a success response is sent to the HTML UI. However, if an error occurs, the Electron Backend sends the error stack to the OpenApiLLM. Additionally, users can request AI to send commands. In this scenario, the HTML UI asks the Electron Backend to fetch a command from the OpenApiLLM. The OpenApiLLM responds with the requested command, which is then executed by the Electron Backend using OS Shell. Again, success or error responses are handled similarly as in the previous scenario. This sequence ensures smooth interaction and efficient execution of commands within our terminal emulator.
-
-<h1><img src="assets/comet-logo-short.png" alt="Comet Logo" width="25" height="25"> Try Comet</h1>
-
-`Link to install`
-Screenshot of landing page
-
-## Setting-up the `OpenAI API key`
-
-<h4>Just enter your OpenAI Key in the input box, generate a new one if you don't have one.        <a href="https://platform.openai.com/api-keys" alt="see here"><img src="https://img.shields.io/badge/API_key-create_new-green?style=plastic&logo=OpenAI&logoColor=white" alt="OpenAI Key"></a></h4>
-
-<img align="center" width="400" src="https://github.com/vedanti-u/comet-terminal/blob/main/screenshots/comet-keypopup.png" />
-
-## 🚀 Features
-
-|  Buttons | Description |
-| ------------- | ------------- |
-| <img align="center" src="https://github.com/vedanti-u/comet-terminal/blob/main/assets/icon-ai.png" width="50" height="50"/>  | Write Query in Natural language and get command generated  |
-| <img align="center" src="https://github.com/vedanti-u/comet-terminal/blob/main/assets/icon-search.png" width="45" height="45"/>   | Get Instant error detection and quick fixes |
-| <img align="center" src="https://github.com/vedanti-u/comet-terminal/blob/main/assets/ai-summary-64px.png" width="50" height="50"/>  | Generate the detailed description of command  |
-</br>
-
-<h3> 1️⃣ AI Command Generation</h3>
-<img align="center"  src="https://github.com/vedanti-u/comet-terminal/blob/readme-update/screenshots/comet-ai-command.png" />
-<h3> 2️⃣ Error Quick Fixes</h3>
-<img align="center"  src="https://github.com/vedanti-u/comet-terminal/blob/readme-update/screenshots/comet-ai-error.png" />
-<h3> 3️⃣ Command Summary</h3>
-<img align="center"  src="https://github.com/vedanti-u/comet-terminal/blob/readme-update/screenshots/comet-ai-summary-1.png" />
-<h3> 4️⃣ Autocomplete suggestion</h3>
-<img align="center"  src="https://github.com/vedanti-u/comet-terminal/blob/readme-update/screenshots/comet-autosuggestion.png" />
 
 ## 🤝 Contributing
 
