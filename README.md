@@ -82,14 +82,23 @@ The sequence diagram illustrates the interaction between various components of o
 
 <h1><img src="assets/comet-logo-short.png" alt="Comet Logo" width="25" height="25"> Try Comet</h1>
 
-## Installation
-
 `Link to install`
 Screenshot of landing page
 
 ## Setting-up the `OpenAI API key`
 
-<img align="center" width="500" src="" />
+<h4>Just enter your OpenAI Key in the input box, generate a new one if you don't have one.        <a href="https://platform.openai.com/api-keys" alt="see here"><img src="https://img.shields.io/badge/API_key-create_new-green?style=plastic&logo=OpenAI&logoColor=white" alt="OpenAI Key"></a></h4>
+
+<img align="center" width="400" src="https://github.com/vedanti-u/comet-terminal/blob/main/screenshots/comet-keypopup.png" />
+
+### Features
+
+|  Feature | Description |
+| ------------- | ------------- |
+| <img align="center" src="https://github.com/vedanti-u/comet-terminal/blob/main/assets/icon-ai.png" width="50" height="50"/>  | Write Query in Natural language and get command generated  |
+| <img align="center" src="https://github.com/vedanti-u/comet-terminal/blob/main/assets/icon-search.png" width="45" height="45"/>   | Get Instant error detection and quick fixes |
+| <img align="center" src="https://github.com/vedanti-u/comet-terminal/blob/main/assets/ai-summary-64px.png" width="50" height="50"/>  | Generate the detailed description of command  |
+
 ## 🤝 Contributing
 
 ### Dependencies
