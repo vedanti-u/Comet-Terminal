@@ -84,57 +84,41 @@ sequenceDiagram
 
 ```
 
-The sequence diagram illustrates the interaction between various components of our terminal emulator. When the user writes shell commands, the HTML UI transfers the command event to the Electron Backend, which executes the OS command. Upon success or error, the Electron Backend communicates the response accordingly. In case of success, a success response is sent to the HTML UI. However, if an error occurs, the Electron Backend sends the error stack to the OpenApiLLM. Additionally, users can request AI to send commands. In this scenario, the HTML UI asks the Electron Backend to fetch a command from the OpenApiLLM. The OpenApiLLM responds with the requested command, which is then executed by the Electron Backend. Again, success or error responses are handled similarly as in the previous scenario. This sequence ensures smooth interaction and efficient execution of commands within our terminal emulator.
+The sequence diagram illustrates the interaction between various components of our terminal emulator. When the user writes shell commands, the HTML UI transfers the command event to the Electron Backend, which executes the OS command. Upon success or error, the Electron Backend communicates the response accordingly. In case of success, a success response is sent to the HTML UI. However, if an error occurs, the Electron Backend sends the error stack to the OpenApiLLM. Additionally, users can request AI to send commands. In this scenario, the HTML UI asks the Electron Backend to fetch a command from the OpenApiLLM. The OpenApiLLM responds with the requested command, which is then executed by the Electron Backend using OS Shell. Again, success or error responses are handled similarly as in the previous scenario. This sequence ensures smooth interaction and efficient execution of commands within our terminal emulator.
 
 ## ⚡ Try Comet
 
 ## Installation
 
 `Link to install`
+Screenshot of landing page
 
-## Setting-up `.env`
+## Setting-up the `OpenAI API key`
 
-# Contributing to Library
+## Contribution
 
-### Prerequisites
+### Prerequistes
 
-If you don't have git on your machine, [install it](https://docs.github.com/en/get-started/quickstart/set-up-git).
+- #### **Node Version**
 
-- #### **make**
+```
+v20.11.1
+```
 
-  <details open>
-    <summary>Install make on Linux</summary>
+- #### **NVM Version**
 
-  ```bash
-  $ sudo apt install make
-  ```
+```
+0.39.1
+```
 
-  Check version
+- #### **Electron Version**
 
-  ```bash
-  $ make -version
-  ```
+```
+^29.1.4
+```
 
-  </details>
-
-- #### **G++**
-
-    <details open>
-      <summary>Install G++ on Linux</summary>
-      
-    ```bash
-    $ sudo apt install g++
-    ```
-
-  Check version
-
-  ```bash
-  $ g++ --version
-  ```
-
-    </details>
-
-## Fork this repository
+<details close>
+  <summary>Fork this repository</summary>
 
 <img align="right" width="500" src="https://github.com/vedanti-u/readme-assets/blob/main/fork-the-repo.png" alt="fork this repository" />
 
@@ -171,7 +155,7 @@ npm install
 Change to the repository directory on your computer (if you are not already there):
 
 ```bash
-$ cd dbsense-ai
+$ cd comet-terminal
 ```
 
 Now create a branch using the `git checkout` command:
@@ -180,41 +164,17 @@ Now create a branch using the `git checkout` command:
 $ git checkout -b new-branch-name
 ```
 
-e.g : `git checkout -b llm-prompt-support`
+e.g : `git checkout -b feature/ai-autocomplete`
 
 **Name your branch according to the feature you are working on :**
 
-e.g : you want to work on creating more llm prompt support, name your branch like `llm-prompt-support`
+e.g : you want to work on creating autocomplete feature, name your branch like `feature/ai-autocomplete`
 
 _(follow this naming convention i.e using "-" in between)_
 
-### _Make necessary changes_
+### _Contribute to Code_
 
 #### Create a `.env` File with format
-
-```
-export OPENAI_API_KEY=<YOUR_OPENAI_KEY>
-DB_DATABASE=<YOUR_DATABASE_NAME>
-DB_HOST=<YOUR_DATABASE_HOST>
-DB_PORT=<YOUR_DATABASE_PORT>
-DB_USER=<YOUR_DATABASE_USER>
-DB_PASSWORD=<YOUR_DATABASE_PASSWORD>
-```
-
-### Linking the library locally
-
-```bash
-rm -rf dist
-tsc
-npm link
-npm link dbsense-ai
-```
-
-## Testing the library locally
-
-```bash
-node test/localLibrary.test.ts --env=.env
-```
 
 ### Create a pull request
 
@@ -233,13 +193,13 @@ If you are looking to add all the files you have modified in a particular direct
 Or, alternatively, you can type `git add -all` for all new files to be staged.
 
 <h3>Commiting the changes</h3>
-<code>git commit -m "Added a new prompt in prompts.json file"</code>
+<code>git commit -m "Added autocomplete feature"</code>
 
 <h3>To PUSH your branch to your remote main</h3>
 <code>$ git push --set-upstream origin your-branch-name</code>
 </br>
 
-e.g : `$ git push --set-upstream origin optimise-binding`
+e.g : `$ git push --set-upstream origin feature/ai-autocomplete`
 
 <h4>Open Github</h4>
 <img align="right" width="300" src="https://github.com/vedanti-u/readme-assets/blob/main/compare-and-pulll-request.png" alt="compare and pull request" />
@@ -251,3 +211,4 @@ write a description for your pull request specifing the changes you have made, t
 _your branch will be merged on code review_
 
   </details>
+</details>
