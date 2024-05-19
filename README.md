@@ -74,7 +74,9 @@ Screenshot of landing page
 <h3> 4️⃣ Autocomplete suggestion</h3>
 <img align="center"  src="https://github.com/vedanti-u/comet-terminal/blob/readme-update/screenshots/comet-autosuggestion.png" />
 
-## How Comet works ?
+</br>
+
+## 💡 How Comet works ?
 
 ```mermaid
 sequenceDiagram
@@ -119,19 +121,29 @@ The sequence diagram illustrates the interaction between various components of o
   <summary>Contributing Guidelines</summary>
 
 ### Fork this repository
+<img align="right" width="400" src="https://github.com/vedanti-u/readme-assets/blob/main/fork-the-repo.png" alt="fork this repository" />
+<h4>Fork this repository by clicking on the fork button on the top of this page. This will create a copy of this repository in your account.
+</h4>
 
-<img align="right" width="500" src="https://github.com/vedanti-u/readme-assets/blob/main/fork-the-repo.png" alt="fork this repository" />
-
-Fork this repository by clicking on the fork button on the top of this page. This will create a copy of this repository in your account.
+</br>
+</br>
+</br>
 </br>
 
-## Clone the repository
+### Clone the repository
 
-<img align="right" width="500" src="https://github.com/vedanti-u/readme-assets/blob/main/clone-button.png" />
-<img align="right" width="500" src="https://github.com/vedanti-u/readme-assets/blob/main/copy-cloning-url.png" alt="fork this repository" />
-Now clone the forked repository to your machine. Go to your GitHub account, open the forked repository, click on the code button and then click the _copy to clipboard_ icon, this is the COPIED_URL.
+<img align="right" width="300" src="https://github.com/vedanti-u/readme-assets/blob/main/copy-cloning-url.png" alt="fork this repository" />
+<img align="right" width="300" src="https://github.com/vedanti-u/readme-assets/blob/main/clone-button.png" />
 
-Open a terminal and run the following git command:
+
+<h4>Now clone the forked repository to your machine. Go to your GitHub account, open the forked repository, click on the code button and then click the _copy to clipboard_ icon, this is the COPIED_URL.</h4>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+_Open a terminal and run the following git command:_
 
 ```git
 git clone "COPIED_URL"
@@ -174,7 +186,7 @@ _(follow this naming convention i.e using "-" in between)_
 
 ### _Contribute to Code_
 
-#### Create a `.env` File with format
+#### :closed_lock_with_key: Create a `.env` File with format
 
 ### Create a pull request
 
@@ -188,9 +200,7 @@ _(follow this naming convention i.e using "-" in between)_
 where filename is the file you have modified or created
 
 If you are looking to add all the files you have modified in a particular directory, you can stage them all with the following command:
-`git add .`
-
-Or, alternatively, you can type `git add -all` for all new files to be staged.
+`git add .` Or, alternatively, you can type `git add -all` for all new files to be staged.
 
 <h3>Commiting the changes</h3>
 <code>git commit -m "Added autocomplete feature"</code>
@@ -213,4 +223,14 @@ _your branch will be merged on code review_
   </details>
 </details>
 
+
+### Statistics
+![stars](https://img.shields.io/github/stars/{vedanti-u}/{comet-terminal}.svg)
+![fork](https://img.shields.io/github/forks/{vedanti-u}/{comet-terminal}.svg)
+![watchers](https://img.shields.io/github/watchers/{vedanti-u}/{comet-terminal}.svg)
+![releases](https://img.shields.io/github/release/{vedanti-u}/{comet-terminal}.svg)
+[![PyPI status](https://img.shields.io/pypi/status/ansicolortags.svg)](https://pypi.python.org/pypi/ansicolortags/)
+[![GitHub contributors](https://badgen.net/github/contributors/vedanti-u/comet-terminal.js)](https://GitHub.com/vedanti-u/comet-terminal/graphs/contributors/)
+</br>
+-----------
 ![MadeWithLove](http://ForTheBadge.com/images/badges/built-with-love.svg) [![forthebadge](https://forthebadge.com/images/badges/license-mit.svg)](https://forthebadge.com)
