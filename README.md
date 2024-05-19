@@ -1,6 +1,6 @@
 <div align="center">
 <a href="https://refine.dev/">
-    <img alt="dbsense ai logo" src="assets\comeettu.png">
+    <img alt="dbsense ai logo" src="assets\comet-logo-git-extended.png" height=160 width=550>
 </a>
 </div>
 <!-- <div style="font-family: 'Lucida Console', 'Courier New', monospace; font-size: 25px;  font-family: Arial, Helvetica, sans-serif;
@@ -19,8 +19,6 @@
 <!-- <br/>
 <br/> -->
 <!-- <div align="center"><strong>Add Here <a href="">Something</a> Add here.</strong><br>add here</div> -->
-
-Next Generation AI Powered Terminal
 <br />
 
 <div>
@@ -95,7 +93,7 @@ Screenshot of landing page
 
 ## Setting-up the `OpenAI API key`
 
-## Contribution
+## 🚀 Contribution
 
 ### Prerequistes
 
