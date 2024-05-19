@@ -45,7 +45,38 @@
 
 Experience a new-age terminal with AI-driven features designed to streamline coding workflows and reduce development time, setting a new standard in developer productivity.
 
-## How Comet works ?
+<h1><img src="assets/comet-logo-short.png" alt="Comet Logo" width="25" height="25"> Try Comet</h1>
+
+`Link to install`
+Screenshot of landing page
+
+## Setting-up the `OpenAI API key`
+
+<h4>Just enter your OpenAI Key in the input box, generate a new one if you don't have one.        <a href="https://platform.openai.com/api-keys" alt="see here"><img src="https://img.shields.io/badge/API_key-create_new-green?style=plastic&logo=OpenAI&logoColor=white" alt="OpenAI Key"></a></h4>
+
+<img align="center" width="400" src="https://github.com/vedanti-u/comet-terminal/blob/main/screenshots/comet-keypopup.png" />
+
+## 🚀 Features
+
+|  Buttons | Description |
+| ------------- | ------------- |
+| <img align="center" src="https://github.com/vedanti-u/comet-terminal/blob/main/assets/icon-ai.png" width="50" height="50"/>  | Write Query in Natural language and get command generated  |
+| <img align="center" src="https://github.com/vedanti-u/comet-terminal/blob/main/assets/icon-search.png" width="45" height="45"/>   | Get Instant error detection and quick fixes |
+| <img align="center" src="https://github.com/vedanti-u/comet-terminal/blob/main/assets/ai-summary-64px.png" width="50" height="50"/>  | Generate the detailed description of command  |
+</br>
+
+<h3> 1️⃣ AI Command Generation</h3>
+<img align="center"  src="https://github.com/vedanti-u/comet-terminal/blob/readme-update/screenshots/comet-ai-command.png" />
+<h3> 2️⃣ Error Quick Fixes</h3>
+<img align="center"  src="https://github.com/vedanti-u/comet-terminal/blob/readme-update/screenshots/comet-ai-error.png" />
+<h3> 3️⃣ Command Summary</h3>
+<img align="center"  src="https://github.com/vedanti-u/comet-terminal/blob/readme-update/screenshots/comet-ai-summary-1.png" />
+<h3> 4️⃣ Autocomplete suggestion</h3>
+<img align="center"  src="https://github.com/vedanti-u/comet-terminal/blob/readme-update/screenshots/comet-autosuggestion.png" />
+
+</br>
+
+## 💡 How Comet works ?
 
 ```mermaid
 sequenceDiagram
@@ -80,25 +111,6 @@ sequenceDiagram
 
 The sequence diagram illustrates the interaction between various components of our terminal emulator. When the user writes shell commands, the HTML UI transfers the command event to the Electron Backend, which executes the OS command. Upon success or error, the Electron Backend communicates the response accordingly. In case of success, a success response is sent to the HTML UI. However, if an error occurs, the Electron Backend sends the error stack to the OpenApiLLM. Additionally, users can request AI to send commands. In this scenario, the HTML UI asks the Electron Backend to fetch a command from the OpenApiLLM. The OpenApiLLM responds with the requested command, which is then executed by the Electron Backend using OS Shell. Again, success or error responses are handled similarly as in the previous scenario. This sequence ensures smooth interaction and efficient execution of commands within our terminal emulator.
 
-<h1><img src="assets/comet-logo-short.png" alt="Comet Logo" width="25" height="25"> Try Comet</h1>
-
-`Link to install`
-Screenshot of landing page
-
-## Setting-up the `OpenAI API key`
-
-<h4>Just enter your OpenAI Key in the input box, generate a new one if you don't have one.        <a href="https://platform.openai.com/api-keys" alt="see here"><img src="https://img.shields.io/badge/API_key-create_new-green?style=plastic&logo=OpenAI&logoColor=white" alt="OpenAI Key"></a></h4>
-
-<img align="center" width="400" src="https://github.com/vedanti-u/comet-terminal/blob/main/screenshots/comet-keypopup.png" />
-
-### Features
-
-|  Feature | Description |
-| ------------- | ------------- |
-| <img align="center" src="https://github.com/vedanti-u/comet-terminal/blob/main/assets/icon-ai.png" width="50" height="50"/>  | Write Query in Natural language and get command generated  |
-| <img align="center" src="https://github.com/vedanti-u/comet-terminal/blob/main/assets/icon-search.png" width="45" height="45"/>   | Get Instant error detection and quick fixes |
-| <img align="center" src="https://github.com/vedanti-u/comet-terminal/blob/main/assets/ai-summary-64px.png" width="50" height="50"/>  | Generate the detailed description of command  |
-
 ## 🤝 Contributing
 
 ### Dependencies
@@ -109,19 +121,29 @@ Screenshot of landing page
   <summary>Contributing Guidelines</summary>
 
 ### Fork this repository
+<img align="right" width="400" src="https://github.com/vedanti-u/readme-assets/blob/main/fork-the-repo.png" alt="fork this repository" />
+<h4>Fork this repository by clicking on the fork button on the top of this page. This will create a copy of this repository in your account.
+</h4>
 
-<img align="right" width="500" src="https://github.com/vedanti-u/readme-assets/blob/main/fork-the-repo.png" alt="fork this repository" />
-
-Fork this repository by clicking on the fork button on the top of this page. This will create a copy of this repository in your account.
+</br>
+</br>
+</br>
 </br>
 
-## Clone the repository
+### Clone the repository
 
-<img align="right" width="500" src="https://github.com/vedanti-u/readme-assets/blob/main/clone-button.png" />
-<img align="right" width="500" src="https://github.com/vedanti-u/readme-assets/blob/main/copy-cloning-url.png" alt="fork this repository" />
-Now clone the forked repository to your machine. Go to your GitHub account, open the forked repository, click on the code button and then click the _copy to clipboard_ icon, this is the COPIED_URL.
+<img align="right" width="300" src="https://github.com/vedanti-u/readme-assets/blob/main/copy-cloning-url.png" alt="fork this repository" />
+<img align="right" width="300" src="https://github.com/vedanti-u/readme-assets/blob/main/clone-button.png" />
 
-Open a terminal and run the following git command:
+
+<h4>Now clone the forked repository to your machine. Go to your GitHub account, open the forked repository, click on the code button and then click the _copy to clipboard_ icon, this is the COPIED_URL.</h4>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+_Open a terminal and run the following git command:_
 
 ```git
 git clone "COPIED_URL"
@@ -164,7 +186,7 @@ _(follow this naming convention i.e using "-" in between)_
 
 ### _Contribute to Code_
 
-#### Create a `.env` File with format
+#### :closed_lock_with_key: Create a `.env` File with format
 
 ### Create a pull request
 
@@ -178,9 +200,7 @@ _(follow this naming convention i.e using "-" in between)_
 where filename is the file you have modified or created
 
 If you are looking to add all the files you have modified in a particular directory, you can stage them all with the following command:
-`git add .`
-
-Or, alternatively, you can type `git add -all` for all new files to be staged.
+`git add .` Or, alternatively, you can type `git add -all` for all new files to be staged.
 
 <h3>Commiting the changes</h3>
 <code>git commit -m "Added autocomplete feature"</code>
@@ -203,4 +223,14 @@ _your branch will be merged on code review_
   </details>
 </details>
 
+
+### Statistics
+![stars](https://img.shields.io/github/stars/{vedanti-u}/{comet-terminal}.svg)
+![fork](https://img.shields.io/github/forks/{vedanti-u}/{comet-terminal}.svg)
+![watchers](https://img.shields.io/github/watchers/{vedanti-u}/{comet-terminal}.svg)
+![releases](https://img.shields.io/github/release/{vedanti-u}/{comet-terminal}.svg)
+[![PyPI status](https://img.shields.io/pypi/status/ansicolortags.svg)](https://pypi.python.org/pypi/ansicolortags/)
+[![GitHub contributors](https://badgen.net/github/contributors/vedanti-u/comet-terminal.js)](https://GitHub.com/vedanti-u/comet-terminal/graphs/contributors/)
+</br>
+-----------
 ![MadeWithLove](http://ForTheBadge.com/images/badges/built-with-love.svg) [![forthebadge](https://forthebadge.com/images/badges/license-mit.svg)](https://forthebadge.com)
