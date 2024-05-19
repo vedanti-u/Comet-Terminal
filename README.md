@@ -1,6 +1,6 @@
 <div align="center">
-<a href="https://refine.dev/">
-    <img alt="dbsense ai logo" src="assets\comet-logo.png" height=160 width=550>
+<a href="">
+    <img alt="comet" src="assets/comet-logo.png" height=160 width=550>
 </a>
 </div>
 
@@ -80,7 +80,7 @@ sequenceDiagram
 
 The sequence diagram illustrates the interaction between various components of our terminal emulator. When the user writes shell commands, the HTML UI transfers the command event to the Electron Backend, which executes the OS command. Upon success or error, the Electron Backend communicates the response accordingly. In case of success, a success response is sent to the HTML UI. However, if an error occurs, the Electron Backend sends the error stack to the OpenApiLLM. Additionally, users can request AI to send commands. In this scenario, the HTML UI asks the Electron Backend to fetch a command from the OpenApiLLM. The OpenApiLLM responds with the requested command, which is then executed by the Electron Backend using OS Shell. Again, success or error responses are handled similarly as in the previous scenario. This sequence ensures smooth interaction and efficient execution of commands within our terminal emulator.
 
-## ⚡ Try Comet
+<h1><img src="assets/comet-logo-short.png" alt="Comet Logo" width="25" height="25"> Try Comet</h1>
 
 ## Installation
 
@@ -96,7 +96,9 @@ Screenshot of landing page
 ![Node Version](https://img.shields.io/badge/node-v20.11.1-blue?style=For-the-badge) ![NVM Version](https://img.shields.io/badge/nvm-v0.39.1-green?style=For-the-badge) ![NVM Version](https://img.shields.io/badge/Electron-v^29.1.4-red?style-plastic&logo=Electron&logoColor=white&style=)
 
 <details close>
-  <summary>Fork this repository</summary>
+  <summary>Contributing Guidelines</summary>
+
+### Fork this repository
 
 <img align="right" width="500" src="https://github.com/vedanti-u/readme-assets/blob/main/fork-the-repo.png" alt="fork this repository" />
 
