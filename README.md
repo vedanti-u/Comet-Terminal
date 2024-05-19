@@ -98,13 +98,17 @@ Screenshot of landing page
 | <img align="center" src="https://github.com/vedanti-u/comet-terminal/blob/main/assets/icon-ai.png" width="50" height="50"/>  | Write Query in Natural language and get command generated  |
 | <img align="center" src="https://github.com/vedanti-u/comet-terminal/blob/main/assets/icon-search.png" width="45" height="45"/>   | Get Instant error detection and quick fixes |
 | <img align="center" src="https://github.com/vedanti-u/comet-terminal/blob/main/assets/ai-summary-64px.png" width="50" height="50"/>  | Generate the detailed description of command  |
+</br>
 
 <h3> 1️⃣ AI Command Generation</h3>
-<img align="center" width="400" src="https://github.com/vedanti-u/comet-terminal/blob/main/screenshots/comet-keypopup.png" />
+<img align="center"  src="https://github.com/vedanti-u/comet-terminal/blob/readme-update/screenshots/comet-ai-command.png" />
 <h3> 2️⃣ Error Quick Fixes</h3>
-<img align="center" width="400" src="https://github.com/vedanti-u/comet-terminal/blob/main/screenshots/comet-keypopup.png" />
+<img align="center"  src="https://github.com/vedanti-u/comet-terminal/blob/readme-update/screenshots/comet-ai-error.png" />
 <h3> 3️⃣ Command Summary</h3>
-<img align="center" width="400" src="https://github.com/vedanti-u/comet-terminal/blob/main/screenshots/comet-keypopup.png" />
+<img align="center"  src="https://github.com/vedanti-u/comet-terminal/blob/readme-update/screenshots/comet-ai-summary-1.png" />
+<h3> 4️⃣ Autocomplete suggestion</h3>
+<img align="center"  src="https://github.com/vedanti-u/comet-terminal/blob/readme-update/screenshots/comet-autosuggestion.png" />
+
 ## 🤝 Contributing
 
 ### Dependencies
