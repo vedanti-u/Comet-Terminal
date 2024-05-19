@@ -206,3 +206,6 @@ _your branch will be merged on code review_
 
   </details>
 </details>
+
+
+![MadeWithLove](http://ForTheBadge.com/images/badges/built-with-love.svg)    [![forthebadge](https://forthebadge.com/images/badges/license-mit.svg)](https://forthebadge.com)
