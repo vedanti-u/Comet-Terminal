@@ -87,9 +87,7 @@ Screenshot of landing page
 
 ## Setting-up the `OpenAI API key`
 
-<h3>Just enter your OpenAI Key in the input box, generate a new one if you don't have one.</h3>
-
-<a href="https://platform.openai.com/api-keys" alt="see here"><img src="https://img.shields.io/badge/API_key-create_new-green?style=plastic&logo=OpenAI&logoColor=white" alt="OpenAI Key"></a>
+<h4>Just enter your OpenAI Key in the input box, generate a new one if you don't have one.        <a href="https://platform.openai.com/api-keys" alt="see here"><img src="https://img.shields.io/badge/API_key-create_new-green?style=plastic&logo=OpenAI&logoColor=white" alt="OpenAI Key"></a></h4>
 
 <img align="center" width="400" src="https://github.com/vedanti-u/comet-terminal/blob/main/screenshots/comet-keypopup.png" />
 
