@@ -238,12 +238,12 @@ _your branch will be merged on code review_
 
 
 ### ☄️ Statistics
-![stars](https://img.shields.io/github/stars/{vedanti-u}/{comet-terminal}.svg)
-![fork](https://img.shields.io/github/forks/{vedanti-u}/{comet-terminal}.svg)
-![watchers](https://img.shields.io/github/watchers/{vedanti-u}/{comet-terminal}.svg)
-![releases](https://img.shields.io/github/release/{vedanti-u}/{comet-terminal}.svg)
+![stars](https://img.shields.io/github/stars/vedanti-u/Comet-Terminal.svg)
+![fork](https://img.shields.io/github/forks/vedanti-u/Comet-Terminal.svg)
+![watchers](https://img.shields.io/github/watchers/vedanti-u/Comet-Terminal.svg)
+![releases](https://img.shields.io/github/release/vedanti-u/Comet-Terminal.svg)
 [![PyPI status](https://img.shields.io/pypi/status/ansicolortags.svg)](https://pypi.python.org/pypi/ansicolortags/)
-[![GitHub contributors](https://badgen.net/github/contributors/vedanti-u/comet-terminal.js)](https://GitHub.com/vedanti-u/comet-terminal/graphs/contributors/)
+[![GitHub contributors](https://badgen.net/github/contributors/vedanti-u/Comet-Terminal)](https://GitHub.com/vedanti-u/Comet-Terminal/graphs/contributors/)
 </br>
------------
+
 ![MadeWithLove](http://ForTheBadge.com/images/badges/built-with-love.svg) [![forthebadge](https://forthebadge.com/images/badges/license-mit.svg)](https://forthebadge.com)
