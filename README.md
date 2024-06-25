@@ -47,8 +47,8 @@ Experience a new-age terminal with AI-driven features designed to streamline cod
 
 <h1><img src="assets/comet-logo-short.png" alt="Comet Logo" width="25" height="25"> Try Comet</h1>
 
-`Link to install`
-Screenshot of landing page
+<!-- `Link to install`
+Screenshot of landing page-->
 
 ## Setting-up the `OpenAI API key`
 
